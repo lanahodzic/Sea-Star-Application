@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3FA2E98C1BE83A3C008BDBE6 /* Lana.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */; };
+		3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9911BE87260008BDBE6 /* MainViewController.swift */; };
+		3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
 		A57919141BE8345E00ECC184 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919131BE8345E00ECC184 /* ViewController.swift */; };
 		A57919171BE8345E00ECC184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57919151BE8345E00ECC184 /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lana.Storyboard; sourceTree = "<group>"; };
+		3FA2E9911BE87260008BDBE6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartTrackingViewController.swift; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57919111BE8345E00ECC184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A57919131BE8345E00ECC184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 			children = (
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
 				A57919131BE8345E00ECC184 /* ViewController.swift */,
+				3FA2E9911BE87260008BDBE6 /* MainViewController.swift */,
+				3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */,
 				3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */,
 				A57919231BE836A200ECC184 /* carson.storyboard */,
 				A57919151BE8345E00ECC184 /* Main.storyboard */,
@@ -143,6 +149,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */,
+				3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */,
 				A57919141BE8345E00ECC184 /* ViewController.swift in Sources */,
 				A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */,
 			);
@@ -261,6 +269,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.calpoly.Sea-Stars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -272,6 +281,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.calpoly.Sea-Stars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
