@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FA2E98C1BE83A3C008BDBE6 /* Lana.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
 		A57919141BE8345E00ECC184 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919131BE8345E00ECC184 /* ViewController.swift */; };
 		A57919171BE8345E00ECC184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57919151BE8345E00ECC184 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lana.Storyboard; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57919111BE8345E00ECC184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A57919131BE8345E00ECC184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
 				A57919131BE8345E00ECC184 /* ViewController.swift */,
+				3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */,
 				A57919231BE836A200ECC184 /* carson.storyboard */,
 				A57919151BE8345E00ECC184 /* Main.storyboard */,
 				A57919181BE8345E00ECC184 /* Assets.xcassets */,
@@ -127,6 +130,7 @@
 			files = (
 				A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */,
 				A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */,
+				3FA2E98C1BE83A3C008BDBE6 /* Lana.Storyboard in Resources */,
 				A57919241BE836A200ECC184 /* carson.storyboard in Resources */,
 				A57919171BE8345E00ECC184 /* Main.storyboard in Resources */,
 			);
@@ -290,6 +294,7 @@
 				A57919221BE8345E00ECC184 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
