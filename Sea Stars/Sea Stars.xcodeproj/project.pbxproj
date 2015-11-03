@@ -14,6 +14,7 @@
 		A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A57919181BE8345E00ECC184 /* Assets.xcassets */; };
 		A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */; };
 		A57919241BE836A200ECC184 /* carson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57919231BE836A200ECC184 /* carson.storyboard */; };
+		A57919261BE845E100ECC184 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919251BE845E100ECC184 /* MainScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		A579191B1BE8345E00ECC184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A579191D1BE8345E00ECC184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A57919231BE836A200ECC184 /* carson.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = carson.storyboard; sourceTree = "<group>"; };
+		A57919251BE845E100ECC184 /* MainScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
 				A57919131BE8345E00ECC184 /* ViewController.swift */,
+				A57919251BE845E100ECC184 /* MainScreenViewController.swift */,
 				3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */,
 				A57919231BE836A200ECC184 /* carson.storyboard */,
 				A57919151BE8345E00ECC184 /* Main.storyboard */,
@@ -145,6 +148,7 @@
 			files = (
 				A57919141BE8345E00ECC184 /* ViewController.swift in Sources */,
 				A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */,
+				A57919261BE845E100ECC184 /* MainScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +265,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.calpoly.Sea-Stars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -272,6 +277,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.calpoly.Sea-Stars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
