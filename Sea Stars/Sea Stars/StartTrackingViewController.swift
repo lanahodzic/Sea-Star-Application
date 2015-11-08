@@ -11,18 +11,23 @@ import UIKit
 class StartTrackingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var site: UIPickerView!
+    @IBOutlet weak var observer_name: UIPickerView!
     
     var siteData: [String] = [String] ()
+    var names: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.site.delegate = self
         self.site.dataSource = self
+        self.observer_name.delegate = self
+        self.observer_name.dataSource = self
         
-        siteData = ["Morro Bay", "Pismo Beach", "Avila"]
+        siteData = ["Morro Bay", "Monetery", "Santa Barbara", "Bodega Bay", "Humboldt Bay", "San Diego Bay"]
+    
+        names = ["Maggie Jenkins", "Carly Banks", "Grant Waltz", "Lisa Needles"]
         
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,11 +40,22 @@ class StartTrackingViewController: UIViewController, UIPickerViewDataSource, UIP
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return siteData.count
+        if (pickerView.tag == 0){
+            return siteData.count
+        }
+        else {
+            return names.count
+        }
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return siteData[row]
+        if (pickerView.tag == 0){
+            return siteData[row]
+        }
+        else {
+            return names[row]
+        }
+        
     }
 
     /*
