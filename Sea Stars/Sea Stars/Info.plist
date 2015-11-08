@@ -25,6 +25,9 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>carson</string>
 	<string>Lana</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
