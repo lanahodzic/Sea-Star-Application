@@ -23,7 +23,7 @@ class StartTrackingViewController: UIViewController, UIPickerViewDataSource, UIP
         self.site.dataSource = self
         self.observer_name.delegate = self
         self.observer_name.dataSource = self
-        
+
         siteData = ["Morro Bay", "Monetery", "Santa Barbara", "Bodega Bay", "Humboldt Bay", "San Diego Bay"]
     
         names = ["Maggie Jenkins", "Carly Banks", "Grant Waltz", "Lisa Needles"]
@@ -57,6 +57,8 @@ class StartTrackingViewController: UIViewController, UIPickerViewDataSource, UIP
         }
         
     }
+    
+    
 
     /*
     // MARK: - Navigation

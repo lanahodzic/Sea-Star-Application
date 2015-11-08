@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="28" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                         </tableViewCellContentView>
@@ -59,7 +59,7 @@
                                     <rect key="frame" x="327" y="162" width="147" height="30"/>
                                 </variation>
                                 <connections>
-                                    <segue destination="oRK-ZS-Spb" kind="show" id="TkT-2k-24e"/>
+                                    <segue destination="oRK-ZS-Spb" kind="show" id="4nY-L5-0Pw"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jR3-8l-KKj">
@@ -215,6 +215,9 @@
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                     <rect key="frame" x="608" y="640" width="78" height="30"/>
                                 </variation>
+                                <connections>
+                                    <segue destination="hBu-Pz-JwW" kind="show" id="eNQ-EF-jUm"/>
+                                </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8Z-vu-RwS">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -278,13 +281,21 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="observer_name" destination="yP8-Jh-zwM" id="cal-ID-ReX"/>
-                        <outlet property="site" destination="Pvb-7D-yFw" id="RE3-Ty-sz6"/>
+                        <outlet property="observer_name" destination="yP8-Jh-zwM" id="uic-P6-VzV"/>
+                        <outlet property="site" destination="Pvb-7D-yFw" id="DbA-GD-jDF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPa-iT-tLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="947.25" y="430.5"/>
+            <point key="canvasLocation" x="923.25" y="453"/>
+        </scene>
+        <!--mainScreen-->
+        <scene sceneID="bPF-zc-GRS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="carson" bundleIdentifier="com.calpoly.Sea-Stars" referencedIdentifier="mainScreen" id="hBu-Pz-JwW" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NgH-Wd-Vmy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1352.625" y="559.5"/>
         </scene>
     </scenes>
 </document>
