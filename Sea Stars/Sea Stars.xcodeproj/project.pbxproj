@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3FA2E98C1BE83A3C008BDBE6 /* Lana.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */; };
 		3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9911BE87260008BDBE6 /* MainViewController.swift */; };
 		3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
@@ -15,11 +14,12 @@
 		A57919171BE8345E00ECC184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57919151BE8345E00ECC184 /* Main.storyboard */; };
 		A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A57919181BE8345E00ECC184 /* Assets.xcassets */; };
 		A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */; };
-		A57919241BE836A200ECC184 /* carson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57919231BE836A200ECC184 /* carson.storyboard */; };
+		A5B4F0D91BEFD81A00E5C2D6 /* carson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B4F0D81BEFD81A00E5C2D6 /* carson.storyboard */; };
+		A5B4F0DB1BEFD85500E5C2D6 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */; };
+		A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lana.Storyboard; sourceTree = "<group>"; };
 		3FA2E9911BE87260008BDBE6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartTrackingViewController.swift; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,7 +29,9 @@
 		A57919181BE8345E00ECC184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A579191B1BE8345E00ECC184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A579191D1BE8345E00ECC184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A57919231BE836A200ECC184 /* carson.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = carson.storyboard; sourceTree = "<group>"; };
+		A5B4F0D81BEFD81A00E5C2D6 /* carson.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = carson.storyboard; sourceTree = "<group>"; };
+		A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCreatureViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +68,10 @@
 				A57919131BE8345E00ECC184 /* ViewController.swift */,
 				3FA2E9911BE87260008BDBE6 /* MainViewController.swift */,
 				3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */,
-				3FA2E98B1BE83A3C008BDBE6 /* Lana.Storyboard */,
-				A57919231BE836A200ECC184 /* carson.storyboard */,
 				A57919151BE8345E00ECC184 /* Main.storyboard */,
+				A5B4F0D81BEFD81A00E5C2D6 /* carson.storyboard */,
+				A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */,
+				A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */,
 				A57919181BE8345E00ECC184 /* Assets.xcassets */,
 				A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */,
 				A579191D1BE8345E00ECC184 /* Info.plist */,
@@ -136,8 +139,7 @@
 			files = (
 				A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */,
 				A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */,
-				3FA2E98C1BE83A3C008BDBE6 /* Lana.Storyboard in Resources */,
-				A57919241BE836A200ECC184 /* carson.storyboard in Resources */,
+				A5B4F0D91BEFD81A00E5C2D6 /* carson.storyboard in Resources */,
 				A57919171BE8345E00ECC184 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,10 +151,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5B4F0DB1BEFD85500E5C2D6 /* MainScreenViewController.swift in Sources */,
 				3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */,
 				3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */,
 				A57919141BE8345E00ECC184 /* ViewController.swift in Sources */,
 				A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */,
+				A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
