@@ -28,6 +28,7 @@
 	<string>Main</string>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>carson</string>
+	<string>Lana</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
