@@ -9,7 +9,7 @@
 import UIKit
 
 class AddCreatureViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

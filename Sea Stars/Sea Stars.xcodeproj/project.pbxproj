@@ -89,9 +89,9 @@
 		A57919051BE8345E00ECC184 = {
 			isa = PBXGroup;
 			children = (
-				A5B4F0F81BF184F100E5C2D6 /* Frameworks */,
 				A57919101BE8345E00ECC184 /* Sea Stars */,
 				A579190F1BE8345E00ECC184 /* Products */,
+				A5B4F0F81BF184F100E5C2D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
