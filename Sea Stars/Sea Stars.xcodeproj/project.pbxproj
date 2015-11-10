@@ -20,6 +20,16 @@
 		A5B4F0DF1BEFDAA000E5C2D6 /* Lana.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */; };
 		A5B4F0E11BF183B700E5C2D6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */; };
 		A5B4F0E31BF183C500E5C2D6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0E21BF183C500E5C2D6 /* Parse.framework */; };
+		A5B4F0E51BF1844800E5C2D6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0E41BF1844800E5C2D6 /* AudioToolbox.framework */; };
+		A5B4F0E71BF1845200E5C2D6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0E61BF1845200E5C2D6 /* CFNetwork.framework */; };
+		A5B4F0E91BF1845D00E5C2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0E81BF1845D00E5C2D6 /* CoreGraphics.framework */; };
+		A5B4F0EB1BF1846600E5C2D6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0EA1BF1846600E5C2D6 /* CoreLocation.framework */; };
+		A5B4F0ED1BF1846F00E5C2D6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0EC1BF1846F00E5C2D6 /* QuartzCore.framework */; };
+		A5B4F0EF1BF1847700E5C2D6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0EE1BF1847700E5C2D6 /* Security.framework */; };
+		A5B4F0F11BF1847E00E5C2D6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0F01BF1847E00E5C2D6 /* StoreKit.framework */; };
+		A5B4F0F31BF1848800E5C2D6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0F21BF1848800E5C2D6 /* SystemConfiguration.framework */; };
+		A5B4F0F51BF1849300E5C2D6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0F41BF1849300E5C2D6 /* libz.tbd */; };
+		A5B4F0F71BF1849E00E5C2D6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0F61BF1849E00E5C2D6 /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +48,16 @@
 		A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lana.Storyboard; sourceTree = "<group>"; };
 		A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../../../../../Downloads/parse-library-1.9.1/Bolts.framework"; sourceTree = "<group>"; };
 		A5B4F0E21BF183C500E5C2D6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../../../../../../Downloads/parse-library-1.9.1/Parse.framework"; sourceTree = "<group>"; };
+		A5B4F0E41BF1844800E5C2D6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A5B4F0E61BF1845200E5C2D6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		A5B4F0E81BF1845D00E5C2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A5B4F0EA1BF1846600E5C2D6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A5B4F0EC1BF1846F00E5C2D6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A5B4F0EE1BF1847700E5C2D6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A5B4F0F01BF1847E00E5C2D6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		A5B4F0F21BF1848800E5C2D6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A5B4F0F41BF1849300E5C2D6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		A5B4F0F61BF1849E00E5C2D6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +65,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5B4F0F71BF1849E00E5C2D6 /* libsqlite3.tbd in Frameworks */,
+				A5B4F0F51BF1849300E5C2D6 /* libz.tbd in Frameworks */,
+				A5B4F0F31BF1848800E5C2D6 /* SystemConfiguration.framework in Frameworks */,
+				A5B4F0F11BF1847E00E5C2D6 /* StoreKit.framework in Frameworks */,
+				A5B4F0EF1BF1847700E5C2D6 /* Security.framework in Frameworks */,
+				A5B4F0ED1BF1846F00E5C2D6 /* QuartzCore.framework in Frameworks */,
+				A5B4F0EB1BF1846600E5C2D6 /* CoreLocation.framework in Frameworks */,
+				A5B4F0E91BF1845D00E5C2D6 /* CoreGraphics.framework in Frameworks */,
+				A5B4F0E71BF1845200E5C2D6 /* CFNetwork.framework in Frameworks */,
+				A5B4F0E51BF1844800E5C2D6 /* AudioToolbox.framework in Frameworks */,
 				A5B4F0E31BF183C500E5C2D6 /* Parse.framework in Frameworks */,
 				A5B4F0E11BF183B700E5C2D6 /* Bolts.framework in Frameworks */,
 			);
@@ -56,6 +86,16 @@
 		A57919051BE8345E00ECC184 = {
 			isa = PBXGroup;
 			children = (
+				A5B4F0F61BF1849E00E5C2D6 /* libsqlite3.tbd */,
+				A5B4F0F41BF1849300E5C2D6 /* libz.tbd */,
+				A5B4F0F21BF1848800E5C2D6 /* SystemConfiguration.framework */,
+				A5B4F0F01BF1847E00E5C2D6 /* StoreKit.framework */,
+				A5B4F0EE1BF1847700E5C2D6 /* Security.framework */,
+				A5B4F0EC1BF1846F00E5C2D6 /* QuartzCore.framework */,
+				A5B4F0EA1BF1846600E5C2D6 /* CoreLocation.framework */,
+				A5B4F0E81BF1845D00E5C2D6 /* CoreGraphics.framework */,
+				A5B4F0E61BF1845200E5C2D6 /* CFNetwork.framework */,
+				A5B4F0E41BF1844800E5C2D6 /* AudioToolbox.framework */,
 				A5B4F0E21BF183C500E5C2D6 /* Parse.framework */,
 				A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */,
 				A57919101BE8345E00ECC184 /* Sea Stars */,
