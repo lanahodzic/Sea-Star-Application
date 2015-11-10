@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="-453" y="471"/>
         </scene>
-        <!--Sea Start Application-->
+        <!--Sea Star Application-->
         <scene sceneID="Ev7-QI-x4C">
             <objects>
-                <viewController storyboardIdentifier="homeScreen" title="Sea Start Application" id="0Pb-o1-stJ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeScreen" title="Sea Star Application" id="0Pb-o1-stJ" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rWw-bQ-Opp"/>
                         <viewControllerLayoutGuide type="bottom" id="PBE-52-xbL"/>
@@ -63,17 +63,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="800" height="64"/>
                                 </variation>
                             </view>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msV-0N-dhn">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <animations/>
-                                <color key="barTintColor" red="0.0078431372549019607" green="0.80000000000000004" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <navigationItem title="Sea Star Application" id="3a8-3P-lu7"/>
-                                </items>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="20" width="800" height="44"/>
-                                </variation>
-                            </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-Tg-aUu">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <animations/>
@@ -88,75 +77,19 @@
                                     <segue destination="oRK-ZS-Spb" kind="show" id="4nY-L5-0Pw"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jR3-8l-KKj">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Site" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rd7-Wx-Csc">
-                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                            <rect key="frame" x="224" y="19" width="30" height="21"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No. Entries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6x-KE-q6v">
-                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                            <rect key="frame" x="522" y="19" width="84" height="21"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5K-dK-F5N">
-                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                            <rect key="frame" x="380" y="19" width="36" height="21"/>
-                                        </variation>
-                                    </label>
-                                </subviews>
-                                <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="Rd7-Wx-Csc"/>
-                                        <exclude reference="Y6x-KE-q6v"/>
-                                        <exclude reference="D5K-dK-F5N"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="20" y="268" width="760" height="60"/>
-                                    <mask key="subviews">
-                                        <include reference="Rd7-Wx-Csc"/>
-                                        <include reference="Y6x-KE-q6v"/>
-                                        <include reference="D5K-dK-F5N"/>
-                                    </mask>
-                                </variation>
-                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="y91-nT-sgh"/>
-                                <exclude reference="msV-0N-dhn"/>
                                 <exclude reference="OhG-Tg-aUu"/>
-                                <exclude reference="jR3-8l-KKj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
                                 <include reference="y91-nT-sgh"/>
-                                <include reference="msV-0N-dhn"/>
                                 <include reference="OhG-Tg-aUu"/>
-                                <include reference="jR3-8l-KKj"/>
                             </mask>
                         </variation>
                     </view>
@@ -166,10 +99,10 @@
             </objects>
             <point key="canvasLocation" x="268.5" y="453"/>
         </scene>
-        <!--Start Tracking View Controller-->
+        <!--Info-->
         <scene sceneID="MQh-uU-4v2">
             <objects>
-                <viewController id="oRK-ZS-Spb" customClass="StartTrackingViewController" customModule="Sea_Stars" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Info" id="oRK-ZS-Spb" customClass="StartTrackingViewController" customModule="Sea_Stars" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Upk-Z3-Cak"/>
                         <viewControllerLayoutGuide type="bottom" id="fGr-jp-imT"/>
@@ -248,40 +181,6 @@
                                     <segue destination="hBu-Pz-JwW" kind="show" id="eNQ-EF-jUm"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaJ-tn-uXC">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="800" height="64"/>
-                                </variation>
-                            </view>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8Z-vu-RwS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <animations/>
-                                <color key="barTintColor" red="0.0078431372549019607" green="0.80000000000000004" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
-                                <items>
-                                    <navigationItem title="Start Tracking" id="fsJ-Sd-njc">
-                                        <barButtonItem key="leftBarButtonItem" id="6C7-r2-Kal">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" id="h1u-j4-5b8" userLabel="Back">
-                                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <state key="normal" title="&lt; ">
-                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <segue destination="0Pb-o1-stJ" kind="show" id="vK7-7p-DlZ"/>
-                                                </connections>
-                                            </button>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="20" width="800" height="44"/>
-                                </variation>
-                            </navigationBar>
                             <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yP8-Jh-zwM">
                                 <rect key="frame" x="0.0" y="-216" width="320" height="216"/>
                                 <animations/>
@@ -300,8 +199,6 @@
                                 <exclude reference="evr-uh-8GE"/>
                                 <exclude reference="Pvb-7D-yFw"/>
                                 <exclude reference="TVu-2k-ii9"/>
-                                <exclude reference="EaJ-tn-uXC"/>
-                                <exclude reference="X8Z-vu-RwS"/>
                                 <exclude reference="yP8-Jh-zwM"/>
                             </mask>
                         </variation>
@@ -313,8 +210,6 @@
                                 <include reference="evr-uh-8GE"/>
                                 <include reference="Pvb-7D-yFw"/>
                                 <include reference="TVu-2k-ii9"/>
-                                <include reference="EaJ-tn-uXC"/>
-                                <include reference="X8Z-vu-RwS"/>
                                 <include reference="yP8-Jh-zwM"/>
                             </mask>
                         </variation>
@@ -337,7 +232,4 @@
             <point key="canvasLocation" x="1352.625" y="559.5"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="4lK-H8-Jqe"/>
-    </inferredMetricsTieBreakers>
 </document>
