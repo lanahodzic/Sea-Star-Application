@@ -86,18 +86,7 @@
 		A57919051BE8345E00ECC184 = {
 			isa = PBXGroup;
 			children = (
-				A5B4F0F61BF1849E00E5C2D6 /* libsqlite3.tbd */,
-				A5B4F0F41BF1849300E5C2D6 /* libz.tbd */,
-				A5B4F0F21BF1848800E5C2D6 /* SystemConfiguration.framework */,
-				A5B4F0F01BF1847E00E5C2D6 /* StoreKit.framework */,
-				A5B4F0EE1BF1847700E5C2D6 /* Security.framework */,
-				A5B4F0EC1BF1846F00E5C2D6 /* QuartzCore.framework */,
-				A5B4F0EA1BF1846600E5C2D6 /* CoreLocation.framework */,
-				A5B4F0E81BF1845D00E5C2D6 /* CoreGraphics.framework */,
-				A5B4F0E61BF1845200E5C2D6 /* CFNetwork.framework */,
-				A5B4F0E41BF1844800E5C2D6 /* AudioToolbox.framework */,
-				A5B4F0E21BF183C500E5C2D6 /* Parse.framework */,
-				A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */,
+				A5B4F0F81BF184F100E5C2D6 /* Frameworks */,
 				A57919101BE8345E00ECC184 /* Sea Stars */,
 				A579190F1BE8345E00ECC184 /* Products */,
 			);
@@ -128,6 +117,25 @@
 				A579191D1BE8345E00ECC184 /* Info.plist */,
 			);
 			path = "Sea Stars";
+			sourceTree = "<group>";
+		};
+		A5B4F0F81BF184F100E5C2D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5B4F0F61BF1849E00E5C2D6 /* libsqlite3.tbd */,
+				A5B4F0F41BF1849300E5C2D6 /* libz.tbd */,
+				A5B4F0F21BF1848800E5C2D6 /* SystemConfiguration.framework */,
+				A5B4F0F01BF1847E00E5C2D6 /* StoreKit.framework */,
+				A5B4F0EE1BF1847700E5C2D6 /* Security.framework */,
+				A5B4F0EC1BF1846F00E5C2D6 /* QuartzCore.framework */,
+				A5B4F0EA1BF1846600E5C2D6 /* CoreLocation.framework */,
+				A5B4F0E81BF1845D00E5C2D6 /* CoreGraphics.framework */,
+				A5B4F0E61BF1845200E5C2D6 /* CFNetwork.framework */,
+				A5B4F0E41BF1844800E5C2D6 /* AudioToolbox.framework */,
+				A5B4F0E21BF183C500E5C2D6 /* Parse.framework */,
+				A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
