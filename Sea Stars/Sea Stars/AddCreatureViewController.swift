@@ -10,6 +10,10 @@ import UIKit
 
 class AddCreatureViewController: UIViewController {
     
+    @IBAction func save(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

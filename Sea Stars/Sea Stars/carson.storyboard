@@ -47,7 +47,7 @@
                                     <constraint firstAttribute="width" constant="162" id="gQG-WA-uXk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="gQG-WA-uXk"/>
@@ -81,7 +81,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="NNW-6z-R67" kind="show" id="lYV-Zt-RKi"/>
+                                    <segue destination="NNW-6z-R67" kind="show" identifier="addCreatureSegue1" id="lYV-Zt-RKi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkU-bh-fp2">
@@ -106,7 +106,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="NNW-6z-R67" kind="show" id="Gs5-ae-aPT"/>
+                                    <segue destination="NNW-6z-R67" kind="show" identifier="addCreatureSegue2" id="Gs5-ae-aPT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAw-nQ-tEq">
@@ -131,7 +131,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="NNW-6z-R67" kind="show" id="GKq-H2-mdO"/>
+                                    <segue destination="NNW-6z-R67" kind="show" identifier="addCreatureSegue3" id="GKq-H2-mdO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oId-AA-xbP">
@@ -156,7 +156,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="NNW-6z-R67" kind="show" id="lMg-7h-YDD"/>
+                                    <segue destination="NNW-6z-R67" kind="show" identifier="addCreatureSegue4" id="lMg-7h-YDD"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5a4-eS-Zc9">
@@ -181,38 +181,30 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="NNW-6z-R67" kind="show" id="e71-gt-VFU"/>
+                                    <segue destination="NNW-6z-R67" kind="show" identifier="addCreatureSegue5" id="e71-gt-VFU"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sPo-t5-WMf">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="ow2-B0-e1t" style="IBUITableViewCellStyleDefault" id="gLn-3e-eqt">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reportCell" id="gLn-3e-eqt">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gLn-3e-eqt" id="Xqs-95-aqU">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ow2-B0-e1t">
-                                                    <rect key="frame" x="15" y="0.0" width="210" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=regular">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
                                             <animations/>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="s7r-Az-au3" id="Eyv-Ab-qdK"/>
+                                    <outlet property="delegate" destination="s7r-Az-au3" id="ZGT-XL-dvW"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depth:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vv7-iS-DMV">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
@@ -261,7 +253,7 @@
                                     <constraint firstAttribute="width" constant="162" id="Int-m0-tsz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Int-m0-tsz"/>
@@ -277,7 +269,7 @@
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                         </subviews>
                         <animations/>
@@ -444,6 +436,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="sPo-t5-WMf" id="jvu-9I-iqo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZv-MW-cwf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -540,13 +535,16 @@
                                         <include reference="vOt-XG-KsE"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="save:" destination="NNW-6z-R67" eventType="touchUpInside" id="gxD-Ka-eYK"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FhO-yl-ZtU">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="246" id="Tga-CD-vlf"/>
+                                    <constraint firstAttribute="height" constant="200" id="Tga-CD-vlf"/>
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -582,6 +580,7 @@
                             <constraint firstItem="US5-hj-Rtn" firstAttribute="top" secondItem="fwp-uO-91k" secondAttribute="bottom" constant="70" id="SlT-6G-4Z9"/>
                             <constraint firstItem="TRK-10-qiS" firstAttribute="top" secondItem="UaO-mU-rc2" secondAttribute="bottom" constant="61" id="XMT-K7-ZEu"/>
                             <constraint firstItem="UaO-mU-rc2" firstAttribute="trailing" secondItem="TRK-10-qiS" secondAttribute="trailing" id="Yd3-3G-wbs"/>
+                            <constraint firstItem="Lsj-3f-oTL" firstAttribute="top" secondItem="VxR-b2-JrY" secondAttribute="bottom" constant="97" id="aNX-VX-ihw"/>
                             <constraint firstItem="fwp-uO-91k" firstAttribute="leading" secondItem="bRb-uH-jxX" secondAttribute="leadingMargin" constant="50" id="c2R-4P-xcw"/>
                             <constraint firstItem="sKb-Br-kpm" firstAttribute="leading" secondItem="TRK-10-qiS" secondAttribute="leading" id="cAh-H0-LQf"/>
                             <constraint firstItem="UaO-mU-rc2" firstAttribute="leading" secondItem="TRK-10-qiS" secondAttribute="leading" id="dMa-vi-Gkc"/>
@@ -590,7 +589,6 @@
                             <constraint firstItem="TRK-10-qiS" firstAttribute="trailing" secondItem="sKb-Br-kpm" secondAttribute="trailing" id="hPG-XB-kbf"/>
                             <constraint firstItem="FhO-yl-ZtU" firstAttribute="centerX" secondItem="VxR-b2-JrY" secondAttribute="centerX" id="hk6-mB-d2O"/>
                             <constraint firstItem="UaO-mU-rc2" firstAttribute="top" secondItem="7do-7W-ug5" secondAttribute="bottom" constant="103" id="peT-gd-cXX"/>
-                            <constraint firstItem="Lsj-3f-oTL" firstAttribute="top" secondItem="VxR-b2-JrY" secondAttribute="bottom" constant="97" id="uxG-HM-kDP"/>
                             <constraint firstItem="4KO-fM-Qn0" firstAttribute="top" secondItem="US5-hj-Rtn" secondAttribute="bottom" constant="58" id="z3z-RM-q5z"/>
                         </constraints>
                         <variation key="default">
@@ -631,7 +629,7 @@
                                 <exclude reference="BIq-hD-9Yi"/>
                                 <exclude reference="6qo-N3-sKm"/>
                                 <exclude reference="hk6-mB-d2O"/>
-                                <exclude reference="uxG-HM-kDP"/>
+                                <exclude reference="aNX-VX-ihw"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -672,7 +670,7 @@
                                 <include reference="BIq-hD-9Yi"/>
                                 <include reference="6qo-N3-sKm"/>
                                 <include reference="hk6-mB-d2O"/>
-                                <include reference="uxG-HM-kDP"/>
+                                <include reference="aNX-VX-ihw"/>
                             </mask>
                         </variation>
                     </view>
@@ -683,6 +681,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lYV-Zt-RKi"/>
+        <segue reference="e71-gt-VFU"/>
     </inferredMetricsTieBreakers>
 </document>
