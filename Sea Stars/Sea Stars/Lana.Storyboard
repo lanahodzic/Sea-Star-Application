@@ -37,6 +37,14 @@
                                     <rect key="frame" x="20" y="336" width="760" height="335"/>
                                 </variation>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y91-nT-sgh">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="800" height="64"/>
+                                </variation>
+                            </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msV-0N-dhn">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <animations/>
@@ -119,6 +127,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="y91-nT-sgh"/>
                                 <exclude reference="msV-0N-dhn"/>
                                 <exclude reference="OhG-Tg-aUu"/>
                                 <exclude reference="jR3-8l-KKj"/>
@@ -126,6 +135,7 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
+                                <include reference="y91-nT-sgh"/>
                                 <include reference="msV-0N-dhn"/>
                                 <include reference="OhG-Tg-aUu"/>
                                 <include reference="jR3-8l-KKj"/>
@@ -219,6 +229,14 @@
                                     <segue destination="hBu-Pz-JwW" kind="show" id="eNQ-EF-jUm"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaJ-tn-uXC">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="800" height="64"/>
+                                </variation>
+                            </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8Z-vu-RwS">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <animations/>
@@ -263,6 +281,7 @@
                                 <exclude reference="evr-uh-8GE"/>
                                 <exclude reference="Pvb-7D-yFw"/>
                                 <exclude reference="TVu-2k-ii9"/>
+                                <exclude reference="EaJ-tn-uXC"/>
                                 <exclude reference="X8Z-vu-RwS"/>
                                 <exclude reference="yP8-Jh-zwM"/>
                             </mask>
@@ -275,6 +294,7 @@
                                 <include reference="evr-uh-8GE"/>
                                 <include reference="Pvb-7D-yFw"/>
                                 <include reference="TVu-2k-ii9"/>
+                                <include reference="EaJ-tn-uXC"/>
                                 <include reference="X8Z-vu-RwS"/>
                                 <include reference="yP8-Jh-zwM"/>
                             </mask>
