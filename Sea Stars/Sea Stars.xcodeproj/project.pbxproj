@@ -18,6 +18,8 @@
 		A5B4F0DB1BEFD85500E5C2D6 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */; };
 		A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */; };
 		A5B4F0DF1BEFDAA000E5C2D6 /* Lana.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */; };
+		A5B4F0E11BF183B700E5C2D6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */; };
+		A5B4F0E31BF183C500E5C2D6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0E21BF183C500E5C2D6 /* Parse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCreatureViewController.swift; sourceTree = "<group>"; };
 		A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lana.Storyboard; sourceTree = "<group>"; };
+		A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../../../../../Downloads/parse-library-1.9.1/Bolts.framework"; sourceTree = "<group>"; };
+		A5B4F0E21BF183C500E5C2D6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../../../../../../Downloads/parse-library-1.9.1/Parse.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5B4F0E31BF183C500E5C2D6 /* Parse.framework in Frameworks */,
+				A5B4F0E11BF183B700E5C2D6 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +56,8 @@
 		A57919051BE8345E00ECC184 = {
 			isa = PBXGroup;
 			children = (
+				A5B4F0E21BF183C500E5C2D6 /* Parse.framework */,
+				A5B4F0E01BF183B700E5C2D6 /* Bolts.framework */,
 				A57919101BE8345E00ECC184 /* Sea Stars */,
 				A579190F1BE8345E00ECC184 /* Products */,
 			);
