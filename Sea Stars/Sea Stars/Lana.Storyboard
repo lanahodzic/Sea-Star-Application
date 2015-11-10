@@ -14,6 +14,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <color key="backgroundColor" red="0.0078431372549019607" green="0.80000000000000004" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="0Pb-o1-stJ" kind="relationship" relationship="rootViewController" id="4lK-H8-Jqe"/>
@@ -44,7 +45,7 @@
                                         <rect key="frame" x="0.0" y="92" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                         </tableViewCellContentView>
