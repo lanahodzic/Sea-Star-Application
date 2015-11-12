@@ -11,6 +11,8 @@ import UIKit
 class MainScreenViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    var observer_name: String?
+    var site_location: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
