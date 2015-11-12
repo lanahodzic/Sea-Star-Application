@@ -13,6 +13,7 @@ class StartTrackingViewController: UIViewController, UIPickerViewDataSource, UIP
 
     @IBOutlet weak var site: UIPickerView!
     @IBOutlet weak var observer_name: UIPickerView!
+    @IBOutlet weak var report_date: UIDatePicker!
     
     
     var siteData: [String] = [String]()
@@ -97,13 +98,17 @@ class StartTrackingViewController: UIViewController, UIPickerViewDataSource, UIP
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
        let vc = segue.destinationViewController as! MainScreenViewController
-        let name_delegate = self.observer_name.delegate
-        let name = name_delegate?.pickerView!(self.observer_name, attributedTitleForRow:self.observer_name.selectedRowInComponent(0) , forComponent: 0)
-        vc.observer_name = name?.string
+        let observer_row = self.observer_name.selectedRowInComponent(0)
+        vc.observer_name = self.names[observer_row]
         
-        let site_delegate = self.site.delegate
-        let site = site_delegate?.pickerView!(self.site, attributedTitleForRow: self.site.selectedRowInComponent(0), forComponent: 0)
-        vc.site_location = site?.string
+        let site_row = self.site.selectedRowInComponent(0)
+        vc.site_location = self.siteData[site_row]
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        let date = dateFormatter.stringFromDate(self.report_date.date)
+        vc.report_date = date
+        
     }
 
     /*

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F846AA31BF41F9F00F9AD37 /* InitialScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */; };
 		3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9911BE87260008BDBE6 /* MainViewController.swift */; };
 		3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialScreenViewController.swift; sourceTree = "<group>"; };
 		3FA2E9911BE87260008BDBE6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartTrackingViewController.swift; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 				3FA2E9911BE87260008BDBE6 /* MainViewController.swift */,
 				3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */,
 				A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */,
+				3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */,
 				A57919151BE8345E00ECC184 /* Main.storyboard */,
 				A5B4F0D81BEFD81A00E5C2D6 /* carson.storyboard */,
 				A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */,
@@ -220,6 +223,7 @@
 				3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */,
 				A57919141BE8345E00ECC184 /* ViewController.swift in Sources */,
 				A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */,
+				3F846AA31BF41F9F00F9AD37 /* InitialScreenViewController.swift in Sources */,
 				A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

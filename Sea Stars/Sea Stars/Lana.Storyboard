@@ -27,7 +27,7 @@
         <!--Sea Star Application-->
         <scene sceneID="Ev7-QI-x4C">
             <objects>
-                <viewController storyboardIdentifier="homeScreen" title="Sea Star Application" id="0Pb-o1-stJ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeScreen" title="Sea Star Application" id="0Pb-o1-stJ" customClass="InitialScreenViewController" customModule="Sea_Stars" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rWw-bQ-Opp"/>
                         <viewControllerLayoutGuide type="bottom" id="PBE-52-xbL"/>
@@ -41,15 +41,66 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ls7-yJ-gFO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ls7-yJ-gFO" customClass="ReportTableViewCell" customModule="Sea_Stars" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Crk-tK-gYZ">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                                        <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MT-LU-R0W">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                                        <rect key="frame" x="158" y="11" width="42" height="21"/>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDK-dW-BTd">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                                        <rect key="frame" x="293" y="11" width="42" height="21"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
                                             <animations/>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="Crk-tK-gYZ"/>
+                                                    <exclude reference="7MT-LU-R0W"/>
+                                                    <exclude reference="qDK-dW-BTd"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <mask key="subviews">
+                                                    <include reference="Crk-tK-gYZ"/>
+                                                    <include reference="7MT-LU-R0W"/>
+                                                    <include reference="qDK-dW-BTd"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <connections>
+                                            <outlet property="reportDate" destination="Crk-tK-gYZ" id="KT4-oK-xus"/>
+                                            <outlet property="reportLocation" destination="7MT-LU-R0W" id="07Z-1u-oUc"/>
+                                            <outlet property="reportObserver" destination="qDK-dW-BTd" id="ENe-UF-thD"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
@@ -95,6 +146,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="JXP-Zt-awr"/>
+                    <connections>
+                        <outlet property="latestReports" destination="Ewu-Xa-PAW" id="JzL-Lk-92Q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZlE-w7-OGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -217,6 +271,7 @@
                     </view>
                     <connections>
                         <outlet property="observer_name" destination="yP8-Jh-zwM" id="uic-P6-VzV"/>
+                        <outlet property="report_date" destination="evr-uh-8GE" id="YzG-Ju-7qa"/>
                         <outlet property="site" destination="Pvb-7D-yFw" id="DbA-GD-jDF"/>
                     </connections>
                 </viewController>
