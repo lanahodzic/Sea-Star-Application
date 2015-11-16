@@ -19,6 +19,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var imageButton4: UIButton!
     @IBOutlet weak var imageButton5: UIButton!
     
+    @IBOutlet weak var speciesLabel1: UILabel!
+    @IBOutlet weak var speciesLabel2: UILabel!
+    @IBOutlet weak var speciesLabel3: UILabel!
+    @IBOutlet weak var speciesLabel4: UILabel!
+    @IBOutlet weak var speciesLabel5: UILabel!
+    
     var seaStarImages:[UIImage] = [UIImage]()
     var species:[String] = [String]()
 
@@ -27,35 +33,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     var report_date: String?
     
     var imageButtonCounter = 0
-    
-    func convertFirstElementToImage(object:AnyObject, imageNumber:Int) -> Void {
-        let imagesArray:[PFFile] = (object as! PFObject)["images"] as! [PFFile]
-        let imageFile:PFFile = imagesArray[0]
-
-        do {
-            let imageData = try imageFile.getData()
-            let seaStarImage:UIImage = UIImage(data: imageData)!
-            self.seaStarImages.append(seaStarImage)
-            
-            switch (imageNumber) {
-                case 0:
-                    self.imageButton1.setBackgroundImage(self.seaStarImages[imageNumber], forState: .Normal)
-                case 1:
-                    self.imageButton2.setBackgroundImage(self.seaStarImages[imageNumber], forState: .Normal)
-                case 2:
-                    self.imageButton3.setBackgroundImage(self.seaStarImages[imageNumber], forState: .Normal)
-                case 3:
-                    self.imageButton4.setBackgroundImage(self.seaStarImages[imageNumber], forState: .Normal)
-                case 4:
-                    self.imageButton5.setBackgroundImage(self.seaStarImages[imageNumber], forState: .Normal)
-                default:
-                    break
-            }
-        }
-        catch {
-            print(error)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,14 +44,60 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
         speciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
             if error == nil {
                 for object in objects! {
-                    self.convertFirstElementToImage(object, imageNumber:self.imageButtonCounter++)
+                    self.convertFirstElementToImage(object)
                     let speciesName:String = (object as PFObject)["name"] as! String
                     self.species.append(speciesName)
+                    
+                    switch (self.imageButtonCounter) {
+                        case 0:
+                            self.speciesLabel1.text = self.species[0]
+                        case 1:
+                            self.speciesLabel2.text = self.species[1]
+                        case 2:
+                            self.speciesLabel3.text = self.species[2]
+                        case 3:
+                            self.speciesLabel4.text = self.species[3]
+                        case 4:
+                            self.speciesLabel5.text = self.species[4]
+                        default:
+                            break
+                    }
+                    
+                    self.imageButtonCounter++
                 }
             }
             else {
                 print("Error: \(error) \(error!.userInfo)")
             }
+        }
+    }
+    
+    func convertFirstElementToImage(object:AnyObject) -> Void {
+        let imagesArray:[PFFile] = (object as! PFObject)["images"] as! [PFFile]
+        let imageFile:PFFile = imagesArray[0]
+        
+        do {
+            let imageData = try imageFile.getData()
+            let seaStarImage:UIImage = UIImage(data: imageData)!
+            self.seaStarImages.append(seaStarImage)
+            
+            switch (self.imageButtonCounter) {
+                case 0:
+                    self.imageButton1.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
+                case 1:
+                    self.imageButton2.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
+                case 2:
+                    self.imageButton3.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
+                case 3:
+                    self.imageButton4.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
+                case 4:
+                    self.imageButton5.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
+                default:
+                    break
+            }
+        }
+        catch {
+            print(error)
         }
     }
     
