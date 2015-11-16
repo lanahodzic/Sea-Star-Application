@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -67,7 +67,6 @@
                                     <constraint firstAttribute="height" constant="100" id="MBS-us-92D"/>
                                     <constraint firstAttribute="width" constant="100" id="j8u-bV-lrQ"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="MBS-us-92D"/>
@@ -92,7 +91,6 @@
                                     <constraint firstAttribute="height" constant="100" id="6ha-HH-5ay"/>
                                     <constraint firstAttribute="width" constant="100" id="X65-89-jYo"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="6ha-HH-5ay"/>
@@ -117,7 +115,6 @@
                                     <constraint firstAttribute="height" constant="100" id="4yT-BS-0be"/>
                                     <constraint firstAttribute="width" constant="100" id="jA0-lX-Epu"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="4yT-BS-0be"/>
@@ -142,7 +139,6 @@
                                     <constraint firstAttribute="width" constant="100" id="EG7-Cb-scn"/>
                                     <constraint firstAttribute="height" constant="100" id="Lvr-si-2ne"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="EG7-Cb-scn"/>
@@ -167,7 +163,6 @@
                                     <constraint firstAttribute="height" constant="100" id="aVv-VZ-cpj"/>
                                     <constraint firstAttribute="width" constant="100" id="bXE-8t-ITm"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="aVv-VZ-cpj"/>
@@ -193,7 +188,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reportCell" id="gLn-3e-eqt">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gLn-3e-eqt" id="Xqs-95-aqU">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                         </tableViewCellContentView>
@@ -437,6 +432,11 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="imageButton1" destination="20s-pe-GGn" id="JyC-dI-x8h"/>
+                        <outlet property="imageButton2" destination="vkU-bh-fp2" id="wsB-hs-Khn"/>
+                        <outlet property="imageButton3" destination="PAw-nQ-tEq" id="rjv-P1-K1r"/>
+                        <outlet property="imageButton4" destination="oId-AA-xbP" id="rnM-W8-iap"/>
+                        <outlet property="imageButton5" destination="5a4-eS-Zc9" id="PrM-Tc-SNR"/>
                         <outlet property="tableView" destination="sPo-t5-WMf" id="jvu-9I-iqo"/>
                     </connections>
                 </viewController>
