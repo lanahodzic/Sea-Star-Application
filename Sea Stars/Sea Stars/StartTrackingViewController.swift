@@ -105,7 +105,7 @@ class StartTrackingViewController: UIViewController, UIPickerViewDataSource, UIP
         vc.site_location = self.siteData[site_row]
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         let date = dateFormatter.stringFromDate(self.report_date.date)
         vc.report_date = date
         

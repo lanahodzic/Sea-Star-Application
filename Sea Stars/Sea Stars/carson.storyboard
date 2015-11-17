@@ -594,11 +594,14 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="depthTextBox" destination="uAB-wj-fVl" id="85G-w4-3Wo"/>
                         <outlet property="imageButton1" destination="20s-pe-GGn" id="JyC-dI-x8h"/>
                         <outlet property="imageButton2" destination="vkU-bh-fp2" id="wsB-hs-Khn"/>
                         <outlet property="imageButton3" destination="PAw-nQ-tEq" id="rjv-P1-K1r"/>
                         <outlet property="imageButton4" destination="oId-AA-xbP" id="rnM-W8-iap"/>
                         <outlet property="imageButton5" destination="5a4-eS-Zc9" id="PrM-Tc-SNR"/>
+                        <outlet property="pilingTextBox" destination="QYP-w1-o6l" id="6Di-el-F0G"/>
+                        <outlet property="rotationTextBox" destination="odC-3T-kGA" id="2yX-a8-b8j"/>
                         <outlet property="speciesLabel1" destination="wBJ-qi-TQA" id="mIe-t5-6R4"/>
                         <outlet property="speciesLabel2" destination="JJY-k5-OKR" id="4bU-Ab-58m"/>
                         <outlet property="speciesLabel3" destination="Jga-xo-KgQ" id="Bza-fg-Xcm"/>
@@ -868,6 +871,9 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="countTextBox" destination="TRK-10-qiS" id="EwD-38-D43"/>
+                        <outlet property="healthTextBox" destination="sKb-Br-kpm" id="Hms-zn-jC9"/>
+                        <outlet property="notesTextView" destination="FhO-yl-ZtU" id="ufn-Na-SZD"/>
                         <outlet property="speciesPicker" destination="6y9-Rz-HVd" id="5JP-TX-mJ9"/>
                     </connections>
                 </viewController>

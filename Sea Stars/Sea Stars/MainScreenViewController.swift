@@ -13,6 +13,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var pilingTextBox: UITextField!
+    @IBOutlet weak var rotationTextBox: UITextField!
+    @IBOutlet weak var depthTextBox: UITextField!
+    
     @IBOutlet weak var imageButton1: UIButton!
     @IBOutlet weak var imageButton2: UIButton!
     @IBOutlet weak var imageButton3: UIButton!
@@ -144,6 +148,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
             default:
                 break
         }
+        
+        addCreatureVC.piling = Int(pilingTextBox.text!)
+        addCreatureVC.rotation = Int(rotationTextBox.text!)
+        addCreatureVC.depth = Int(depthTextBox.text!)
+        addCreatureVC.observer_name = observer_name
+        addCreatureVC.report_date = report_date
+        addCreatureVC.site_location = site_location
     }
 
 }
