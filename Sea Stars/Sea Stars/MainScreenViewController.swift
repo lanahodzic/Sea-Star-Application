@@ -48,7 +48,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
                     let speciesName:String = (object as PFObject)["name"] as! String
                     self.species.append(speciesName)
                     
-                    switch (self.imageButtonCounter) {
+                    switch (self.imageButtonCounter++) {
                         case 0:
                             self.speciesLabel1.text = self.species[0]
                         case 1:
@@ -62,8 +62,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
                         default:
                             break
                     }
-                    
-                    self.imageButtonCounter++
                 }
             }
             else {
@@ -123,14 +121,29 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
+        
+        switch (NSArray(array:seaStarImages).indexOfObject(((sender as? UIButton)?.backgroundImageForState(.Normal))!)) {
+            case 0:
+                addCreatureVC.selectedSpecies = species[0]
+            case 1:
+                addCreatureVC.selectedSpecies = species[1]
+            case 2:
+                addCreatureVC.selectedSpecies = species[2]
+            case 3:
+                addCreatureVC.selectedSpecies = species[3]
+            case 4:
+                addCreatureVC.selectedSpecies = species[4]
+            default:
+                break
+        }
     }
-    */
 
 }

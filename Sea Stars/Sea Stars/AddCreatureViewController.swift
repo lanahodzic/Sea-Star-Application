@@ -7,17 +7,40 @@
 //
 
 import UIKit
+import Parse
 
-class AddCreatureViewController: UIViewController {
+class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    @IBAction func save(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
+    @IBOutlet weak var speciesPicker: UIPickerView!
+    
+    var speciesData:[String] = [String]()
+    var selectedSpecies:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        speciesPicker.dataSource = self
+        speciesPicker.delegate = self
+        
+        let speciesQuery = PFQuery(className: "Species")
+        speciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
+            if error == nil {
+                for object in objects! {
+                    let speciesName:String = (object as PFObject)["name"] as! String
+                    self.speciesData.append(speciesName)
+                }
+                
+                self.speciesPicker.reloadAllComponents()
+                self.speciesPicker.selectRow(self.speciesData.indexOf(self.selectedSpecies)!, inComponent: 0, animated: true)
+            }
+            else {
+                print("Error: \(error) \(error!.userInfo)")
+            }
+        }
+    }
+    
+    @IBAction func save(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +48,17 @@ class AddCreatureViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return speciesData.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return speciesData[row]
+    }
 
     /*
     // MARK: - Navigation
