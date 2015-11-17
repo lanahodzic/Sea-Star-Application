@@ -74,6 +74,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        pilingTextBox.text = ""
+        rotationTextBox.text = ""
+        depthTextBox.text = ""
+    }
+    
     func convertFirstElementToImage(object:AnyObject) -> Void {
         let imagesArray:[PFFile] = (object as! PFObject)["images"] as! [PFFile]
         let imageFile:PFFile = imagesArray[0]
