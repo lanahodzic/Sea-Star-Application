@@ -40,7 +40,10 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
                 }
                 
                 self.speciesPicker.reloadAllComponents()
-                self.speciesPicker.selectRow(self.speciesData.indexOf(self.selectedSpecies)!, inComponent: 0, animated: true)
+                
+                if self.selectedSpecies != "" {
+                    self.speciesPicker.selectRow(self.speciesData.indexOf(self.selectedSpecies)!, inComponent: 0, animated: true)
+                }
             }
             else {
                 print("Error: \(error) \(error!.userInfo)")

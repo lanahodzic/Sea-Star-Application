@@ -31,6 +31,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     
     var seaStarImages:[UIImage] = [UIImage]()
     var species:[String] = [String]()
+    var reports:[[String:String]] = [[String:String]]()
 
     var observer_name: String?
     var site_location: String?
@@ -78,6 +79,29 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
         pilingTextBox.text = ""
         rotationTextBox.text = ""
         depthTextBox.text = ""
+        
+        reports.removeAll()
+        
+        let reportQuery = PFQuery(className: "Reports")
+        reportQuery.whereKey("observer", equalTo: observer_name!)
+        reportQuery.orderByDescending("date")
+        reportQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if error == nil {
+                for object in objects! as [PFObject] {
+                    var dictionary = [String:String]()
+                    dictionary["observer"] = object["observer"] as? String
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    dictionary["date"] = dateFormatter.stringFromDate((object["date"] as? NSDate)!)
+                    dictionary["site"] = object["site"] as? String
+                    self.reports.append(dictionary)
+                }
+                self.tableView.reloadData()
+            }
+            else {
+                print("Error: \(error) \(error!.userInfo)")
+            }
+        }
     }
     
     func convertFirstElementToImage(object:AnyObject) -> Void {
@@ -120,12 +144,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return reports.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reportCell", forIndexPath: indexPath)
-        cell.textLabel?.text = "Test"
+        cell.textLabel!.text = "\(reports[indexPath.row]["site"]!) \(reports[indexPath.row]["date"]!)"
+        cell.detailTextLabel!.text = "\(reports[indexPath.row]["observer"]!)"
 
         return cell
     }
@@ -140,7 +165,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
         
         let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
         
-        switch (NSArray(array:seaStarImages).indexOfObject(((sender as? UIButton)?.backgroundImageForState(.Normal))!)) {
+        if let _ = sender as? UIBarButtonItem? {
+            addCreatureVC.selectedSpecies = ""
+        }
+        else {
+            switch (NSArray(array:seaStarImages).indexOfObject(((sender as? UIButton)?.backgroundImageForState(.Normal))!)) {
             case 0:
                 addCreatureVC.selectedSpecies = species[0]
             case 1:
@@ -153,6 +182,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
                 addCreatureVC.selectedSpecies = species[4]
             default:
                 break
+            }
         }
         
         addCreatureVC.piling = Int(pilingTextBox.text!)
