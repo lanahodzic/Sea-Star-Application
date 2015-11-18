@@ -12,6 +12,8 @@ import Parse
 class MainScreenViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var cellTitleLabel: UILabel!
+    @IBOutlet weak var cellSubtitleLabel: UILabel!
     
     @IBOutlet weak var pilingTextBox: UITextField!
     @IBOutlet weak var rotationTextBox: UITextField!
@@ -31,7 +33,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     
     var seaStarImages:[UIImage] = [UIImage]()
     var species:[String] = [String]()
-    var reports:[[String:String]] = [[String:String]]()
+    var reports:[[String:AnyObject]] = [[String:AnyObject]]()
 
     var observer_name: String?
     var site_location: String?
@@ -88,12 +90,27 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
         reportQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
             if error == nil {
                 for object in objects! as [PFObject] {
-                    var dictionary = [String:String]()
+                    var dictionary = [String:AnyObject]()
                     dictionary["observer"] = object["observer"] as? String
                     let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    dateFormatter.dateFormat = "MM/dd/yyyy"
                     dictionary["date"] = dateFormatter.stringFromDate((object["date"] as? NSDate)!)
                     dictionary["site"] = object["site"] as? String
+                    
+                    let reportXSpeciesQuery = PFQuery(className: "ReportXSpecies")
+                    reportXSpeciesQuery.whereKey("reportID", equalTo: object.objectId!)
+                    reportXSpeciesQuery.orderByAscending("piling")
+                    reportXSpeciesQuery.addAscendingOrder("depth")
+                    reportXSpeciesQuery.addAscendingOrder("rotation")
+                    
+                    do {
+                        dictionary["reportItems"] = try reportXSpeciesQuery.findObjects()
+                        
+                    }
+                    catch {
+                        print("Error: \(error)")
+                    }
+                    
                     self.reports.append(dictionary)
                 }
                 self.tableView.reloadData()
@@ -134,8 +151,22 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     }
     
     func addCreature() -> Void {
-        performSegueWithIdentifier("addCreatureSegue1", sender: self.navigationItem.rightBarButtonItem)
-        print("Creature was added")
+        if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
+            showAlert()
+        }
+        else {
+            performSegueWithIdentifier("addCreatureSegue1", sender: self.navigationItem.rightBarButtonItem)
+        }
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Missing Information", message: "Please make sure to enter a piling number, a rotation angle, and depth before proceeding.", preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        })
+        alert.addAction(okayAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -148,49 +179,71 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reportCell", forIndexPath: indexPath)
-        cell.textLabel!.text = "\(reports[indexPath.row]["site"]!) \(reports[indexPath.row]["date"]!)"
-        cell.detailTextLabel!.text = "\(reports[indexPath.row]["observer"]!)"
+        let cell = tableView.dequeueReusableCellWithIdentifier("reportCell", forIndexPath: indexPath) as! ObserverReportTableViewCell
+    
+        cell.titleLabel.text = "\(reports[indexPath.row]["site"]!) \(reports[indexPath.row]["date"]!)"
+        cell.subtitleLabel.text = "\(reports[indexPath.row]["observer"]!)"
 
         return cell
     }
     
 
     // MARK: - Navigation
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier != "reportSegue" {
+            if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
+                showAlert()
+                
+                return false
+            }
+            else {
+                return true
+            }
+        }
+        
+        return true
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
-        
-        if let _ = sender as? UIBarButtonItem? {
-            addCreatureVC.selectedSpecies = ""
+        if segue.identifier == "reportSegue" {
+            let reportVC = segue.destinationViewController as! ReportViewController
+            reportVC.report = reports[tableView.indexPathForSelectedRow!.row]
         }
         else {
-            switch (NSArray(array:seaStarImages).indexOfObject(((sender as? UIButton)?.backgroundImageForState(.Normal))!)) {
-            case 0:
-                addCreatureVC.selectedSpecies = species[0]
-            case 1:
-                addCreatureVC.selectedSpecies = species[1]
-            case 2:
-                addCreatureVC.selectedSpecies = species[2]
-            case 3:
-                addCreatureVC.selectedSpecies = species[3]
-            case 4:
-                addCreatureVC.selectedSpecies = species[4]
-            default:
-                break
+            let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
+            
+            if let _ = sender as? UIBarButtonItem? {
+                addCreatureVC.selectedSpecies = ""
             }
+            else {
+                switch (NSArray(array:seaStarImages).indexOfObject(((sender as? UIButton)?.backgroundImageForState(.Normal))!)) {
+                case 0:
+                    addCreatureVC.selectedSpecies = species[0]
+                case 1:
+                    addCreatureVC.selectedSpecies = species[1]
+                case 2:
+                    addCreatureVC.selectedSpecies = species[2]
+                case 3:
+                    addCreatureVC.selectedSpecies = species[3]
+                case 4:
+                    addCreatureVC.selectedSpecies = species[4]
+                default:
+                    break
+                }
+            }
+            
+            addCreatureVC.piling = Int(pilingTextBox.text!)
+            addCreatureVC.rotation = Int(rotationTextBox.text!)
+            addCreatureVC.depth = Int(depthTextBox.text!)
+            addCreatureVC.observer_name = observer_name
+            addCreatureVC.report_date = report_date
+            addCreatureVC.site_location = site_location
         }
-        
-        addCreatureVC.piling = Int(pilingTextBox.text!)
-        addCreatureVC.rotation = Int(rotationTextBox.text!)
-        addCreatureVC.depth = Int(depthTextBox.text!)
-        addCreatureVC.observer_name = observer_name
-        addCreatureVC.report_date = report_date
-        addCreatureVC.site_location = site_location
     }
 
 }

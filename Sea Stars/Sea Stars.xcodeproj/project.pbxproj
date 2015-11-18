@@ -32,6 +32,8 @@
 		A5B4F0FA1BF1859C00E5C2D6 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0F91BF1859C00E5C2D6 /* libstdc++.6.tbd */; };
 		A5B4F0FD1BF1862200E5C2D6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0FB1BF1862200E5C2D6 /* Bolts.framework */; };
 		A5B4F0FE1BF1862300E5C2D6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0FC1BF1862200E5C2D6 /* Parse.framework */; };
+		A5F79E3F1BFC0D8C00680B9A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */; };
+		A5F79E411BFC14BC00680B9A /* ObserverReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		A5B4F0F91BF1859C00E5C2D6 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		A5B4F0FB1BF1862200E5C2D6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		A5B4F0FC1BF1862200E5C2D6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverReportTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,8 @@
 				A5B4F0D81BEFD81A00E5C2D6 /* carson.storyboard */,
 				A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */,
 				A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */,
+				A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */,
+				A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */,
 				A57919181BE8345E00ECC184 /* Assets.xcassets */,
 				A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */,
 				A579191D1BE8345E00ECC184 /* Info.plist */,
@@ -218,6 +224,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5F79E411BFC14BC00680B9A /* ObserverReportTableViewCell.swift in Sources */,
+				A5F79E3F1BFC0D8C00680B9A /* ReportViewController.swift in Sources */,
 				A5B4F0DB1BEFD85500E5C2D6 /* MainScreenViewController.swift in Sources */,
 				3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */,
 				3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */,
