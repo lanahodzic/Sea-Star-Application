@@ -188,7 +188,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reportCell" rowHeight="61" id="gLn-3e-eqt" customClass="ObserverReportTableViewCell" customModule="Sea_Stars" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gLn-3e-eqt" id="Xqs-95-aqU">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="60.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZg-mj-bJb">
@@ -657,7 +657,7 @@
         <!--Report-->
         <scene sceneID="HQ0-Ja-47F">
             <objects>
-                <viewController title="Report" id="VZQ-J0-VCs" customClass="ReportViewController" customModule="Sea_Stars" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="reportScreen" title="Report" id="VZQ-J0-VCs" customClass="ReportViewController" customModule="Sea_Stars" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HxV-ac-0da"/>
                         <viewControllerLayoutGuide type="bottom" id="jLs-t5-THu"/>
@@ -688,10 +688,10 @@
                                 <exclude reference="92m-6t-ttM"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="P7B-Jd-twE"/>
                                 <exclude reference="5vV-oV-WOk"/>
                                 <exclude reference="IJd-fe-sMO"/>
                                 <exclude reference="fiL-Np-3Mf"/>
-                                <exclude reference="P7B-Jd-twE"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -699,10 +699,10 @@
                                 <include reference="92m-6t-ttM"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="P7B-Jd-twE"/>
                                 <include reference="5vV-oV-WOk"/>
                                 <include reference="IJd-fe-sMO"/>
                                 <include reference="fiL-Np-3Mf"/>
-                                <include reference="P7B-Jd-twE"/>
                             </mask>
                         </variation>
                     </view>

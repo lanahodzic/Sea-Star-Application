@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DXH-ao-7JF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DXH-ao-7JF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -36,12 +37,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="recordsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ewu-Xa-PAW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-Tg-aUu">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="147" id="E2h-0G-CcI"/>
+                                    <constraint firstAttribute="height" constant="30" id="LHa-Dg-cxV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Start Tracking">
+                                    <color key="titleColor" red="0.002673118165219843" green="0.53868189102564101" blue="0.48816823825264" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="E2h-0G-CcI"/>
+                                        <exclude reference="LHa-Dg-cxV"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="E2h-0G-CcI"/>
+                                        <include reference="LHa-Dg-cxV"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="oRK-ZS-Spb" kind="show" id="4nY-L5-0Pw"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="recordsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ewu-Xa-PAW">
                                 <rect key="frame" x="180" y="236" width="240" height="128"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ls7-yJ-gFO" customClass="ReportTableViewCell" customModule="Sea_Stars" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reportCell" rowHeight="57" id="Ls7-yJ-gFO" customClass="ReportTableViewCell" customModule="Sea_Stars" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
@@ -51,40 +80,87 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Crk-tK-gYZ">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                                     <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="zfw-UZ-hfS"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                                        <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="zfw-UZ-hfS"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                        <rect key="frame" x="70" y="0.0" width="52" height="21"/>
+                                                        <mask key="constraints">
+                                                            <include reference="zfw-UZ-hfS"/>
+                                                        </mask>
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MT-LU-R0W">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                                     <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="s6E-Wg-9KM"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                                        <rect key="frame" x="158" y="11" width="42" height="21"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="s6E-Wg-9KM"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="s6E-Wg-9KM"/>
+                                                        </mask>
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDK-dW-BTd">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                                     <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="KWS-wY-06f"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                                        <rect key="frame" x="293" y="11" width="42" height="21"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="KWS-wY-06f"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="KWS-wY-06f"/>
+                                                        </mask>
                                                     </variation>
                                                 </label>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="qDK-dW-BTd" firstAttribute="leading" secondItem="5aa-N9-137" secondAttribute="leadingMargin" constant="7" id="0L7-R0-ek0"/>
+                                                <constraint firstItem="7MT-LU-R0W" firstAttribute="top" secondItem="5aa-N9-137" secondAttribute="topMargin" constant="-8" id="4Vv-fH-Tgp"/>
+                                                <constraint firstItem="Crk-tK-gYZ" firstAttribute="leading" secondItem="7MT-LU-R0W" secondAttribute="trailing" constant="13" id="BNL-uQ-yPQ"/>
+                                                <constraint firstItem="7MT-LU-R0W" firstAttribute="leading" secondItem="5aa-N9-137" secondAttribute="leadingMargin" constant="7" id="MiR-NE-Tnx"/>
+                                                <constraint firstItem="Crk-tK-gYZ" firstAttribute="top" secondItem="5aa-N9-137" secondAttribute="topMargin" constant="-8" id="azJ-Kl-sDH"/>
+                                                <constraint firstItem="qDK-dW-BTd" firstAttribute="top" secondItem="7MT-LU-R0W" secondAttribute="bottom" constant="1" id="ed3-43-ANZ"/>
+                                            </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
                                                     <exclude reference="Crk-tK-gYZ"/>
                                                     <exclude reference="7MT-LU-R0W"/>
                                                     <exclude reference="qDK-dW-BTd"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="4Vv-fH-Tgp"/>
+                                                    <exclude reference="MiR-NE-Tnx"/>
+                                                    <exclude reference="0L7-R0-ek0"/>
+                                                    <exclude reference="ed3-43-ANZ"/>
+                                                    <exclude reference="BNL-uQ-yPQ"/>
+                                                    <exclude reference="azJ-Kl-sDH"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=regular">
@@ -93,6 +169,14 @@
                                                     <include reference="7MT-LU-R0W"/>
                                                     <include reference="qDK-dW-BTd"/>
                                                 </mask>
+                                                <mask key="constraints">
+                                                    <include reference="4Vv-fH-Tgp"/>
+                                                    <include reference="MiR-NE-Tnx"/>
+                                                    <include reference="0L7-R0-ek0"/>
+                                                    <include reference="ed3-43-ANZ"/>
+                                                    <include reference="BNL-uQ-yPQ"/>
+                                                    <include reference="azJ-Kl-sDH"/>
+                                                </mask>
                                             </variation>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -100,48 +184,46 @@
                                             <outlet property="reportDate" destination="Crk-tK-gYZ" id="KT4-oK-xus"/>
                                             <outlet property="reportLocation" destination="7MT-LU-R0W" id="07Z-1u-oUc"/>
                                             <outlet property="reportObserver" destination="qDK-dW-BTd" id="ENe-UF-thD"/>
+                                            <segue destination="LCo-tf-n8w" kind="show" identifier="reportview" id="9pI-wG-SXS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="20" y="336" width="760" height="335"/>
-                                </variation>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y91-nT-sgh">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="800" height="64"/>
-                                </variation>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-Tg-aUu">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Start Tracking">
-                                    <color key="titleColor" red="0.002673118165219843" green="0.53868189102564101" blue="0.48816823825264" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="327" y="162" width="147" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="oRK-ZS-Spb" kind="show" id="4nY-L5-0Pw"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="top" secondItem="OhG-Tg-aUu" secondAttribute="bottom" constant="8" id="4hJ-XQ-qR3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ewu-Xa-PAW" secondAttribute="trailing" constant="-20" id="4uI-Xc-FKy"/>
+                            <constraint firstItem="OhG-Tg-aUu" firstAttribute="top" secondItem="rWw-bQ-Opp" secondAttribute="bottom" constant="98" id="5JZ-2w-d2v"/>
+                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="leading" secondItem="elI-th-nfo" secondAttribute="leadingMargin" constant="-20" id="c2E-0P-SgV"/>
+                            <constraint firstItem="PBE-52-xbL" firstAttribute="top" secondItem="Ewu-Xa-PAW" secondAttribute="bottom" id="f7b-xB-qqg"/>
+                            <constraint firstItem="OhG-Tg-aUu" firstAttribute="centerX" secondItem="elI-th-nfo" secondAttribute="centerX" id="zBO-Mw-xaD"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="y91-nT-sgh"/>
                                 <exclude reference="OhG-Tg-aUu"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="4hJ-XQ-qR3"/>
+                                <exclude reference="4uI-Xc-FKy"/>
+                                <exclude reference="c2E-0P-SgV"/>
+                                <exclude reference="5JZ-2w-d2v"/>
+                                <exclude reference="zBO-Mw-xaD"/>
+                                <exclude reference="f7b-xB-qqg"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
-                                <include reference="y91-nT-sgh"/>
                                 <include reference="OhG-Tg-aUu"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="4hJ-XQ-qR3"/>
+                                <include reference="4uI-Xc-FKy"/>
+                                <include reference="c2E-0P-SgV"/>
+                                <include reference="5JZ-2w-d2v"/>
+                                <include reference="zBO-Mw-xaD"/>
+                                <include reference="f7b-xB-qqg"/>
                             </mask>
                         </variation>
                     </view>
@@ -153,6 +235,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZlE-w7-OGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="268.5" y="453"/>
+        </scene>
+        <!--reportScreen-->
+        <scene sceneID="HDK-7J-7K6">
+            <objects>
+                <viewControllerPlaceholder storyboardName="carson" bundleIdentifier="com.calpoly.Sea-Stars" referencedIdentifier="reportScreen" id="LCo-tf-n8w" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6J3-ZW-9qO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="384.375" y="860.25"/>
         </scene>
         <!--Info-->
         <scene sceneID="MQh-uU-4v2">
