@@ -42,6 +42,7 @@
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="147" id="Oef-cM-RNm"/>
+                                    <constraint firstAttribute="height" constant="30" id="s1J-48-R4b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Start Tracking">
@@ -50,24 +51,26 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Oef-cM-RNm"/>
+                                        <exclude reference="s1J-48-R4b"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
                                         <include reference="Oef-cM-RNm"/>
+                                        <include reference="s1J-48-R4b"/>
                                     </mask>
                                 </variation>
                                 <connections>
                                     <segue destination="oRK-ZS-Spb" kind="show" id="4nY-L5-0Pw"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="recordsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ewu-Xa-PAW">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="recordsTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="49" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ewu-Xa-PAW">
                                 <rect key="frame" x="180" y="236" width="240" height="128"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reportCell" rowHeight="57" id="Ls7-yJ-gFO" customClass="ReportTableViewCell" customModule="Sea_Stars" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reportCell" rowHeight="49" id="Ls7-yJ-gFO" customClass="ReportTableViewCell" customModule="Sea_Stars" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
@@ -186,75 +189,41 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Reports" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xny-TV-GsJ">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="bPc-IN-eBf"/>
-                                    <constraint firstAttribute="width" constant="178" id="btv-ir-YG1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="bPc-IN-eBf"/>
-                                        <exclude reference="btv-ir-YG1"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="bPc-IN-eBf"/>
-                                        <include reference="btv-ir-YG1"/>
-                                    </mask>
-                                </variation>
-                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Ewu-Xa-PAW" secondAttribute="trailing" id="1wd-Yw-xT1"/>
-                            <constraint firstItem="xny-TV-GsJ" firstAttribute="leading" secondItem="elI-th-nfo" secondAttribute="leadingMargin" id="Kiq-0P-MX6"/>
-                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="leading" secondItem="elI-th-nfo" secondAttribute="leading" id="Oai-pX-SDv"/>
+                            <constraint firstItem="PBE-52-xbL" firstAttribute="top" secondItem="Ewu-Xa-PAW" secondAttribute="bottom" id="7at-x6-ZHk"/>
+                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="top" secondItem="OhG-Tg-aUu" secondAttribute="bottom" constant="70" id="OyN-HV-9GD"/>
                             <constraint firstItem="OhG-Tg-aUu" firstAttribute="top" secondItem="rWw-bQ-Opp" secondAttribute="bottom" constant="98" id="Qs9-9C-rqS"/>
-                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="bottom" secondItem="PBE-52-xbL" secondAttribute="top" id="RFr-0g-2AG"/>
-                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="top" secondItem="xny-TV-GsJ" secondAttribute="bottom" constant="8" id="c0t-vu-QGE"/>
-                            <constraint firstItem="OhG-Tg-aUu" firstAttribute="centerX" secondItem="Ewu-Xa-PAW" secondAttribute="centerX" id="gUC-Pe-ejd"/>
-                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="top" secondItem="OhG-Tg-aUu" secondAttribute="bottom" constant="70" id="hwZ-cg-MGU"/>
-                            <constraint firstItem="xny-TV-GsJ" firstAttribute="top" secondItem="rWw-bQ-Opp" secondAttribute="bottom" constant="165" id="n8C-YH-LhN"/>
+                            <constraint firstItem="Ewu-Xa-PAW" firstAttribute="leading" secondItem="elI-th-nfo" secondAttribute="leadingMargin" constant="-20" id="bfV-3m-nsS"/>
+                            <constraint firstItem="OhG-Tg-aUu" firstAttribute="centerX" secondItem="elI-th-nfo" secondAttribute="centerX" id="i86-1u-9w4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ewu-Xa-PAW" secondAttribute="trailing" constant="-20" id="tH5-Vg-ccZ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="OhG-Tg-aUu"/>
-                                <exclude reference="xny-TV-GsJ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Kiq-0P-MX6"/>
-                                <exclude reference="n8C-YH-LhN"/>
-                                <exclude reference="1wd-Yw-xT1"/>
-                                <exclude reference="Oai-pX-SDv"/>
-                                <exclude reference="RFr-0g-2AG"/>
-                                <exclude reference="c0t-vu-QGE"/>
-                                <exclude reference="hwZ-cg-MGU"/>
+                                <exclude reference="OyN-HV-9GD"/>
+                                <exclude reference="bfV-3m-nsS"/>
+                                <exclude reference="tH5-Vg-ccZ"/>
                                 <exclude reference="Qs9-9C-rqS"/>
-                                <exclude reference="gUC-Pe-ejd"/>
+                                <exclude reference="i86-1u-9w4"/>
+                                <exclude reference="7at-x6-ZHk"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
                                 <include reference="OhG-Tg-aUu"/>
-                                <include reference="xny-TV-GsJ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="Kiq-0P-MX6"/>
-                                <include reference="n8C-YH-LhN"/>
-                                <include reference="1wd-Yw-xT1"/>
-                                <include reference="Oai-pX-SDv"/>
-                                <include reference="RFr-0g-2AG"/>
-                                <include reference="c0t-vu-QGE"/>
-                                <include reference="hwZ-cg-MGU"/>
+                                <include reference="OyN-HV-9GD"/>
+                                <include reference="bfV-3m-nsS"/>
+                                <include reference="tH5-Vg-ccZ"/>
                                 <include reference="Qs9-9C-rqS"/>
-                                <include reference="gUC-Pe-ejd"/>
+                                <include reference="i86-1u-9w4"/>
+                                <include reference="7at-x6-ZHk"/>
                             </mask>
                         </variation>
                     </view>

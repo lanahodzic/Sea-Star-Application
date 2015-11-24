@@ -85,6 +85,10 @@ class InitialScreenViewController: UIViewController, UITableViewDataSource, UITa
         return reportDictionary.count
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Recent Reports"
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.latestReports.dequeueReusableCellWithIdentifier("reportCell", forIndexPath: indexPath) as! ReportTableViewCell
         print("\(cell) \n")
