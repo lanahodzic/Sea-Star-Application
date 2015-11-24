@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class MainScreenViewController: UIViewController, UITableViewDelegate {
+class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cellTitleLabel: UILabel!
@@ -185,6 +185,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate {
         cell.subtitleLabel.text = "\(reports[indexPath.row]["observer"]!)"
 
         return cell
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "\(observer_name!)'s Reports"
     }
     
 
