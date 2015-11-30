@@ -152,15 +152,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func addCreature() -> Void {
         if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
-            showAlert()
+            showAlert("Missing Information", message: "Please make sure to enter a piling number, a rotation angle, and depth before proceeding.")
         }
         else {
             performSegueWithIdentifier("addCreatureSegue1", sender: self.navigationItem.rightBarButtonItem)
         }
     }
     
-    func showAlert() {
-        let alert = UIAlertController(title: "Missing Information", message: "Please make sure to enter a piling number, a rotation angle, and depth before proceeding.", preferredStyle: .Alert)
+    func showAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
             alert.dismissViewControllerAnimated(true, completion: nil)
         })
@@ -197,7 +197,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if identifier != "reportSegue" {
             if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
-                showAlert()
+                showAlert("Missing Information", message: "Please make sure to enter a piling number, a rotation angle, and depth before proceeding.")
                 
                 return false
             }
@@ -241,9 +241,25 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
             
-            addCreatureVC.piling = Int(pilingTextBox.text!)
-            addCreatureVC.rotation = Int(rotationTextBox.text!)
-            addCreatureVC.depth = Int(depthTextBox.text!)
+            if let p = Int(pilingTextBox.text!) {
+                if let r = Int(rotationTextBox.text!) {
+                    if let d = Int(depthTextBox.text!) {
+                        addCreatureVC.piling = p
+                        addCreatureVC.rotation = r
+                        addCreatureVC.depth = d
+                    }
+                    else {
+                        showAlert("Incorrect Format", message: "The depth must be an integer.")
+                    }
+                }
+                else {
+                    showAlert("Incorrect Format", message: "The rotation must be an integer.")
+                }
+            }
+            else {
+                showAlert("Incorrect Format", message: "The piling must be an integer.")
+            }
+            
             addCreatureVC.observer_name = observer_name
             addCreatureVC.report_date = report_date
             addCreatureVC.site_location = site_location
