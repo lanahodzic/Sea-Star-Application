@@ -51,6 +51,16 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
         }
     }
     
+    func showAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        })
+        alert.addAction(okayAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func save(sender: AnyObject) {
         let saveReport = PFObject(className: "Reports")
         let saveReportXSpecies = PFObject(className: "ReportXSpecies")
@@ -61,69 +71,79 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
         var reportID = ""
         var speciesID = ""
         
-        let getReportIDQuery = PFQuery(className: "Reports")
-        getReportIDQuery.whereKey("site", equalTo: site_location!)
-        getReportIDQuery.whereKey("date", equalTo: reportDate!)
-        getReportIDQuery.whereKey("observer", equalTo: observer_name!)
-        
-        do {
-            var objects = try getReportIDQuery.findObjects()
-            
-            if objects.count > 0 {
-                reportID = objects[0].objectId!
-            }
-            else {
-                saveReport["site"] = site_location
-                saveReport["date"] = reportDate
-                saveReport["observer"] = observer_name
+        if countTextBox.text != "" && healthTextBox.text != "" {
+            if let _ = Int(countTextBox.text!) {
+                let getReportIDQuery = PFQuery(className: "Reports")
+                getReportIDQuery.whereKey("site", equalTo: site_location!)
+                getReportIDQuery.whereKey("date", equalTo: reportDate!)
+                getReportIDQuery.whereKey("observer", equalTo: observer_name!)
                 
                 do {
-                    try saveReport.save()
                     var objects = try getReportIDQuery.findObjects()
+                    
                     if objects.count > 0 {
                         reportID = objects[0].objectId!
+                    }
+                    else {
+                        saveReport["site"] = site_location
+                        saveReport["date"] = reportDate
+                        saveReport["observer"] = observer_name
+                        
+                        do {
+                            try saveReport.save()
+                            var objects = try getReportIDQuery.findObjects()
+                            if objects.count > 0 {
+                                reportID = objects[0].objectId!
+                            }
+                        }
+                        catch {
+                            print("Error: \(error)")
+                        }
                     }
                 }
                 catch {
                     print("Error: \(error)")
                 }
+                
+                let getSpeciesIDQuery = PFQuery(className: "Species")
+                getSpeciesIDQuery.whereKey("name", equalTo: selectedSpecies)
+                
+                do {
+                    var objects = try getSpeciesIDQuery.findObjects()
+                    
+                    if objects.count > 0 {
+                        speciesID = objects[0].objectId!
+                    }
+                }
+                catch {
+                    print("Error: \(error)")
+                }
+                
+                saveReportXSpecies["piling"] = piling
+                saveReportXSpecies["rotation"] = rotation
+                saveReportXSpecies["depth"] = depth
+                saveReportXSpecies["count"] = Int(countTextBox.text!)
+                saveReportXSpecies["health"] = healthTextBox.text!
+                saveReportXSpecies["notes"] = notesTextView.text
+                saveReportXSpecies["reportID"] = reportID
+                saveReportXSpecies["speciesID"] = speciesID
+                
+                do {
+                    try saveReportXSpecies.save()
+                }
+                catch {
+                    print("Error: \(error)")
+                }
+                
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+            else {
+                showAlert("Incorrect Format", message: "The count must be an integer.")
             }
         }
-        catch {
-            print("Error: \(error)")
+        else {
+            showAlert("Incorrect Format", message: "The count and health must be entered.")
         }
-        
-        let getSpeciesIDQuery = PFQuery(className: "Species")
-        getSpeciesIDQuery.whereKey("name", equalTo: selectedSpecies)
-        
-        do {
-            var objects = try getSpeciesIDQuery.findObjects()
-            
-            if objects.count > 0 {
-                speciesID = objects[0].objectId!
-            }
-        }
-        catch {
-            print("Error: \(error)")
-        }
-        
-        saveReportXSpecies["piling"] = piling
-        saveReportXSpecies["rotation"] = rotation
-        saveReportXSpecies["depth"] = depth
-        saveReportXSpecies["count"] = Int(countTextBox.text!)
-        saveReportXSpecies["health"] = healthTextBox.text!
-        saveReportXSpecies["notes"] = notesTextView.text
-        saveReportXSpecies["reportID"] = reportID
-        saveReportXSpecies["speciesID"] = speciesID
-        
-        do {
-            try saveReportXSpecies.save()
-        }
-        catch {
-            print("Error: \(error)")
-        }
-        
-        self.navigationController?.popViewControllerAnimated(true)
     }
 
     override func didReceiveMemoryWarning() {
