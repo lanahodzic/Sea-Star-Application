@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import SystemConfiguration
+import CoreData
 
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -32,6 +34,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var speciesLabel5: UILabel!
     
     var seaStarImages:[UIImage] = [UIImage]()
+    var allSpecies:[String] = [String]()
     var species:[String] = [String]()
     var reports:[[String:AnyObject]] = [[String:AnyObject]]()
 
@@ -75,6 +78,19 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("Error: \(error) \(error!.userInfo)")
             }
         }
+        
+        let allSpeciesQuery = PFQuery(className: "Species")
+        allSpeciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
+            if error == nil {
+                for object in objects! {
+                    let speciesName:String = (object as PFObject)["name"] as! String
+                    self.allSpecies.append(speciesName)
+                }
+            }
+            else {
+                print("Error: \(error) \(error!.userInfo)")
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -82,6 +98,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         rotationTextBox.text = ""
         depthTextBox.text = ""
         
+        refreshTable()
+    }
+    
+    func refreshTable() -> Void {
         reports.removeAll()
         
         let reportQuery = PFQuery(className: "Reports")
@@ -147,6 +167,135 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         catch {
             print(error)
+        }
+    }
+    
+    @IBAction func saveFinalReport(sender: AnyObject) {
+        if Reachability.isConnectedToNetwork() {
+            var site:String?
+            var observer:String?
+            var reportID:String?
+            var speciesID:String?
+            
+            var reportDate:NSDate?
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+            let context = appDel.managedObjectContext
+            
+            let reportRequest = NSFetchRequest(entityName: "Reports")
+            reportRequest.returnsObjectsAsFaults = false
+            do {
+                let reportResults = try context.executeFetchRequest(reportRequest) as! [NSManagedObject]
+                if reportResults.count == 1 {
+                    reportDate = reportResults[0].valueForKey("date") as? NSDate
+                    site = reportResults[0].valueForKey("site") as? String
+                    observer = reportResults[0].valueForKey("observer") as? String
+                    
+                    let reportQuery = PFQuery(className: "Reports")
+                    reportQuery.whereKey("site", equalTo: site!)
+                    reportQuery.whereKey("date", equalTo: reportDate!)
+                    reportQuery.whereKey("observer", equalTo: observer!)
+                    
+                    do {
+                        let results = try reportQuery.findObjects()
+                        if results.count == 0 {
+                            let saveReport = PFObject(className: "Reports")
+                            saveReport["site"] = site!
+                            saveReport["date"] = reportDate!
+                            saveReport["observer"] = observer!
+                            do {
+                                try saveReport.save()
+                            }
+                            catch {
+                                print("Could not save report to Parse")
+                            }
+                        }
+                    }
+                    catch {
+                        
+                    }
+                }
+                else {
+                    print("Too many reports. There should only be one!")
+                }
+            }
+            catch {
+                print("No reports were found in core data")
+            }
+            
+            let reportXSpeciesRequest = NSFetchRequest(entityName: "ReportXSpecies")
+            reportXSpeciesRequest.returnsObjectsAsFaults = false
+            do {
+                let reportXSpeciesResults = try context.executeFetchRequest(reportXSpeciesRequest)
+                
+                for result in reportXSpeciesResults as! [NSManagedObject] {
+                    let saveReportXSpecies = PFObject(className: "ReportXSpecies")
+                    saveReportXSpecies["piling"] = result.valueForKey("piling") as! Int
+                    saveReportXSpecies["rotation"] = result.valueForKey("rotation") as! Int
+                    saveReportXSpecies["depth"] = result.valueForKey("depth") as! Int
+                    saveReportXSpecies["count"] = result.valueForKey("count") as! Int
+                    saveReportXSpecies["health"] = result.valueForKey("health") as! String
+                    saveReportXSpecies["notes"] = result.valueForKey("notes") as! String
+                    
+                    let getReportIDQuery = PFQuery(className: "Reports")
+                    getReportIDQuery.whereKey("site", equalTo: site!)
+                    getReportIDQuery.whereKey("date", equalTo: reportDate!)
+                    getReportIDQuery.whereKey("observer", equalTo: observer!)
+                    
+                    do {
+                        var objects = try getReportIDQuery.findObjects()
+    
+                        if objects.count > 0 {
+                            reportID = objects[0].objectId!
+                        }
+                    }
+                    catch {
+                        print("Error: \(error)")
+                    }
+                    
+                    saveReportXSpecies["reportID"] = reportID
+                    
+                    let getSpeciesIDQuery = PFQuery(className: "Species")
+                    getSpeciesIDQuery.whereKey("name", equalTo: result.valueForKey("species") as! String)
+    
+                    do {
+                        var objects = try getSpeciesIDQuery.findObjects()
+    
+                        if objects.count > 0 {
+                            speciesID = objects[0].objectId!
+                        }
+                    }
+                    catch {
+                        print("Error: \(error)")
+                    }
+                    
+                    saveReportXSpecies["speciesID"] = speciesID
+                    
+                    saveReportXSpecies.saveInBackground()
+                }
+            }
+            catch {
+                print("No reportXSpecies were found in core data")
+            }
+            
+            let reportDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportRequest)
+            let reportXSpeciesDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportXSpeciesRequest)
+            do {
+                try context.executeRequest(reportDeleteRequest)
+                try context.executeRequest(reportXSpeciesDeleteRequest)
+            }
+            catch {
+                print("Error deleting all rows from entities")
+            }
+            
+            refreshTable()
+            
+            showAlert("Success", message: "The report has been saved to the database!")
+        }
+        else {
+            showAlert("Internet Connection", message: "You must be connected to a wifi network or have a cellular data connection to save a final report.")
         }
     }
     
@@ -263,7 +412,26 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             addCreatureVC.observer_name = observer_name
             addCreatureVC.report_date = report_date
             addCreatureVC.site_location = site_location
+            addCreatureVC.speciesData = allSpecies
         }
     }
 
+}
+
+public class Reachability {
+    class func isConnectedToNetwork() -> Bool {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+        }
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
+    }
 }

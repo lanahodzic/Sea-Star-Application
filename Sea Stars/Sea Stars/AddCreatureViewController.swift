@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import CoreData
 
 class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -31,23 +32,29 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
         speciesPicker.dataSource = self
         speciesPicker.delegate = self
         
-        let speciesQuery = PFQuery(className: "Species")
-        speciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
-            if error == nil {
-                for object in objects! {
-                    let speciesName:String = (object as PFObject)["name"] as! String
-                    self.speciesData.append(speciesName)
-                }
-                
-                self.speciesPicker.reloadAllComponents()
-                
-                if self.selectedSpecies != "" {
-                    self.speciesPicker.selectRow(self.speciesData.indexOf(self.selectedSpecies)!, inComponent: 0, animated: true)
-                }
-            }
-            else {
-                print("Error: \(error) \(error!.userInfo)")
-            }
+//        let speciesQuery = PFQuery(className: "Species")
+//        speciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
+//            if error == nil {
+//                for object in objects! {
+//                    let speciesName:String = (object as PFObject)["name"] as! String
+//                    self.speciesData.append(speciesName)
+//                }
+//                
+//                self.speciesPicker.reloadAllComponents()
+//                
+//                if self.selectedSpecies != "" {
+//                    self.speciesPicker.selectRow(self.speciesData.indexOf(self.selectedSpecies)!, inComponent: 0, animated: true)
+//                }
+//            }
+//            else {
+//                print("Error: \(error) \(error!.userInfo)")
+//            }
+//        }
+        
+        self.speciesPicker.reloadAllComponents()
+        
+        if self.selectedSpecies != "" {
+            self.speciesPicker.selectRow(self.speciesData.indexOf(self.selectedSpecies)!, inComponent: 0, animated: true)
         }
     }
     
@@ -62,77 +69,138 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     
     @IBAction func save(sender: AnyObject) {
-        let saveReport = PFObject(className: "Reports")
-        let saveReportXSpecies = PFObject(className: "ReportXSpecies")
+//        let saveReport = PFObject(className: "Reports")
+//        let saveReportXSpecies = PFObject(className: "ReportXSpecies")
+//        var reportDate:NSDate?
+//        let dateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "dd-MM-yyyy"
+//        reportDate = dateFormatter.dateFromString(report_date!)
+//        var reportID = ""
+//        var speciesID = ""
+//        
+//        if countTextBox.text != "" && healthTextBox.text != "" {
+//            if let _ = Int(countTextBox.text!) {
+//                let getReportIDQuery = PFQuery(className: "Reports")
+//                getReportIDQuery.whereKey("site", equalTo: site_location!)
+//                getReportIDQuery.whereKey("date", equalTo: reportDate!)
+//                getReportIDQuery.whereKey("observer", equalTo: observer_name!)
+//                
+//                do {
+//                    var objects = try getReportIDQuery.findObjects()
+//                    
+//                    if objects.count > 0 {
+//                        reportID = objects[0].objectId!
+//                    }
+//                    else {
+//                        saveReport["site"] = site_location
+//                        saveReport["date"] = reportDate
+//                        saveReport["observer"] = observer_name
+//                        
+//                        do {
+//                            try saveReport.save()
+//                            var objects = try getReportIDQuery.findObjects()
+//                            if objects.count > 0 {
+//                                reportID = objects[0].objectId!
+//                            }
+//                        }
+//                        catch {
+//                            print("Error: \(error)")
+//                        }
+//                    }
+//                }
+//                catch {
+//                    print("Error: \(error)")
+//                }
+//                
+//                let getSpeciesIDQuery = PFQuery(className: "Species")
+//                getSpeciesIDQuery.whereKey("name", equalTo: selectedSpecies)
+//                
+//                do {
+//                    var objects = try getSpeciesIDQuery.findObjects()
+//                    
+//                    if objects.count > 0 {
+//                        speciesID = objects[0].objectId!
+//                    }
+//                }
+//                catch {
+//                    print("Error: \(error)")
+//                }
+//                
+//                saveReportXSpecies["piling"] = piling
+//                saveReportXSpecies["rotation"] = rotation
+//                saveReportXSpecies["depth"] = depth
+//                saveReportXSpecies["count"] = Int(countTextBox.text!)
+//                saveReportXSpecies["health"] = healthTextBox.text!
+//                saveReportXSpecies["notes"] = notesTextView.text
+//                saveReportXSpecies["reportID"] = reportID
+//                saveReportXSpecies["speciesID"] = speciesID
+//                
+//                do {
+//                    try saveReportXSpecies.save()
+//                }
+//                catch {
+//                    print("Error: \(error)")
+//                }
+//                
+//                self.navigationController?.popViewControllerAnimated(true)
+//            }
+//            else {
+//                showAlert("Incorrect Format", message: "The count must be an integer.")
+//            }
+//        }
+//        else {
+//            showAlert("Incorrect Format", message: "The count and health must be entered.")
+//        }
+        
+
         var reportDate:NSDate?
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         reportDate = dateFormatter.dateFromString(report_date!)
-        var reportID = ""
-        var speciesID = ""
+        
+        let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context = appDel.managedObjectContext
         
         if countTextBox.text != "" && healthTextBox.text != "" {
             if let _ = Int(countTextBox.text!) {
-                let getReportIDQuery = PFQuery(className: "Reports")
-                getReportIDQuery.whereKey("site", equalTo: site_location!)
-                getReportIDQuery.whereKey("date", equalTo: reportDate!)
-                getReportIDQuery.whereKey("observer", equalTo: observer_name!)
+                let reportRequest = NSFetchRequest(entityName: "Reports")
+                reportRequest.returnsObjectsAsFaults = false
+                let predicate = NSPredicate(format: "site = %@ AND date = %@ AND observer = %@", site_location!, reportDate!, observer_name!)
+                reportRequest.predicate = predicate
                 
                 do {
-                    var objects = try getReportIDQuery.findObjects()
+                    let results = try context.executeFetchRequest(reportRequest)
                     
-                    if objects.count > 0 {
-                        reportID = objects[0].objectId!
-                    }
-                    else {
-                        saveReport["site"] = site_location
-                        saveReport["date"] = reportDate
-                        saveReport["observer"] = observer_name
-                        
+                    if results.count == 0 {
+                        let newReport = NSEntityDescription.insertNewObjectForEntityForName("Reports", inManagedObjectContext: context)
+                        newReport.setValue(site_location!, forKey: "site")
+                        newReport.setValue(reportDate!, forKey: "date")
+                        newReport.setValue(observer_name!, forKey: "observer")
                         do {
-                            try saveReport.save()
-                            var objects = try getReportIDQuery.findObjects()
-                            if objects.count > 0 {
-                                reportID = objects[0].objectId!
-                            }
+                            try context.save()
                         }
                         catch {
-                            print("Error: \(error)")
+                            print("Error while saving report")
                         }
                     }
                 }
                 catch {
-                    print("Error: \(error)")
+                    print("There was an error with the request!")
                 }
                 
-                let getSpeciesIDQuery = PFQuery(className: "Species")
-                getSpeciesIDQuery.whereKey("name", equalTo: selectedSpecies)
-                
+                let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
+                newReportXSpecies.setValue(piling, forKey: "piling")
+                newReportXSpecies.setValue(rotation, forKey: "rotation")
+                newReportXSpecies.setValue(depth, forKey: "depth")
+                newReportXSpecies.setValue(Int(countTextBox.text!), forKey: "count")
+                newReportXSpecies.setValue(healthTextBox.text!, forKey: "health")
+                newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
+                newReportXSpecies.setValue(selectedSpecies, forKey: "species")
                 do {
-                    var objects = try getSpeciesIDQuery.findObjects()
-                    
-                    if objects.count > 0 {
-                        speciesID = objects[0].objectId!
-                    }
+                    try context.save()
                 }
                 catch {
-                    print("Error: \(error)")
-                }
-                
-                saveReportXSpecies["piling"] = piling
-                saveReportXSpecies["rotation"] = rotation
-                saveReportXSpecies["depth"] = depth
-                saveReportXSpecies["count"] = Int(countTextBox.text!)
-                saveReportXSpecies["health"] = healthTextBox.text!
-                saveReportXSpecies["notes"] = notesTextView.text
-                saveReportXSpecies["reportID"] = reportID
-                saveReportXSpecies["speciesID"] = speciesID
-                
-                do {
-                    try saveReportXSpecies.save()
-                }
-                catch {
-                    print("Error: \(error)")
+                    print("Error while saving reportXSpecies")
                 }
                 
                 self.navigationController?.popViewControllerAnimated(true)

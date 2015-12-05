@@ -32,6 +32,7 @@
 		A5B4F0FA1BF1859C00E5C2D6 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0F91BF1859C00E5C2D6 /* libstdc++.6.tbd */; };
 		A5B4F0FD1BF1862200E5C2D6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0FB1BF1862200E5C2D6 /* Bolts.framework */; };
 		A5B4F0FE1BF1862300E5C2D6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B4F0FC1BF1862200E5C2D6 /* Parse.framework */; };
+		A5BE1D221C12352300CB9349 /* Sea_Stars.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */; };
 		A5F79E3F1BFC0D8C00680B9A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */; };
 		A5F79E411BFC14BC00680B9A /* ObserverReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		A5B4F0F91BF1859C00E5C2D6 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		A5B4F0FB1BF1862200E5C2D6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		A5B4F0FC1BF1862200E5C2D6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		A5BE1D211C12352300CB9349 /* Sea_Stars.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sea_Stars.xcdatamodel; sourceTree = "<group>"; };
 		A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverReportTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +124,7 @@
 				A5B4F0D81BEFD81A00E5C2D6 /* carson.storyboard */,
 				A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */,
 				A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */,
+				A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */,
 				A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */,
 				A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */,
 				A57919181BE8345E00ECC184 /* Assets.xcassets */,
@@ -183,6 +186,7 @@
 				TargetAttributes = {
 					A579190D1BE8345E00ECC184 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 6D2V8C38HH;
 					};
 				};
 			};
@@ -232,6 +236,7 @@
 				A57919141BE8345E00ECC184 /* ViewController.swift in Sources */,
 				A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */,
 				3F846AA31BF41F9F00F9AD37 /* InitialScreenViewController.swift in Sources */,
+				A5BE1D221C12352300CB9349 /* Sea_Stars.xcdatamodeld in Sources */,
 				A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +402,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A5BE1D211C12352300CB9349 /* Sea_Stars.xcdatamodel */,
+			);
+			currentVersion = A5BE1D211C12352300CB9349 /* Sea_Stars.xcdatamodel */;
+			path = Sea_Stars.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A57919061BE8345E00ECC184 /* Project object */;
 }
