@@ -10,6 +10,7 @@
 		3F846AA31BF41F9F00F9AD37 /* InitialScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */; };
 		3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9911BE87260008BDBE6 /* MainViewController.swift */; };
 		3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */; };
+		833F83C11C6BEFD100A86DF8 /* KSTokenView in Resources */ = {isa = PBXBuildFile; fileRef = 833F83C01C6BEFD100A86DF8 /* KSTokenView */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
 		A57919141BE8345E00ECC184 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919131BE8345E00ECC184 /* ViewController.swift */; };
 		A57919171BE8345E00ECC184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57919151BE8345E00ECC184 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialScreenViewController.swift; sourceTree = "<group>"; };
 		3FA2E9911BE87260008BDBE6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartTrackingViewController.swift; sourceTree = "<group>"; };
+		833F83C01C6BEFD100A86DF8 /* KSTokenView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KSTokenView; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57919111BE8345E00ECC184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A57919131BE8345E00ECC184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		A57919101BE8345E00ECC184 /* Sea Stars */ = {
 			isa = PBXGroup;
 			children = (
+				833F83C01C6BEFD100A86DF8 /* KSTokenView */,
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
 				A57919131BE8345E00ECC184 /* ViewController.swift */,
 				3FA2E9911BE87260008BDBE6 /* MainViewController.swift */,
@@ -216,6 +219,7 @@
 				A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */,
 				A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */,
 				A5B4F0DF1BEFDAA000E5C2D6 /* Lana.Storyboard in Resources */,
+				833F83C11C6BEFD100A86DF8 /* KSTokenView in Resources */,
 				A5B4F0D91BEFD81A00E5C2D6 /* carson.storyboard in Resources */,
 				A57919171BE8345E00ECC184 /* Main.storyboard in Resources */,
 			);
