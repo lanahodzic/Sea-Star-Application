@@ -14,6 +14,7 @@
 		833F83D71C6C00C200A86DF8 /* KSTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833F83D31C6C00C200A86DF8 /* KSTokenField.swift */; };
 		833F83D81C6C00C200A86DF8 /* KSTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833F83D41C6C00C200A86DF8 /* KSTokenView.swift */; };
 		833F83D91C6C00C200A86DF8 /* KSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833F83D51C6C00C200A86DF8 /* KSUtils.swift */; };
+		8359799A1C6D108500CDCAE3 /* ViewReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
 		A57919141BE8345E00ECC184 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919131BE8345E00ECC184 /* ViewController.swift */; };
 		A57919171BE8345E00ECC184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57919151BE8345E00ECC184 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		833F83D31C6C00C200A86DF8 /* KSTokenField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSTokenField.swift; sourceTree = "<group>"; };
 		833F83D41C6C00C200A86DF8 /* KSTokenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSTokenView.swift; sourceTree = "<group>"; };
 		833F83D51C6C00C200A86DF8 /* KSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSUtils.swift; sourceTree = "<group>"; };
+		835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewReportsViewController.swift; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57919111BE8345E00ECC184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A57919131BE8345E00ECC184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				A57919181BE8345E00ECC184 /* Assets.xcassets */,
 				A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */,
 				A579191D1BE8345E00ECC184 /* Info.plist */,
+				835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */,
 			);
 			path = "Sea Stars";
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8359799A1C6D108500CDCAE3 /* ViewReportsViewController.swift in Sources */,
 				A5F79E411BFC14BC00680B9A /* ObserverReportTableViewCell.swift in Sources */,
 				A5F79E3F1BFC0D8C00680B9A /* ReportViewController.swift in Sources */,
 				A5B4F0DB1BEFD85500E5C2D6 /* MainScreenViewController.swift in Sources */,
