@@ -81,7 +81,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="zfw-UZ-hfS"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -100,7 +100,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="s6E-Wg-9KM"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -119,7 +119,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="KWS-wY-06f"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -253,16 +253,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="155" y="216" width="30" height="21"/>
-                                </variation>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ay8-Cq-Dpd">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="149" y="364" width="36" height="21"/>
+                                    <rect key="frame" x="155" y="108" width="30" height="21"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x73-kY-Edn">
@@ -271,7 +262,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="140" y="512" width="45" height="29"/>
+                                    <rect key="frame" x="140" y="543" width="45" height="29"/>
                                 </variation>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="evr-uh-8GE">
@@ -280,24 +271,9 @@
                                     <!--2015-11-03 04:16:16 +0000-->
                                 </date>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="298" y="326" width="362" height="98"/>
+                                    <rect key="frame" x="298" y="287" width="362" height="98"/>
                                 </variation>
                             </datePicker>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pvb-7D-yFw">
-                                <rect key="frame" x="0.0" y="-216" width="320" height="216"/>
-                                <accessibility key="accessibilityConfiguration" label=""/>
-                                <attributedString key="userComments">
-                                    <fragment content="Morro Bay">
-                                        <attributes>
-                                            <font key="NSFont" metaFont="controlContent" size="11"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="298" y="163" width="362" height="96"/>
-                                </variation>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVu-2k-ii9">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -305,47 +281,64 @@
                                     <color key="titleColor" red="0.0026731181650000001" green="0.53868189099999997" blue="0.4881682383" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="608" y="640" width="78" height="30"/>
+                                    <rect key="frame" x="361" y="695" width="78" height="30"/>
                                 </variation>
                                 <connections>
                                     <segue destination="hBu-Pz-JwW" kind="show" id="eNQ-EF-jUm"/>
                                 </connections>
                             </button>
-                            <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yP8-Jh-zwM">
-                                <rect key="frame" x="0.0" y="-216" width="320" height="216"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vU5-HQ-jJK" customClass="KSTokenView" customModule="Sea_Stars" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="298" y="454" width="362" height="178"/>
+                                    <rect key="frame" x="298" y="104" width="362" height="30"/>
                                 </variation>
-                            </pickerView>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ay8-Cq-Dpd">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="149" y="325" width="36" height="21"/>
+                                </variation>
+                            </label>
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-Kp-aL8" userLabel="observer_name" customClass="KSTokenView" customModule="Sea_Stars" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="298" y="542" width="362" height="30"/>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="7Xn-27-Twy"/>
-                                <exclude reference="Ay8-Cq-Dpd"/>
                                 <exclude reference="x73-kY-Edn"/>
                                 <exclude reference="evr-uh-8GE"/>
-                                <exclude reference="Pvb-7D-yFw"/>
                                 <exclude reference="TVu-2k-ii9"/>
-                                <exclude reference="yP8-Jh-zwM"/>
+                                <exclude reference="vU5-HQ-jJK"/>
+                                <exclude reference="Ay8-Cq-Dpd"/>
+                                <exclude reference="HYH-Kp-aL8"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
                                 <include reference="7Xn-27-Twy"/>
-                                <include reference="Ay8-Cq-Dpd"/>
                                 <include reference="x73-kY-Edn"/>
                                 <include reference="evr-uh-8GE"/>
-                                <include reference="Pvb-7D-yFw"/>
                                 <include reference="TVu-2k-ii9"/>
-                                <include reference="yP8-Jh-zwM"/>
+                                <include reference="vU5-HQ-jJK"/>
+                                <include reference="Ay8-Cq-Dpd"/>
+                                <include reference="HYH-Kp-aL8"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="observer_name" destination="yP8-Jh-zwM" id="uic-P6-VzV"/>
+                        <outlet property="observer_name" destination="HYH-Kp-aL8" id="tcR-lr-aM6"/>
                         <outlet property="report_date" destination="evr-uh-8GE" id="YzG-Ju-7qa"/>
-                        <outlet property="site" destination="Pvb-7D-yFw" id="DbA-GD-jDF"/>
+                        <outlet property="site" destination="vU5-HQ-jJK" id="Uvf-96-HuH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPa-iT-tLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
