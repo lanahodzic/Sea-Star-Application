@@ -11,7 +11,7 @@ import Parse
 import SystemConfiguration
 import CoreData
 
-class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cellTitleLabel: UILabel!
@@ -48,6 +48,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addCreature")
+
+        self.pilingTextBox.delegate = self
+        self.rotationTextBox.delegate = self
+        self.depthTextBox.delegate = self
+
+        self.pilingTextBox.keyboardType = .NumberPad
+        self.rotationTextBox.keyboardType = .NumberPad
+        self.depthTextBox.keyboardType = .NumberPad
         
         let speciesQuery = PFQuery(className: "Species")
         speciesQuery.limit = 5
@@ -92,7 +100,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         pilingTextBox.text = ""
         rotationTextBox.text = ""
@@ -416,6 +424,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let invalidCharacters = NSCharacterSet(charactersInString: "0123456789.").invertedSet
+        if let _ = string.rangeOfCharacterFromSet(invalidCharacters, options: [], range:Range<String.Index>(start: string.startIndex, end: string.endIndex)) {
+            return false
+        }
+
+        return true
+    }
 }
 
 public class Reachability {
