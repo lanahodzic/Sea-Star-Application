@@ -32,7 +32,6 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         self.countTextBox.keyboardType = .NumberPad
 
         print("****** " + selectedSpecies!)
-        self.speciesLabel.text = self.selectedSpecies!
     }
     
     func showAlert(title:String, message:String) {
@@ -89,7 +88,6 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
                 newReportXSpecies.setValue(healthTextBox.text!, forKey: "health")
                 newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
                 newReportXSpecies.setValue(selectedSpecies, forKey: "species")
-                print("****** " + selectedSpecies!)
                 do {
                     try context.save()
                 }

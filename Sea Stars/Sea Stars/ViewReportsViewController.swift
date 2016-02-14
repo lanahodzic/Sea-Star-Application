@@ -99,6 +99,7 @@ class ViewReportsViewController: UITableViewController {
         cell.reportLocation.text = (report["site"] as! String)
         cell.reportDate.text = (report["date"] as! String)
         cell.reportObserver.text = (report["observer"] as! String)
+
         /*
         //set the cell info to the report info
         if let site = report.site {
