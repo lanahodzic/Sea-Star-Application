@@ -10,15 +10,14 @@ import UIKit
 import Parse
 import CoreData
 
-class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var speciesPicker: UIPickerView!
+    @IBOutlet weak var speciesLabel: UILabel!
     @IBOutlet weak var countTextBox: UITextField!
     @IBOutlet weak var healthTextBox: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     
-    var speciesData:[String] = [String]()
-    var selectedSpecies:String = ""
+    var selectedSpecies: String?
     var observer_name: String?
     var site_location: String?
     var report_date: String?
@@ -29,14 +28,11 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        speciesPicker.dataSource = self
-        speciesPicker.delegate = self
-        
-        self.speciesPicker.reloadAllComponents()
-        
-        if self.selectedSpecies != "" {
-            self.speciesPicker.selectRow(self.speciesData.indexOf(self.selectedSpecies)!, inComponent: 0, animated: true)
-        }
+        self.countTextBox.delegate = self
+        self.countTextBox.keyboardType = .NumberPad
+
+        print("****** " + selectedSpecies!)
+        self.speciesLabel.text = self.selectedSpecies!
     }
     
     func showAlert(title:String, message:String) {
@@ -93,6 +89,7 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
                 newReportXSpecies.setValue(healthTextBox.text!, forKey: "health")
                 newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
                 newReportXSpecies.setValue(selectedSpecies, forKey: "species")
+                print("****** " + selectedSpecies!)
                 do {
                     try context.save()
                 }
@@ -116,22 +113,18 @@ class AddCreatureViewController: UIViewController, UIPickerViewDataSource, UIPic
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return speciesData.count
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return speciesData[row]
-    }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedSpecies = speciesData[row]
-    }
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField.tag == 1 {
+            let invalidCharacters = NSCharacterSet(charactersInString: "0123456789").invertedSet
+            if let _ = string.rangeOfCharacterFromSet(invalidCharacters, options: [], range:Range<String.Index>(start: string.startIndex, end: string.endIndex)) {
+                return false
+            }
 
+            return true
+        }
+
+        return false
+    }
     /*
     // MARK: - Navigation
 

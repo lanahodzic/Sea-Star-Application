@@ -47,8 +47,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addCreature")
-
         self.pilingTextBox.delegate = self
         self.rotationTextBox.delegate = self
         self.depthTextBox.delegate = self
@@ -307,15 +305,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func addCreature() -> Void {
-        if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
-            showAlert("Missing Information", message: "Please make sure to enter a piling number, a rotation angle, and depth before proceeding.")
-        }
-        else {
-            performSegueWithIdentifier("addCreatureSegue1", sender: self.navigationItem.rightBarButtonItem)
-        }
-    }
-    
     func showAlert(title:String, message:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
@@ -350,9 +339,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
 
     // MARK: - Navigation
-    
+
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if identifier != "reportSegue" {
+        if identifier != "viewReportsSegue" {
             if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
                 showAlert("Missing Information", message: "Please make sure to enter a piling number, a rotation angle, and depth before proceeding.")
                 
@@ -374,6 +363,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "reportSegue" {
             let reportVC = segue.destinationViewController as! ReportViewController
             reportVC.report = reports[tableView.indexPathForSelectedRow!.row]
+        }
+        else if segue.identifier == "viewReportsSegue" {
+
         }
         else {
             let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
@@ -420,7 +412,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             addCreatureVC.observer_name = observer_name
             addCreatureVC.report_date = report_date
             addCreatureVC.site_location = site_location
-            addCreatureVC.speciesData = allSpecies
         }
     }
 
