@@ -1,0 +1,6 @@
+framework module Pods_Sea_Stars {
+  umbrella header "Pods-Sea Stars-umbrella.h"
+
+  export *
+  module * { export * }
+}

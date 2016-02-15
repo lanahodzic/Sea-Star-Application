@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3ABE1D3EB05505E86DB597DB /* Pods_Sea_Stars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44DEA8DF28DD8F71F52DB453 /* Pods_Sea_Stars.framework */; };
 		3F846AA31BF41F9F00F9AD37 /* InitialScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */; };
 		3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9911BE87260008BDBE6 /* MainViewController.swift */; };
 		3FA2E9941BE87277008BDBE6 /* StartTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */; };
@@ -45,6 +46,7 @@
 		3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialScreenViewController.swift; sourceTree = "<group>"; };
 		3FA2E9911BE87260008BDBE6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartTrackingViewController.swift; sourceTree = "<group>"; };
+		44DEA8DF28DD8F71F52DB453 /* Pods_Sea_Stars.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sea_Stars.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		833F83D21C6C00C200A86DF8 /* KSToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSToken.swift; sourceTree = "<group>"; };
 		833F83D31C6C00C200A86DF8 /* KSTokenField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSTokenField.swift; sourceTree = "<group>"; };
 		833F83D41C6C00C200A86DF8 /* KSTokenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSTokenView.swift; sourceTree = "<group>"; };
@@ -76,6 +78,8 @@
 		A5BE1D211C12352300CB9349 /* Sea_Stars.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sea_Stars.xcdatamodel; sourceTree = "<group>"; };
 		A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverReportTableViewCell.swift; sourceTree = "<group>"; };
+		B54E8F7BB6CAB0852D8C5650 /* Pods-Sea Stars.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sea Stars.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sea Stars/Pods-Sea Stars.release.xcconfig"; sourceTree = "<group>"; };
+		D1AFDE9A7B244508BC8574F0 /* Pods-Sea Stars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sea Stars.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sea Stars/Pods-Sea Stars.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,18 +100,29 @@
 				A5B4F0E91BF1845D00E5C2D6 /* CoreGraphics.framework in Frameworks */,
 				A5B4F0E71BF1845200E5C2D6 /* CFNetwork.framework in Frameworks */,
 				A5B4F0E51BF1844800E5C2D6 /* AudioToolbox.framework in Frameworks */,
+				3ABE1D3EB05505E86DB597DB /* Pods_Sea_Stars.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		847C19FF08E080A49CDBD9E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D1AFDE9A7B244508BC8574F0 /* Pods-Sea Stars.debug.xcconfig */,
+				B54E8F7BB6CAB0852D8C5650 /* Pods-Sea Stars.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A57919051BE8345E00ECC184 = {
 			isa = PBXGroup;
 			children = (
 				A57919101BE8345E00ECC184 /* Sea Stars */,
 				A579190F1BE8345E00ECC184 /* Products */,
 				A5B4F0F81BF184F100E5C2D6 /* Frameworks */,
+				847C19FF08E080A49CDBD9E9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,20 +142,13 @@
 				833F83D41C6C00C200A86DF8 /* KSTokenView.swift */,
 				833F83D51C6C00C200A86DF8 /* KSUtils.swift */,
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
-				A57919131BE8345E00ECC184 /* ViewController.swift */,
-				3FA2E9911BE87260008BDBE6 /* MainViewController.swift */,
-				3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */,
+				A5C48B231C72965A00C86494 /* Controllers */,
 				A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */,
-				3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */,
-				A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */,
-				A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */,
 				A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */,
-				A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */,
 				A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */,
 				A57919181BE8345E00ECC184 /* Assets.xcassets */,
 				A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */,
 				A579191D1BE8345E00ECC184 /* Info.plist */,
-				835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */,
 				83A53C7A1C717FD5006AFF08 /* UIButtonScrollView.swift */,
 			);
 			path = "Sea Stars";
@@ -162,8 +170,24 @@
 				A5B4F0E81BF1845D00E5C2D6 /* CoreGraphics.framework */,
 				A5B4F0E61BF1845200E5C2D6 /* CFNetwork.framework */,
 				A5B4F0E41BF1844800E5C2D6 /* AudioToolbox.framework */,
+				44DEA8DF28DD8F71F52DB453 /* Pods_Sea_Stars.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A5C48B231C72965A00C86494 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A57919131BE8345E00ECC184 /* ViewController.swift */,
+				3FA2E9911BE87260008BDBE6 /* MainViewController.swift */,
+				3FA2E9931BE87277008BDBE6 /* StartTrackingViewController.swift */,
+				3F846AA21BF41F9F00F9AD37 /* InitialScreenViewController.swift */,
+				A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */,
+				A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */,
+				A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */,
+				835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,9 +197,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A57919201BE8345E00ECC184 /* Build configuration list for PBXNativeTarget "Sea Stars" */;
 			buildPhases = (
+				3668ACBA1C23530F6C4D03BA /* Check Pods Manifest.lock */,
 				A579190A1BE8345E00ECC184 /* Sources */,
 				A579190B1BE8345E00ECC184 /* Frameworks */,
 				A579190C1BE8345E00ECC184 /* Resources */,
+				7C5D7447A952894B837900E9 /* Embed Pods Frameworks */,
+				CCB9B8ACD43E96100418180B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,6 +259,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3668ACBA1C23530F6C4D03BA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7C5D7447A952894B837900E9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sea Stars/Pods-Sea Stars-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCB9B8ACD43E96100418180B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sea Stars/Pods-Sea Stars-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A579190A1BE8345E00ECC184 /* Sources */ = {
@@ -356,6 +431,7 @@
 		};
 		A57919211BE8345E00ECC184 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1AFDE9A7B244508BC8574F0 /* Pods-Sea Stars.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -373,6 +449,7 @@
 		};
 		A57919221BE8345E00ECC184 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B54E8F7BB6CAB0852D8C5650 /* Pods-Sea Stars.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
