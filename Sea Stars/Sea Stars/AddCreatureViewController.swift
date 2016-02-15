@@ -17,7 +17,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var healthTextBox: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     
-    var selectedSpecies: String?
+    var selectedSpecies: String = ""
     var observer_name: String?
     var site_location: String?
     var report_date: String?
@@ -31,7 +31,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         self.countTextBox.delegate = self
         self.countTextBox.keyboardType = .NumberPad
 
-        print("****** " + selectedSpecies!)
+        self.speciesLabel.text = self.selectedSpecies
     }
     
     func showAlert(title:String, message:String) {

@@ -14,9 +14,7 @@ import CoreData
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var cellTitleLabel: UILabel!
-    @IBOutlet weak var cellSubtitleLabel: UILabel!
-    
+
     @IBOutlet weak var pilingTextBox: UITextField!
     @IBOutlet weak var rotationTextBox: UITextField!
     @IBOutlet weak var depthTextBox: UITextField!
@@ -33,10 +31,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var speciesLabel4: UILabel!
     @IBOutlet weak var speciesLabel5: UILabel!
     
-    var seaStarImages:[UIImage] = [UIImage]()
+    var seaStarImages:[UIImage?] = [UIImage?]()
     var allSpecies:[String] = [String]()
     var species:[String] = [String]()
-    var reports:[[String:AnyObject]] = [[String:AnyObject]]()
 
     var observer_name: String?
     var site_location: String?
@@ -54,44 +51,17 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.pilingTextBox.keyboardType = .NumberPad
         self.rotationTextBox.keyboardType = .NumberPad
         self.depthTextBox.keyboardType = .NumberPad
-        
-        let speciesQuery = PFQuery(className: "Species")
-        speciesQuery.limit = 5
-        speciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
-            if error == nil {
-                for object in objects! {
-                    self.convertFirstElementToImage(object)
-                    let speciesName:String = (object as PFObject)["name"] as! String
-                    self.species.append(speciesName)
-                    
-                    switch (self.imageButtonCounter++) {
-                        case 0:
-                            self.speciesLabel1.text = self.species[0]
-                        case 1:
-                            self.speciesLabel2.text = self.species[1]
-                        case 2:
-                            self.speciesLabel3.text = self.species[2]
-                        case 3:
-                            self.speciesLabel4.text = self.species[3]
-                        case 4:
-                            self.speciesLabel5.text = self.species[4]
-                        default:
-                            break
-                    }
-                }
-            }
-            else {
-                print("Error: \(error) \(error!.userInfo)")
-            }
-        }
-        
+
         let allSpeciesQuery = PFQuery(className: "Species")
         allSpeciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
             if error == nil {
                 for object in objects! {
+                    self.convertFirstElementToImage(object)
                     let speciesName:String = (object as PFObject)["name"] as! String
                     self.allSpecies.append(speciesName)
                 }
+
+                self.refreshTable()
             }
             else {
                 print("Error: \(error) \(error!.userInfo)")
@@ -108,71 +78,24 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func refreshTable() -> Void {
-        reports.removeAll()
-        
-        let reportQuery = PFQuery(className: "Reports")
-        reportQuery.whereKey("observer", equalTo: observer_name!)
-        reportQuery.orderByDescending("date")
-        reportQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-            if error == nil {
-                for object in objects! as [PFObject] {
-                    var dictionary = [String:AnyObject]()
-                    dictionary["observer"] = object["observer"] as? String
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "MM/dd/yyyy"
-                    dictionary["date"] = dateFormatter.stringFromDate((object["date"] as? NSDate)!)
-                    dictionary["site"] = object["site"] as? String
-                    
-                    let reportXSpeciesQuery = PFQuery(className: "ReportXSpecies")
-                    reportXSpeciesQuery.whereKey("reportID", equalTo: object.objectId!)
-                    reportXSpeciesQuery.orderByAscending("piling")
-                    reportXSpeciesQuery.addAscendingOrder("depth")
-                    reportXSpeciesQuery.addAscendingOrder("rotation")
-                    
-                    do {
-                        dictionary["reportItems"] = try reportXSpeciesQuery.findObjects()
-                        
-                    }
-                    catch {
-                        print("Error: \(error)")
-                    }
-                    
-                    self.reports.append(dictionary)
-                }
-                self.tableView.reloadData()
-            }
-            else {
-                print("Error: \(error) \(error!.userInfo)")
-            }
-        }
+        self.tableView.reloadData()
     }
     
     func convertFirstElementToImage(object:AnyObject) -> Void {
         let imagesArray:[PFFile] = (object as! PFObject)["images"] as! [PFFile]
-        let imageFile:PFFile = imagesArray[0]
-        
-        do {
-            let imageData = try imageFile.getData()
-            let seaStarImage:UIImage = UIImage(data: imageData)!
-            self.seaStarImages.append(seaStarImage)
-            
-            switch (self.imageButtonCounter) {
-                case 0:
-                    self.imageButton1.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
-                case 1:
-                    self.imageButton2.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
-                case 2:
-                    self.imageButton3.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
-                case 3:
-                    self.imageButton4.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
-                case 4:
-                    self.imageButton5.setBackgroundImage(self.seaStarImages[self.imageButtonCounter], forState: .Normal)
-                default:
-                    break
+        if self.seaStarImages.count < 7 && imagesArray.count > 0 {
+            let imageFile:PFFile = imagesArray[0]
+            do {
+                let imageData = try imageFile.getData()
+                let seaStarImage:UIImage = UIImage(data: imageData)!
+                self.seaStarImages.append(seaStarImage)
+            }
+            catch {
+                print(error)
             }
         }
-        catch {
-            print(error)
+        else {
+            self.seaStarImages.append(nil)
         }
     }
     
@@ -321,20 +244,25 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reports.count
+        return allSpecies.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reportCell", forIndexPath: indexPath) as! ObserverReportTableViewCell
     
-        cell.titleLabel.text = "\(reports[indexPath.row]["site"]!) \(reports[indexPath.row]["date"]!)"
-        cell.subtitleLabel.text = "\(reports[indexPath.row]["observer"]!)"
+        cell.titleLabel.text = allSpecies[indexPath.row]
+        if let img = seaStarImages[indexPath.row] {
+            cell.seaStarImage.image = img
+        }
+        else {
+            cell.seaStarImage.image = nil
+        }
 
         return cell
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "\(observer_name!)'s Reports"
+        return "Species"
     }
     
 
@@ -360,36 +288,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        if segue.identifier == "reportSegue" {
-            let reportVC = segue.destinationViewController as! ReportViewController
-            reportVC.report = reports[tableView.indexPathForSelectedRow!.row]
-        }
-        else if segue.identifier == "viewReportsSegue" {
-
-        }
-        else {
+        if segue.identifier != "viewReportsSegue" {
             let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
             
-            if let _ = sender as? UIBarButtonItem? {
-                addCreatureVC.selectedSpecies = ""
-            }
-            else {
-                switch (NSArray(array:seaStarImages).indexOfObject(((sender as? UIButton)?.backgroundImageForState(.Normal))!)) {
-                case 0:
-                    addCreatureVC.selectedSpecies = species[0]
-                case 1:
-                    addCreatureVC.selectedSpecies = species[1]
-                case 2:
-                    addCreatureVC.selectedSpecies = species[2]
-                case 3:
-                    addCreatureVC.selectedSpecies = species[3]
-                case 4:
-                    addCreatureVC.selectedSpecies = species[4]
-                default:
-                    break
-                }
-            }
-            
+            addCreatureVC.selectedSpecies = self.allSpecies[self.tableView.indexPathForSelectedRow!.row]
+
             if let p = Int(pilingTextBox.text!) {
                 if let r = Int(rotationTextBox.text!) {
                     if let d = Int(depthTextBox.text!) {

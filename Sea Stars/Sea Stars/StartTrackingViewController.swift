@@ -28,14 +28,16 @@ class StartTrackingViewController: UIViewController {
         super.viewDidLoad()
 
         self.site.delegate = self
-        self.site.promptText = "Site: "
+        self.site.promptText = ""
+        self.site.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
         self.site.maxTokenLimit = 1
         self.site.style = .Squared
         self.site.searchResultSize = CGSize(width: self.site.frame.width, height: 120)
         self.site.font = UIFont.systemFontOfSize(17)
 
         self.observer_name.delegate = self
-        self.observer_name.promptText = "Name: "
+        self.observer_name.promptText = ""
+        self.observer_name.backgroundColor = self.site.backgroundColor
         self.observer_name.maxTokenLimit = 1
         self.observer_name.style = .Squared
         self.observer_name.searchResultSize = CGSize(width: self.site.frame.width, height: 120)
