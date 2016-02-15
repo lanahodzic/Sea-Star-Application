@@ -18,19 +18,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var pilingTextBox: UITextField!
     @IBOutlet weak var rotationTextBox: UITextField!
     @IBOutlet weak var depthTextBox: UITextField!
-    
-    @IBOutlet weak var imageButton1: UIButton!
-    @IBOutlet weak var imageButton2: UIButton!
-    @IBOutlet weak var imageButton3: UIButton!
-    @IBOutlet weak var imageButton4: UIButton!
-    @IBOutlet weak var imageButton5: UIButton!
-    
-    @IBOutlet weak var speciesLabel1: UILabel!
-    @IBOutlet weak var speciesLabel2: UILabel!
-    @IBOutlet weak var speciesLabel3: UILabel!
-    @IBOutlet weak var speciesLabel4: UILabel!
-    @IBOutlet weak var speciesLabel5: UILabel!
-    
+
+    @IBOutlet weak var speciesScrollView: UIScrollView!
+
     var seaStarImages:[UIImage?] = [UIImage?]()
     var allSpecies:[String] = [String]()
     var species:[String] = [String]()
@@ -39,7 +29,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     var site_location: String?
     var report_date: String?
     
-    var imageButtonCounter = 0
+    var sessile: Bool = false
+    var selectedSpeciesType: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,16 +58,27 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("Error: \(error) \(error!.userInfo)")
             }
         }
+
+        let scrollView = colorButtonsView(CGSizeMake(100.0,50.0), buttonCount: 10)
+        speciesScrollView.addSubview(scrollView)
+        speciesScrollView.showsHorizontalScrollIndicator = true
+        speciesScrollView.indicatorStyle = .Default
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         pilingTextBox.text = ""
         rotationTextBox.text = ""
         depthTextBox.text = ""
         
         refreshTable()
     }
-    
+
+    override func viewDidLayoutSubviews() {
+        self.speciesScrollView.contentSize = self.speciesScrollView.subviews[0].frame.size
+    }
+
     func refreshTable() -> Void {
         self.tableView.reloadData()
     }
@@ -251,7 +253,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("reportCell", forIndexPath: indexPath) as! ObserverReportTableViewCell
     
         cell.titleLabel.text = allSpecies[indexPath.row]
-        if let img = seaStarImages[indexPath.row] {
+        if self.sessile {
+            cell.seaStarImage.image = nil
+        }
+        else if let img = seaStarImages[indexPath.row] {
             cell.seaStarImage.image = img
         }
         else {
@@ -264,7 +269,72 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Species"
     }
-    
+
+    @IBAction func speciesSwitch(switchState: UISwitch) {
+        self.speciesScrollView.subviews.forEach({ $0.removeFromSuperview() })
+        self.sessile = switchState.on
+
+        let scrollView = colorButtonsView(CGSizeMake(100.0,50.0), buttonCount: 10)
+        self.speciesScrollView.addSubview(scrollView)
+
+        self.refreshTable()
+    }
+
+
+    func colorButtonsView(buttonSize:CGSize, buttonCount:Int) -> UIView {
+        let buttonView = UIView()
+        buttonView.backgroundColor = UIColor.blackColor()
+        buttonView.frame.origin = CGPointMake(0,0)
+
+        let padding = CGSizeMake(10, 10)
+        buttonView.frame.size.width = (buttonSize.width + padding.width) * CGFloat(buttonCount)
+        buttonView.frame.size.height = (buttonSize.height +  2.0 * padding.height)
+
+        var selectedButton: String? = nil
+
+        var buttonPosition = CGPointMake(padding.width * 0.5, padding.height)
+        let buttonIncrement = buttonSize.width + padding.width
+        let hueIncrement = 1.0 / CGFloat(buttonCount)
+        var newHue = hueIncrement
+        for i in 0...(buttonCount - 1)  {
+            let button = UIButton(type: .Custom)
+            button.frame.size = buttonSize
+            button.frame.origin = buttonPosition
+            buttonPosition.x = buttonPosition.x + buttonIncrement
+            button.backgroundColor = UIColor(hue: newHue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            button.setTitle((self.sessile ? "Sessile " : "Mobile ") + String(i), forState: .Normal)
+            newHue = newHue + hueIncrement
+            button.addTarget(self, action: "colorButtonPressed:", forControlEvents: .TouchUpInside)
+            buttonView.addSubview(button)
+
+            if selectedButton == nil {
+                selectedButton = button.titleLabel?.text
+            }
+        }
+
+        let selectedButtonView = UILabel()
+        selectedButtonView.tag = 1
+        selectedButtonView.text = selectedButton
+        selectedButtonView.frame.size.width = self.speciesScrollView.frame.size.width
+        selectedButtonView.frame.size.height = 22
+        selectedButtonView.frame.origin = CGPointMake(0, self.speciesScrollView.frame.height * 0.65)
+        selectedButtonView.textAlignment = .Center
+        buttonView.addSubview(selectedButtonView)
+
+        return buttonView
+    }
+
+    func colorButtonPressed(sender: UIButton){
+        self.speciesScrollView.backgroundColor = sender.backgroundColor
+        self.speciesScrollView.subviews[0].subviews.forEach({
+            if $0.tag == 1 {
+                let view = $0 as! UILabel
+                view.text = sender.titleLabel?.text
+                self.selectedSpeciesType = view.text!
+            }
+        })
+        self.refreshTable()
+    }
 
     // MARK: - Navigation
 
@@ -326,6 +396,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
         return true
     }
+
 }
 
 public class Reachability {
