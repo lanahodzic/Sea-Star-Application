@@ -70,6 +70,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         refreshTable()
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.view.endEditing(true)
+    }
 
     override func viewDidLayoutSubviews() {
         self.speciesScrollView.contentSize = self.speciesScrollView.subviews[0].frame.size
@@ -179,7 +185,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             
             refreshTable()
             
-            showAlert("Success", message: "The report has been saved to the database!")
+            showSaveFinalReportAlert("Success", message: "The report has been saved to the database!")
         }
         else {
             showAlert("Internet Connection", message: "You must be connected to a wifi network or have a cellular data connection to save a final report.")
@@ -199,10 +205,26 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    func showSaveFinalReportAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
+            let storyboard = UIStoryboard(name: "SeaStar", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("beginNav")
+            self.presentViewController(vc, animated: true, completion: nil)
+        })
+        alert.addAction(okayAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

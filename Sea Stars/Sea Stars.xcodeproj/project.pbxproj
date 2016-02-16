@@ -23,7 +23,7 @@
 		A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */; };
 		A5B4F0DB1BEFD85500E5C2D6 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */; };
 		A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */; };
-		A5B4F0DF1BEFDAA000E5C2D6 /* Lana.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */; };
+		A5B4F0DF1BEFDAA000E5C2D6 /* SeaStar.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B4F0DE1BEFDAA000E5C2D6 /* SeaStar.Storyboard */; };
 		A5BE1D221C12352300CB9349 /* Sea_Stars.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */; };
 		A5F79E3F1BFC0D8C00680B9A /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */; };
 		A5F79E411BFC14BC00680B9A /* ObserverReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */; };
@@ -48,7 +48,7 @@
 		A579191D1BE8345E00ECC184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCreatureViewController.swift; sourceTree = "<group>"; };
-		A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lana.Storyboard; sourceTree = "<group>"; };
+		A5B4F0DE1BEFDAA000E5C2D6 /* SeaStar.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SeaStar.Storyboard; sourceTree = "<group>"; };
 		A5BE1D211C12352300CB9349 /* Sea_Stars.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sea_Stars.xcdatamodel; sourceTree = "<group>"; };
 		A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserverReportTableViewCell.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 				833F83D51C6C00C200A86DF8 /* KSUtils.swift */,
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
 				A5C48B231C72965A00C86494 /* Controllers */,
-				A5B4F0DE1BEFDAA000E5C2D6 /* Lana.Storyboard */,
+				A5B4F0DE1BEFDAA000E5C2D6 /* SeaStar.Storyboard */,
 				A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */,
 				A5F79E401BFC14BC00680B9A /* ObserverReportTableViewCell.swift */,
 				A57919181BE8345E00ECC184 /* Assets.xcassets */,
@@ -202,7 +202,7 @@
 			files = (
 				A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */,
 				A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */,
-				A5B4F0DF1BEFDAA000E5C2D6 /* Lana.Storyboard in Resources */,
+				A5B4F0DF1BEFDAA000E5C2D6 /* SeaStar.Storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
