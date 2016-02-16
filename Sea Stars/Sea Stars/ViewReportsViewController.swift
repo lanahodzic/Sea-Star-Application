@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Parse
+import Firebase
 
 class ReportTableViewCell: UITableViewCell {
     @IBOutlet weak var reportDate: UILabel!
@@ -16,6 +16,8 @@ class ReportTableViewCell: UITableViewCell {
 }
 
 class ViewReportsViewController: UITableViewController {
+    
+    let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
     @IBOutlet weak var latestReports: UITableView!
     var reportDictionary:[[String:AnyObject]] = [[String:AnyObject]]()
@@ -35,41 +37,35 @@ class ViewReportsViewController: UITableViewController {
         
         reportDictionary.removeAll()
         
-        let reportQuery = PFQuery(className: "Reports")
-        reportQuery.orderByDescending("date")
-        reportQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-            if error == nil {
-                for object in objects! as [PFObject] {
+        let reportsRef = ref.childByAppendingPath("reports")
+        reportsRef.queryOrderedByChild("date").observeSingleEventOfType(.Value, withBlock: {(reportSnapshot) in
+            for child in reportSnapshot.children.allObjects as! [FDataSnapshot] {
+                let reportXSpeciesRef = self.ref.childByAppendingPath("reportXSpecies")
+                reportXSpeciesRef.queryOrderedByChild("reportID").queryEqualToValue(child.key/*, childKey: "reportID"*/).observeSingleEventOfType(.Value, withBlock: {(reportXSpeciesSnapshot) in
                     var dictionary = [String:AnyObject]()
-                    dictionary["observer"] = object["observer"] as? String
+                    dictionary["observer"] = child.value["observer"] as! String
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.dateFormat = "MM/dd/yyyy"
-                    dictionary["date"] = dateFormatter.stringFromDate((object["date"] as? NSDate)!)
-                    dictionary["site"] = object["site"] as? String
-                    
-                    let reportXSpeciesQuery = PFQuery(className: "ReportXSpecies")
-                    reportXSpeciesQuery.whereKey("reportID", equalTo: object.objectId!)
-                    reportXSpeciesQuery.orderByAscending("piling")
-                    reportXSpeciesQuery.addAscendingOrder("depth")
-                    reportXSpeciesQuery.addAscendingOrder("rotation")
-                    
-                    do {
-                        dictionary["reportItems"] = try reportXSpeciesQuery.findObjects()
-                        
+                    dictionary["date"] = dateFormatter.stringFromDate(NSDate(timeIntervalSince1970: child.value["date"] as! Double))
+                    dictionary["site"] = child.value["site"] as! String
+                    var reportItemsArray:[[String:AnyObject]] = []
+                    for children in reportXSpeciesSnapshot.children.allObjects as! [FDataSnapshot] {
+                        var reportItemsDictionary = [String:AnyObject]()
+                        reportItemsDictionary["piling"] = children.value["piling"] as! Int
+                        reportItemsDictionary["depth"] = children.value["depth"] as! Int
+                        reportItemsDictionary["rotation"] = children.value["rotation"] as! Int
+                        reportItemsDictionary["speciesID"] = children.value["speciesID"] as! String
+                        reportItemsDictionary["count"] = children.value["count"] as! Int
+                        reportItemsDictionary["health"] = children.value["health"] as! String
+                        reportItemsDictionary["notes"] = children.value["notes"] as! String
+                        reportItemsArray.append(reportItemsDictionary)
                     }
-                    catch {
-                        print("Error: \(error)")
-                    }
-                    
+                    dictionary["reportItems"] = reportItemsArray
                     self.reportDictionary.append(dictionary)
-                }
-                
-                self.latestReports.reloadData()
+                    self.latestReports.reloadData()
+                })
             }
-            else {
-                print("Error: \(error) \(error!.userInfo)")
-            }
-        }
+        })
     }
 
     override func didReceiveMemoryWarning() {

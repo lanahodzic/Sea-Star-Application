@@ -7,11 +7,13 @@
 //
 
 import UIKit
-import Parse
+import Firebase
 import SystemConfiguration
 import CoreData
 
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+    
+    let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -42,22 +44,16 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.pilingTextBox.keyboardType = .NumberPad
         self.rotationTextBox.keyboardType = .NumberPad
         self.depthTextBox.keyboardType = .NumberPad
-
-        let allSpeciesQuery = PFQuery(className: "Species")
-        allSpeciesQuery.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
-            if error == nil {
-                for object in objects! {
-                    self.convertFirstElementToImage(object)
-                    let speciesName:String = (object as PFObject)["name"] as! String
-                    self.allSpecies.append(speciesName)
-                }
-
-                self.refreshTable()
+        
+        let speciesRef = ref.childByAppendingPath("species")
+        speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+            for child in snapshot.children.allObjects as! [FDataSnapshot] {
+                self.convertFirstElementToImage(child)
+                let speciesName = child.value["name"] as! String
+                self.allSpecies.append(speciesName)
             }
-            else {
-                print("Error: \(error) \(error!.userInfo)")
-            }
-        }
+            self.refreshTable()
+        })
 
         let scrollView = colorButtonsView(CGSizeMake(100.0,50.0), buttonCount: 10)
         speciesScrollView.addSubview(scrollView)
@@ -83,17 +79,36 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.reloadData()
     }
     
-    func convertFirstElementToImage(object:AnyObject) -> Void {
-        let imagesArray:[PFFile] = (object as! PFObject)["images"] as! [PFFile]
+//    func convertFirstElementToImage(object:AnyObject) -> Void {
+//        let imagesArray:[PFFile] = (object as! PFObject)["images"] as! [PFFile]
+//        if self.seaStarImages.count < 7 && imagesArray.count > 0 {
+//            let imageFile:PFFile = imagesArray[0]
+//            do {
+//                let imageData = try imageFile.getData()
+//                let seaStarImage:UIImage = UIImage(data: imageData)!
+//                self.seaStarImages.append(seaStarImage)
+//            }
+//            catch {
+//                print(error)
+//            }
+//        }
+//        else {
+//            self.seaStarImages.append(nil)
+//        }
+//    }
+    
+    func convertFirstElementToImage(object:FDataSnapshot) -> Void {
+        let imagesArray = object.value["images"] as! [[String:String]]
         if self.seaStarImages.count < 7 && imagesArray.count > 0 {
-            let imageFile:PFFile = imagesArray[0]
+            let imageDictionary = imagesArray[0]
             do {
-                let imageData = try imageFile.getData()
-                let seaStarImage:UIImage = UIImage(data: imageData)!
-                self.seaStarImages.append(seaStarImage)
-            }
-            catch {
-                print(error)
+                let imageURLString = imageDictionary["url"]! as String
+                if let url = NSURL(string: imageURLString) {
+                    if let data = NSData(contentsOfURL: url) {
+                        let seaStarImage = UIImage(data: data)
+                        self.seaStarImages.append(seaStarImage)
+                    }
+                }
             }
         }
         else {
@@ -106,7 +121,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             var site:String?
             var observer:String?
             var reportID:String?
-            var speciesID:String?
             
             var reportDate:NSDate?
             let dateFormatter = NSDateFormatter()
@@ -124,29 +138,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                     site = reportResults[0].valueForKey("site") as? String
                     observer = reportResults[0].valueForKey("observer") as? String
                     
-                    let reportQuery = PFQuery(className: "Reports")
-                    reportQuery.whereKey("site", equalTo: site!)
-                    reportQuery.whereKey("date", equalTo: reportDate!)
-                    reportQuery.whereKey("observer", equalTo: observer!)
-                    
-                    do {
-                        let results = try reportQuery.findObjects()
-                        if results.count == 0 {
-                            let saveReport = PFObject(className: "Reports")
-                            saveReport["site"] = site!
-                            saveReport["date"] = reportDate!
-                            saveReport["observer"] = observer!
-                            do {
-                                try saveReport.save()
-                            }
-                            catch {
-                                print("Could not save report to Parse")
-                            }
-                        }
-                    }
-                    catch {
-                        
-                    }
+                    let reportsRef = ref.childByAppendingPath("reports")
+                    let newReportRef = reportsRef.childByAutoId()
+                    reportID = newReportRef.key
+                    newReportRef.setValue(["site":site!, "date":reportDate!.timeIntervalSince1970, "observer":observer!])
                 }
                 else {
                     print("Too many reports. There should only be one!")
@@ -162,49 +157,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 let reportXSpeciesResults = try context.executeFetchRequest(reportXSpeciesRequest)
                 
                 for result in reportXSpeciesResults as! [NSManagedObject] {
-                    let saveReportXSpecies = PFObject(className: "ReportXSpecies")
-                    saveReportXSpecies["piling"] = result.valueForKey("piling") as! Int
-                    saveReportXSpecies["rotation"] = result.valueForKey("rotation") as! Int
-                    saveReportXSpecies["depth"] = result.valueForKey("depth") as! Int
-                    saveReportXSpecies["count"] = result.valueForKey("count") as! Int
-                    saveReportXSpecies["health"] = result.valueForKey("health") as! String
-                    saveReportXSpecies["notes"] = result.valueForKey("notes") as! String
-                    
-                    let getReportIDQuery = PFQuery(className: "Reports")
-                    getReportIDQuery.whereKey("site", equalTo: site!)
-                    getReportIDQuery.whereKey("date", equalTo: reportDate!)
-                    getReportIDQuery.whereKey("observer", equalTo: observer!)
-                    
-                    do {
-                        var objects = try getReportIDQuery.findObjects()
-    
-                        if objects.count > 0 {
-                            reportID = objects[0].objectId!
-                        }
-                    }
-                    catch {
-                        print("Error: \(error)")
-                    }
-                    
-                    saveReportXSpecies["reportID"] = reportID
-                    
-                    let getSpeciesIDQuery = PFQuery(className: "Species")
-                    getSpeciesIDQuery.whereKey("name", equalTo: result.valueForKey("species") as! String)
-    
-                    do {
-                        var objects = try getSpeciesIDQuery.findObjects()
-    
-                        if objects.count > 0 {
-                            speciesID = objects[0].objectId!
-                        }
-                    }
-                    catch {
-                        print("Error: \(error)")
-                    }
-                    
-                    saveReportXSpecies["speciesID"] = speciesID
-                    
-                    saveReportXSpecies.saveInBackground()
+                    let saveReportXSpecies = createReportXSpeciesJSON(result, reportID: reportID!)
+                    let reportXSpeciesRef = ref.childByAppendingPath("reportXSpecies")
+                    let newReportXSpeciesRef = reportXSpeciesRef.childByAutoId()
+                    newReportXSpeciesRef.setValue(saveReportXSpecies)
                 }
             }
             catch {
@@ -228,6 +184,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         else {
             showAlert("Internet Connection", message: "You must be connected to a wifi network or have a cellular data connection to save a final report.")
         }
+    }
+    
+    func createReportXSpeciesJSON(object:NSManagedObject, reportID:String) -> [String:AnyObject] {
+        return ["piling":object.valueForKey("piling") as! Int, "rotation":object.valueForKey("rotation") as! Int, "depth":object.valueForKey("depth") as! Int, "count":object.valueForKey("count") as! Int, "health":object.valueForKey("health") as! String, "notes":object.valueForKey("notes") as! String, "reportID":reportID, "speciesID":object.valueForKey("species") as! String]
     }
     
     func showAlert(title:String, message:String) {

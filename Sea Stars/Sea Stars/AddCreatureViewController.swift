@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 import CoreData
 
 class AddCreatureViewController: UIViewController, UITextFieldDelegate {

@@ -7,9 +7,11 @@
 //
 
 import UIKit
-import Parse
+import Firebase
 
 class StartTrackingViewController: UIViewController {
+    
+    let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
     @IBOutlet weak var site: KSTokenView!
     @IBOutlet weak var observer_name: KSTokenView!
@@ -42,39 +44,30 @@ class StartTrackingViewController: UIViewController {
         self.observer_name.style = .Squared
         self.observer_name.searchResultSize = CGSize(width: self.site.frame.width, height: 120)
         self.observer_name.font = UIFont.systemFontOfSize(17)
-
-        let site_query = PFQuery(className: "Sites")
-        site_query.findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
-            if error == nil {
-                for object in objects! {
-                    let name:String? = (object as PFObject)["name"] as? String
-                    if name != nil {
-                        print("\(name!)")
-                        self.siteData.append(name!)
-                    }
+        
+        let siteRef = ref.childByAppendingPath("sites")
+        siteRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+            for child in snapshot.children.allObjects as! [FDataSnapshot] {
+                if let siteName = child.value["name"] as? String {
+                    self.siteData.append(siteName)
                 }
-                
-                print("Size of siteData: \(self.siteData.count)")
-                print("Successfully retrieved: \(objects)")
-            } else {
-                print("Error: \(error) \(error!.userInfo)")
             }
-        }
-
-        let name_query = PFQuery(className: "Observer")
-        name_query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-            if error == nil {
-                for object in objects! {
-                    let first_name:String? = (object as PFObject)["firstName"] as? String
-                    let last_name:String? = (object as PFObject)["lastName"] as? String
-                    let name = first_name! + " " + last_name!
-                    self.names.append(name)
+        })
+        
+        let observerRef = ref.childByAppendingPath("observers")
+        var firstName = ""
+        var lastName = ""
+        observerRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+            for child in snapshot.children.allObjects as! [FDataSnapshot] {
+                if let observerFirstName = child.value["firstName"] as? String {
+                    firstName = observerFirstName
                 }
-            } else {
-                print("Error: \(error) \(error!.userInfo)")
+                if let observerLastName = child.value["lastName"] as? String {
+                    lastName = observerLastName
+                }
+                self.names.append("\(firstName) \(lastName)")
             }
-
-        }
+        })
     }
 
     override func didReceiveMemoryWarning() {

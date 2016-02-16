@@ -7,14 +7,17 @@
 //
 
 import UIKit
-import Parse
+import Firebase
 
 class ReportViewController: UIViewController {
+    
+    let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
     @IBOutlet weak var reportTextView: UITextView!
     @IBOutlet weak var seaStarImage: UIImageView!
     
     var report:[String:AnyObject] = [String:AnyObject]()
+    var speciesInfo:[String:AnyObject] = [String:AnyObject]()
     var piling:Int?
     var rotation:Int?
     var depth:Int?
@@ -22,44 +25,41 @@ class ReportViewController: UIViewController {
     var phylum:String?
     var groupName:String?
     var isMobile:String?
-    var count:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        reportTextView.text = "Observer: \(report["observer"]!)\n"
-        reportTextView.text = reportTextView.text + "Site: \(report["site"]!)\n"
-        reportTextView.text = reportTextView.text + "Date: \(report["date"]!)\n\n\n\n"
+        reportTextView.text = "Observer: \(report["observer"] as! String)\n"
+        reportTextView.text = reportTextView.text + "Site: \(report["site"] as! String)\n"
+        reportTextView.text = reportTextView.text + "Date: \(report["date"] as! String)\n\n\n\n"
         
-        for reportItem in report["reportItems"] as! [PFObject] {
-            reportTextView.text = reportTextView.text + "Piling: \(reportItem["piling"]!)   Depth: \(reportItem["depth"]!)   Rotation: \(reportItem["rotation"]!)\n\n"
-            
-            let speciesQuery = PFQuery(className: "Species")
-            speciesQuery.whereKey("objectId", equalTo: reportItem["speciesID"])
-            do {
-                let objects = try speciesQuery.findObjects()
-                
-                species = objects[0]["name"] as? String
-                phylum = objects[0]["phylum"] as? String
-                groupName = objects[0]["groupName"] as? String
-                if objects[0]["isMobile"] as! Bool {
-                    isMobile = "Yes"
+        for reportItem in report["reportItems"] as! [[String:AnyObject]] {
+            let speciesRef = ref.childByAppendingPath("species")
+            speciesRef.queryOrderedByChild("name").queryEqualToValue("\(reportItem["speciesID"] as! String)").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                if snapshot.childrenCount == 1 {
+                    for child in snapshot.children.allObjects as! [FDataSnapshot] {
+                        self.reportTextView.text = self.reportTextView.text + "Piling: \(reportItem["piling"] as! Int)   Depth: \(reportItem["depth"] as! Int)   Rotation: \(reportItem["rotation"] as! Int)\n\n"
+                        
+                        self.species = child.value["name"] as? String
+                        self.phylum = child.value["phylum"] as? String
+                        self.groupName = child.value["groupName"] as? String
+                        if child.value["isMobile"] as! Bool {
+                            self.isMobile = "Yes"
+                        }
+                        else {
+                            self.isMobile = "No"
+                        }
+                        self.reportTextView.text = self.reportTextView.text + "Group Name: \(self.groupName!)\nSpecies: \(self.species!)\nPhylum: \(self.phylum!)\nisMobile: \(self.isMobile!)\n"
+                        self.reportTextView.text = self.reportTextView.text + "Count: \(reportItem["count"] as! Int)\n"
+                        self.reportTextView.text = self.reportTextView.text + "Health: \(reportItem["health"] as! String)\n"
+                        self.reportTextView.text = self.reportTextView.text + "Notes: \(reportItem["notes"] as! String)\n\n"
+                        self.reportTextView.text = self.reportTextView.text + "---------------------------------------\n\n"
+                    }
                 }
                 else {
-                    isMobile = "No"
+                    print("Query returned too many objects.")
                 }
-                phylum = objects[0]["phylum"] as? String
-                
-                reportTextView.text = reportTextView.text + "Group Name: \(groupName!)\nSpecies: \(species!)\nPhylum: \(phylum!)\nisMobile: \(isMobile!)\n"
-            }
-            catch {
-                print("Error: \(error)")
-            }
-            
-            reportTextView.text = reportTextView.text + "Count: \(reportItem["count"]!)\n"
-            reportTextView.text = reportTextView.text + "Health: \(reportItem["health"]!)\n"
-            reportTextView.text = reportTextView.text + "Notes: \(reportItem["notes"]!)\n\n"
-            reportTextView.text = reportTextView.text + "---------------------------------------\n\n"
+            })
         }
     }
 
