@@ -63,18 +63,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        pilingTextBox.text = ""
-        rotationTextBox.text = ""
-        depthTextBox.text = ""
-        
-        refreshTable()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
         
         self.view.endEditing(true)
+        
+        refreshTable()
     }
 
     override func viewDidLayoutSubviews() {
@@ -377,6 +369,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         return true
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        textField.text = ""
     }
 
 }

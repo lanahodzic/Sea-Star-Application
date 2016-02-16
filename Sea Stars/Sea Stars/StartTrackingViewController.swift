@@ -133,5 +133,9 @@ extension StartTrackingViewController: KSTokenViewDelegate {
     func tokenView(token: KSTokenView, displayTitleForObject object: AnyObject) -> String {
         return object as! String
     }
+    
+    func tokenView(token: KSTokenView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.view.endEditing(true)
+    }
 }
 
