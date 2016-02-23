@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import MessageUI
 
 class ReportTableViewCell: UITableViewCell {
     @IBOutlet weak var reportDate: UILabel!
@@ -15,17 +16,19 @@ class ReportTableViewCell: UITableViewCell {
     @IBOutlet weak var reportObserver: UILabel!
 }
 
-class ViewReportsViewController: UITableViewController {
+class ViewReportsViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
     let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
+    @IBOutlet weak var exportToCSVButton: UIBarButtonItem!
     @IBOutlet weak var latestReports: UITableView!
     var reportDictionary:[[String:AnyObject]] = [[String:AnyObject]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        let exportToCSVButton = UIBarButtonItem(title: "Export", style: .Plain, target: self, action: "exportTest")
+        navigationItem.rightBarButtonItem = exportToCSVButton
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -111,6 +114,96 @@ class ViewReportsViewController: UITableViewController {
         }*/
         
         return cell
+    }
+
+    // MARK: Exporting
+    
+    func exportTest() {
+        print("user requested .csv export")
+        
+        var dataString = NSMutableString()
+        var dataArr = NSMutableArray()
+        
+        // get keys
+        for value in reportDictionary[0] {
+            print(value)
+            if value.0 == "reportItems" {
+                continue
+            }
+            dataArr.addObject(value.0)
+        }
+        
+        // get array keys
+        for reportItem in reportDictionary[0]["reportItems"] as! [[String : AnyObject]] {
+            for (key, _) in reportItem { // god fucking damnit, get the keys
+                if dataArr.containsObject(key) {
+                    continue
+                }
+                dataArr.addObject(key)
+            }
+        }
+        
+        for val in dataArr {
+            var value: String = String(val)
+            
+            value.replaceRange(value.startIndex...value.startIndex, with: String(value[value.startIndex]).capitalizedString)
+            dataString.appendString(value + ",")
+        }
+        
+        dataString.appendString("\n")
+        
+  //      let reportDictionaryKeys = Array(reportDictionary.keys) // try to get the keys add them, for each tho
+        
+        for i in 0..<reportDictionary.count {
+            for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
+                for (_, val) in reportItem { // god fucking damnit, get the keys
+                    dataString.appendString(String(val) + ",")
+                }
+                dataString.appendString("\n")
+            }
+        }
+        
+        
+        let data = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        
+        let emailViewController = configuredMailComposeViewController(data!)
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(emailViewController, animated: true, completion: nil)
+        }
+        
+
+    }
+    
+    // MARK: Mail
+    
+    func configuredMailComposeViewController(data: NSData) -> MFMailComposeViewController {
+        let emailController = MFMailComposeViewController()
+        emailController.mailComposeDelegate = self
+        emailController.setSubject("CSV File of Report")
+        emailController.setMessageBody("Here are the reports, they should be attached!", isHTML: false)
+        
+        // Attaching the .CSV file to the email.
+        emailController.addAttachmentData(data, mimeType: "text/csv", fileName: "Sample.csv")
+
+        return emailController
+    }
+    
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        switch result.rawValue {
+        case MFMailComposeResultCancelled.rawValue:
+            print("Mail cancelled")
+        case MFMailComposeResultSaved.rawValue:
+            print("Mail saved")
+        case MFMailComposeResultSent.rawValue:
+            print("Mail sent")
+        case MFMailComposeResultFailed.rawValue:
+            print("Mail sent failure: \(error!.localizedDescription)")
+        default:
+            break
+        }
+        
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 
     
