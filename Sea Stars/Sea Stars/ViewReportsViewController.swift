@@ -126,7 +126,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         var currentReporter: NSMutableArray = []
         var currentReportNumber = 0
         
-        // get keys
+        // Get initial keys, "observer,site,date"
         for value in reportDictionary[0] {
             print(value)
             if value.0 == "reportItems" {
@@ -135,7 +135,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
             dataArr.addObject(value.0)
         }
         
-        // get array keys
+        // get keys from reportitems, count,depth,...,speciesID
         for reportItem in reportDictionary[0]["reportItems"] as! [[String : AnyObject]] {
             for (key, _) in reportItem { // god fucking damnit, get the keys
                 if dataArr.containsObject(key) {
@@ -145,6 +145,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
             }
         }
         
+        // Make the first character of each string of header in the .csv to uppercase, prettier
         for val in dataArr {
             var value: String = String(val)
             
@@ -154,6 +155,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         
         dataString.appendString("\n")
         
+        // Start iterating through the reports and build the mutablestring, ie to be .csv
         for i in 0..<reportDictionary.count {
             for value in reportDictionary[i] {
                 if value.0 == "reportItems" {
@@ -163,12 +165,16 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                 currentReporter.addObject(value.1)
                 dataString.appendString(String(value.1) + ",")
             }
+            
+            // Grab data from the current report
             for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
                 ++currentReportNumber
-                for (_, val) in reportItem { // god fucking damnit, get the keys
+                for (_, val) in reportItem {
                     dataString.appendString(String(val) + ",")
                 }
                 dataString.appendString("\n")
+                
+                // Handle multiple reportitems logic
                 if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != (currentReportNumber - 1) {
                     for val in currentReporter {
                         dataString.appendString(String(val) + ",")
@@ -176,11 +182,12 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                     ++currentReportNumber
                 }
             }
+            // Get ready for the next report
             currentReporter.removeAllObjects()
             currentReportNumber = 0
         }
     
-        
+        // Setup data for mail attachment
         let data = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         
         let emailViewController = configuredMailComposeViewController(data!)
@@ -191,8 +198,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
 
     }
     
-    // MARK: Share
-    
+    // MARK: Share, TODO?
     @IBAction func shareDoc(sender: AnyObject) {
         print("test share file")
         
@@ -205,7 +211,6 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     }
     
     // MARK: Mail
-    
     func configuredMailComposeViewController(data: NSData) -> MFMailComposeViewController {
         let emailController = MFMailComposeViewController()
         emailController.mailComposeDelegate = self
@@ -218,7 +223,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         return emailController
     }
     
-    
+    // MARK: MFMailComposeViewControllerDelegate
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         switch result.rawValue {
         case MFMailComposeResultCancelled.rawValue:
