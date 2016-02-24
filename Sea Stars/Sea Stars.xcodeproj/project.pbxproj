@@ -173,7 +173,6 @@
 				TargetAttributes = {
 					A579190D1BE8345E00ECC184 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = U9VDVA67NW;
 					};
 				};
 			};
@@ -391,7 +390,7 @@
 				INFOPLIST_FILE = "Sea Stars/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = professoroak.SS;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.calpoly.Sea-Stars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -412,7 +411,7 @@
 				INFOPLIST_FILE = "Sea Stars/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = professoroak.SS;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.calpoly.Sea-Stars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
