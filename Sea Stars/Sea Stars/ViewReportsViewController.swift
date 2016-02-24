@@ -27,7 +27,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let exportToCSVButton = UIBarButtonItem(title: "Export", style: .Plain, target: self, action: "exportTest")
+        let exportToCSVButton = UIBarButtonItem(title: "Export", style: .Plain, target: self, action: "exportAllReports")
         navigationItem.rightBarButtonItem = exportToCSVButton
     }
     
@@ -118,11 +118,13 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
 
     // MARK: Exporting
     
-    func exportTest() {
+    func exportAllReports() {
         print("user requested .csv export")
         
-        var dataString = NSMutableString()
-        var dataArr = NSMutableArray()
+        var dataString: NSMutableString = ""
+        var dataArr: NSMutableArray = []
+        var currentReporter: NSMutableArray = []
+        var currentReportNumber = 0
         
         // get keys
         for value in reportDictionary[0] {
@@ -152,17 +154,32 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         
         dataString.appendString("\n")
         
-  //      let reportDictionaryKeys = Array(reportDictionary.keys) // try to get the keys add them, for each tho
-        
         for i in 0..<reportDictionary.count {
+            for value in reportDictionary[i] {
+                if value.0 == "reportItems" {
+                    continue
+                }
+                
+                currentReporter.addObject(value.1)
+                dataString.appendString(String(value.1) + ",")
+            }
             for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
+                ++currentReportNumber
                 for (_, val) in reportItem { // god fucking damnit, get the keys
                     dataString.appendString(String(val) + ",")
                 }
                 dataString.appendString("\n")
+                if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != (currentReportNumber - 1) {
+                    for val in currentReporter {
+                        dataString.appendString(String(val) + ",")
+                    }
+                    ++currentReportNumber
+                }
             }
+            currentReporter.removeAllObjects()
+            currentReportNumber = 0
         }
-        
+    
         
         let data = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         
@@ -172,6 +189,19 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         }
         
 
+    }
+    
+    // MARK: Share
+    
+    @IBAction func shareDoc(sender: AnyObject) {
+        print("test share file")
+        
+     //   docController.UTI = "public.comma-separated-values-text"
+       // docController.delegate = self//delegate
+      //  docController.name = "Export Data"
+      //  docController.presentOptionsMenuFromBarButtonItem(sender as! UIBarButtonItem, animated: true)
+        
+        //}
     }
     
     // MARK: Mail
