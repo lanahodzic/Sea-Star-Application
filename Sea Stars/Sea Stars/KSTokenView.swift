@@ -626,9 +626,9 @@ public class KSTokenView: UIView {
 
     func tokenFieldDidEndEditing(tokenField: KSTokenField) {
         delegate?.tokenViewDidEndEditing?(self)
-        if (!_addTokenFromUntokenizedText(tokenField)) {
-            tokenField.untokenize()
-        }
+//        if (!_addTokenFromUntokenizedText(tokenField)) {
+//            tokenField.untokenize()
+//        }
         _hideSearchResults()
     }
 
