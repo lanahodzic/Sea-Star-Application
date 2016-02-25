@@ -25,6 +25,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     var seaStarImages:[UIImage?] = [UIImage?]()
     var allSpecies:[String] = [String]()
+    @IBOutlet weak var saveButton: UIButton!
     var species:[String] = [String]()
 
     var observer_name: String?
@@ -61,6 +62,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         speciesScrollView.indicatorStyle = .Default
         
         decorateTextBoxes()
+        decorateSaveButton()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -383,6 +385,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         depthTextBox.layer.cornerRadius = 10
     }
 
+    func decorateSaveButton() {
+        let borderColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1).CGColor
+        saveButton.layer.borderWidth = 2
+        saveButton.layer.borderColor = borderColor
+        saveButton.layer.cornerRadius = 5
+    }
 }
 
 public class Reachability {
