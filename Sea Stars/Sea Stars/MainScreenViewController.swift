@@ -59,6 +59,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         speciesScrollView.addSubview(scrollView)
         speciesScrollView.showsHorizontalScrollIndicator = true
         speciesScrollView.indicatorStyle = .Default
+        
+        decorateTextBoxes()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -373,6 +375,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
+    }
+    
+    func decorateTextBoxes(){
+        pilingTextBox.layer.cornerRadius = 10
+        rotationTextBox.layer.cornerRadius = 10
+        depthTextBox.layer.cornerRadius = 10
     }
 
 }

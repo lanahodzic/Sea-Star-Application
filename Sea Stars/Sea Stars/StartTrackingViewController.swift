@@ -16,6 +16,7 @@ class StartTrackingViewController: UIViewController {
     @IBOutlet weak var site: KSTokenView!
     @IBOutlet weak var observer_name: KSTokenView!
     @IBOutlet weak var report_date: UIDatePicker!
+    @IBOutlet weak var startButton: UIButton!
 
 
     var siteData: [String] = [String]()
@@ -68,6 +69,8 @@ class StartTrackingViewController: UIViewController {
                 self.names.append("\(firstName) \(lastName)")
             }
         })
+        
+        decorateStartButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -136,6 +139,13 @@ extension StartTrackingViewController: KSTokenViewDelegate {
     
     func tokenView(token: KSTokenView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.view.endEditing(true)
+    }
+    
+    func decorateStartButton() {
+        let borderColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1).CGColor
+        startButton.layer.borderColor = borderColor
+        startButton.layer.borderWidth = 2
+        startButton.layer.cornerRadius = 15
     }
 }
 

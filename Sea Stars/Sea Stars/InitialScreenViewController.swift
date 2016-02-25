@@ -9,4 +9,24 @@
 import UIKit
 
 class InitialScreenViewController: UIViewController {
+    @IBOutlet weak var startReportButton: UIButton!
+    
+    @IBOutlet weak var viewReportsButton: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        decorateButtons()
+    }
+    
+    func decorateButtons(){
+        let borderColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1).CGColor
+        
+        startReportButton.layer.borderWidth = 2.0
+        startReportButton.layer.borderColor = borderColor
+        startReportButton.layer.cornerRadius = 15
+        viewReportsButton.layer.borderWidth = 2.0
+        viewReportsButton.layer.borderColor = borderColor
+        viewReportsButton.layer.cornerRadius = 15
+    }
 }
