@@ -61,7 +61,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         speciesScrollView.showsHorizontalScrollIndicator = true
         speciesScrollView.indicatorStyle = .Default
         
-        decorateTextBoxes()
         decorateSaveButton()
     }
 
@@ -116,6 +115,16 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         else {
             self.seaStarImages.append(nil)
         }
+    }
+    
+    func queryByGroupName(groupName: String) {
+        let speciesRef = ref.childByAppendingPath("species")
+        
+        speciesRef.queryOrderedByChild("groupName").queryEqualToValue(groupName).observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+            for child in snapshot.children.allObjects {
+                print(child)
+            }
+        })
     }
     
     @IBAction func saveFinalReport(sender: AnyObject) {
@@ -377,12 +386,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
-    }
-    
-    func decorateTextBoxes(){
-        pilingTextBox.layer.cornerRadius = 10
-        rotationTextBox.layer.cornerRadius = 10
-        depthTextBox.layer.cornerRadius = 10
     }
 
     func decorateSaveButton() {
