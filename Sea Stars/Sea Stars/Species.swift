@@ -17,6 +17,7 @@ class Species {
     var name:String = ""
     var phylum:String = ""
     var imageURL:String = ""
+    var imageView:UIImageView = UIImageView()
     
     init (fromSnapshot snapshot:FDataSnapshot) {
         let dictionary = snapshot.value as! [String:AnyObject]
@@ -39,6 +40,22 @@ class Species {
         if let imagesArray = dictionary["images"] as? [[String:String]] {
             if let imageURL = imagesArray[0]["url"] {
                 self.imageURL = imageURL
+            }
+        }
+        
+        if let url = NSURL(string: imageURL) {
+            if let placeholder = UIImage(named: "sea-star-black") {
+                let urlRequest = NSURLRequest(URL: url)
+                imageView.setImageWithURLRequest(urlRequest, placeholderImage: placeholder, success: {
+                    (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
+                    self.imageView.image = image
+                    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let navVC = appDel.window?.rootViewController as! UINavigationController
+                    let vc = navVC.topViewController as! MainScreenViewController
+                    vc.refreshTable()
+                    }, failure: {
+                        (request: NSURLRequest, response: NSHTTPURLResponse?, error: NSError) -> Void in
+                })
             }
         }
     }

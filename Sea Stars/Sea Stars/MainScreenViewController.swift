@@ -210,18 +210,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let species = speciesInTable[indexPath.row]
         cell.titleLabel.text = species.name
-        
-        if let url = NSURL(string: species.imageURL) {
-            if let placeholder = UIImage(named: "sea-star-black") {
-                let urlRequest = NSURLRequest(URL: url)
-                cell.seaStarImage.setImageWithURLRequest(urlRequest, placeholderImage: placeholder, success: {
-                    (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
-                    cell.seaStarImage.image = image
-                    }, failure: {
-                        (request: NSURLRequest, response: NSHTTPURLResponse?, error: NSError) -> Void in
-                })
-            }
-        }
+        cell.seaStarImage.image = species.imageView.image
 
         return cell
     }
