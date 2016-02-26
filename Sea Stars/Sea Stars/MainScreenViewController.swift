@@ -21,6 +21,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var pilingTextBox: UITextField!
     @IBOutlet weak var rotationTextBox: UITextField!
     @IBOutlet weak var depthTextBox: UITextField!
+    @IBOutlet weak var mobilitySegmentedControl: UISegmentedControl!
 
     @IBOutlet weak var speciesScrollView: UIScrollView!
 
@@ -263,17 +264,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Species"
     }
-
-    @IBAction func speciesSwitch(switchState: UISwitch) {
+    
+    @IBAction func speciesMobilityChanged(sender: AnyObject) {
+        if mobilitySegmentedControl.selectedSegmentIndex == 0 {
+            self.sessile = false
+        }
+        else {
+            self.sessile = true
+        }
+        
         self.speciesScrollView.subviews.forEach({ $0.removeFromSuperview() })
-        self.sessile = switchState.on
-
+        
         let scrollView = colorButtonsView(CGSizeMake(100.0,50.0), buttonCount: 10)
         self.speciesScrollView.addSubview(scrollView)
-
-        self.refreshTable()
     }
-
 
     func colorButtonsView(buttonSize:CGSize, buttonCount:Int) -> UIView {
         let buttonView = UIView()

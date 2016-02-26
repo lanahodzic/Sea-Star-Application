@@ -225,7 +225,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         emailController.setMessageBody("Here are the reports, they should be attached!", isHTML: false)
         
         // Attaching the .CSV file to the email.
-        emailController.addAttachmentData(data, mimeType: "text/csv", fileName: "Sample.csv")
+        emailController.addAttachmentData(data, mimeType: "text/csv", fileName: "Reports.csv")
 
         return emailController
     }

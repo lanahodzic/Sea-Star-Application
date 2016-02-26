@@ -276,24 +276,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Jwi-z5-I6Q">
-                                <rect key="frame" x="360" y="186" width="51" height="31"/>
-                                <connections>
-                                    <action selector="speciesSwitch:" destination="ice-62-bKu" eventType="valueChanged" id="UFa-cp-uGN"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mobile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBF-Iw-VU2">
-                                <rect key="frame" x="277" y="186" width="75" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sessile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F85-xy-0fq">
-                                <rect key="frame" x="417" y="188" width="87" height="26"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UI9-wu-rMi" customClass="UIButtonScrollView" customModule="Sea_Stars" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="235" width="768" height="128"/>
                             </scrollView>
@@ -319,6 +301,17 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QJH-Bv-6QC">
+                                <rect key="frame" x="268" y="186" width="232" height="29"/>
+                                <segments>
+                                    <segment title="Mobile"/>
+                                    <segment title="Sessile"/>
+                                </segments>
+                                <color key="tintColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="speciesMobilityChanged:" destination="ice-62-bKu" eventType="valueChanged" id="mqj-ql-kmW"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -333,6 +326,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="depthTextBox" destination="6kF-oo-r9M" id="x0o-C2-ogd"/>
+                        <outlet property="mobilitySegmentedControl" destination="QJH-Bv-6QC" id="tC9-Sh-dck"/>
                         <outlet property="pilingTextBox" destination="4KQ-7B-WFC" id="FBM-gf-DC7"/>
                         <outlet property="rotationTextBox" destination="ldb-1u-XbB" id="amT-vG-Wzh"/>
                         <outlet property="saveButton" destination="Ex0-qq-bq8" id="2HN-VD-feh"/>
