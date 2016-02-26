@@ -8,6 +8,7 @@ target 'Sea Stars' do
     pod 'Firebase'
     pod 'IQKeyboardManagerSwift'
     pod 'DZNEmptyDataSet'
+    pod 'AFNetworking'
 
 end
 

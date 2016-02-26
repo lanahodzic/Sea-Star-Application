@@ -17,6 +17,7 @@
 		833F83D91C6C00C200A86DF8 /* KSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833F83D51C6C00C200A86DF8 /* KSUtils.swift */; };
 		8359799A1C6D108500CDCAE3 /* ViewReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */; };
 		83A53C7B1C717FD5006AFF08 /* UIButtonScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A53C7A1C717FD5006AFF08 /* UIButtonScrollView.swift */; };
+		A501BC521C7FF6230019E1A6 /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501BC511C7FF6230019E1A6 /* Species.swift */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
 		A57919141BE8345E00ECC184 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919131BE8345E00ECC184 /* ViewController.swift */; };
 		A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A57919181BE8345E00ECC184 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		833F83D51C6C00C200A86DF8 /* KSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSUtils.swift; sourceTree = "<group>"; };
 		835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewReportsViewController.swift; sourceTree = "<group>"; };
 		83A53C7A1C717FD5006AFF08 /* UIButtonScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonScrollView.swift; sourceTree = "<group>"; };
+		A501BC511C7FF6230019E1A6 /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57919111BE8345E00ECC184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A57919131BE8345E00ECC184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				833F83D41C6C00C200A86DF8 /* KSTokenView.swift */,
 				833F83D51C6C00C200A86DF8 /* KSUtils.swift */,
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
+				A501BC511C7FF6230019E1A6 /* Species.swift */,
 				A5C48B231C72965A00C86494 /* Controllers */,
 				A5B4F0DE1BEFDAA000E5C2D6 /* SeaStar.Storyboard */,
 				A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */,
@@ -276,6 +279,7 @@
 				3F846AA31BF41F9F00F9AD37 /* InitialScreenViewController.swift in Sources */,
 				A5BE1D221C12352300CB9349 /* Sea_Stars.xcdatamodeld in Sources */,
 				A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */,
+				A501BC521C7FF6230019E1A6 /* Species.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

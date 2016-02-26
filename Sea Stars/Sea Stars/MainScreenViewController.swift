@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import DZNEmptyDataSet
 import SystemConfiguration
+import AFNetworking
 import CoreData
 
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
@@ -25,9 +26,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet weak var speciesScrollView: UIScrollView!
 
-    var seaStarImages:[UIImage?] = [UIImage?]()
-    var allSpecies:[String] = [String]()
     @IBOutlet weak var saveButton: UIButton!
+    
+    var allSpecies:[Species] = [Species]()
+    var speciesInTable:[Species] = [Species]()
+    var mobileSpecies:[Species] = [Species]()
+    var sessileSpecies:[Species] = [Species]()
+    var mobileImages:[UIImage?] = [UIImage?]()
+    var sessileImages:[UIImage?] = [UIImage?]()
     var species:[String] = [String]()
 
     var observer_name: String?
@@ -36,6 +42,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var sessile: Bool = false
     var selectedSpeciesType: String = ""
+    var mobility = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,14 +58,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let speciesRef = ref.childByAppendingPath("species")
         speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
             for child in snapshot.children.allObjects as! [FDataSnapshot] {
-                self.convertFirstElementToImage(child)
-                let speciesName = child.value["name"] as! String
-                self.allSpecies.append(speciesName)
+                let species = Species(fromSnapshot: child)
+                self.allSpecies.append(species)
             }
+            
+            for species in self.allSpecies {
+                if species.isMobile == self.mobility {
+                    self.speciesInTable.append(species)
+                }
+            }
+            
             self.refreshTable()
         })
 
-        let scrollView = colorButtonsView(CGSizeMake(100.0,50.0), buttonCount: 10)
+        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0), buttonCount: 10)
         speciesScrollView.addSubview(scrollView)
         speciesScrollView.showsHorizontalScrollIndicator = true
         speciesScrollView.indicatorStyle = .Default
@@ -108,31 +121,41 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func convertFirstElementToImage(object:FDataSnapshot) -> Void {
         let imagesArray = object.value["images"] as! [[String:String]]
-        if self.seaStarImages.count < 7 && imagesArray.count > 0 {
-            let imageDictionary = imagesArray[0]
-            do {
-                let imageURLString = imageDictionary["url"]! as String
-                if let url = NSURL(string: imageURLString) {
-                    if let data = NSData(contentsOfURL: url) {
-                        let seaStarImage = UIImage(data: data)
-                        self.seaStarImages.append(seaStarImage)
+        
+        if mobilitySegmentedControl.selectedSegmentIndex == 0 {
+            if self.mobileImages.count < 7 && imagesArray.count > 0 {
+                let imageDictionary = imagesArray[0]
+                do {
+                    let imageURLString = imageDictionary["url"]! as String
+                    if let url = NSURL(string: imageURLString) {
+                        if let data = NSData(contentsOfURL: url) {
+                            let seaStarImage = UIImage(data: data)
+                            self.mobileImages.append(seaStarImage)
+                        }
                     }
                 }
             }
+            else {
+                self.mobileImages.append(nil)
+            }
         }
         else {
-            self.seaStarImages.append(nil)
-        }
-    }
-    
-    func queryByGroupName(groupName: String) {
-        let speciesRef = ref.childByAppendingPath("species")
-        
-        speciesRef.queryOrderedByChild("groupName").queryEqualToValue(groupName).observeSingleEventOfType(.Value, withBlock: {(snapshot) in
-            for child in snapshot.children.allObjects {
-                print(child)
+            if self.sessileImages.count < 7 && imagesArray.count > 0 {
+                let imageDictionary = imagesArray[0]
+                do {
+                    let imageURLString = imageDictionary["url"]! as String
+                    if let url = NSURL(string: imageURLString) {
+                        if let data = NSData(contentsOfURL: url) {
+                            let seaStarImage = UIImage(data: data)
+                            self.sessileImages.append(seaStarImage)
+                        }
+                    }
+                }
             }
-        })
+            else {
+                self.sessileImages.append(nil)
+            }
+        }
     }
     
     @IBAction func saveFinalReport(sender: AnyObject) {
@@ -241,21 +264,25 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allSpecies.count
+        return speciesInTable.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reportCell", forIndexPath: indexPath) as! ObserverReportTableViewCell
-    
-        cell.titleLabel.text = allSpecies[indexPath.row]
-        if self.sessile {
-            cell.seaStarImage.image = nil
-        }
-        else if let img = seaStarImages[indexPath.row] {
-            cell.seaStarImage.image = img
-        }
-        else {
-            cell.seaStarImage.image = nil
+        let cell = tableView.dequeueReusableCellWithIdentifier("speciesCell", forIndexPath: indexPath) as! ObserverReportTableViewCell
+        
+        let species = speciesInTable[indexPath.row]
+        cell.titleLabel.text = species.name
+        
+        if let url = NSURL(string: species.imageURL) {
+            if let placeholder = UIImage(named: "sea-star-black") {
+                let urlRequest = NSURLRequest(URL: url)
+                cell.seaStarImage.setImageWithURLRequest(urlRequest, placeholderImage: placeholder, success: {
+                    (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
+                    cell.seaStarImage.image = image
+                    }, failure: {
+                        (request: NSURLRequest, response: NSHTTPURLResponse?, error: NSError) -> Void in
+                })
+            }
         }
 
         return cell
@@ -267,19 +294,38 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func speciesMobilityChanged(sender: AnyObject) {
         if mobilitySegmentedControl.selectedSegmentIndex == 0 {
-            self.sessile = false
+            mobility = true
+            self.speciesInTable = mobileSpecies
         }
         else {
-            self.sessile = true
+            mobility = false
+            self.speciesInTable = sessileSpecies
+        }
+        
+        speciesInTable.removeAll()
+        
+        if selectedSpeciesType == "" {
+            for species in allSpecies {
+                if species.isMobile == mobility {
+                    speciesInTable.append(species)
+                }
+            }
+        }
+        else {
+            findSpeciesForTableView()
         }
         
         self.speciesScrollView.subviews.forEach({ $0.removeFromSuperview() })
         
-        let scrollView = colorButtonsView(CGSizeMake(100.0,50.0), buttonCount: 10)
+        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0), buttonCount: 10)
         self.speciesScrollView.addSubview(scrollView)
+        
+        refreshTable()
     }
 
-    func colorButtonsView(buttonSize:CGSize, buttonCount:Int) -> UIView {
+    func groupNameButtonsView(buttonSize:CGSize, buttonCount:Int) -> UIView {
+        let titleArray = ["Sea Stars", "Crabs", "Anemones", "Bivalves", "Barnacles", "Bryozoans", "Sea Squirts", "Sea Cucumbers", "Chitons", "Sea Urchins"]
+        
         let buttonView = UIView()
         buttonView.backgroundColor = UIColor.blackColor()
         buttonView.frame.origin = CGPointMake(0,0)
@@ -292,17 +338,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
         var buttonPosition = CGPointMake(padding.width * 0.5, padding.height)
         let buttonIncrement = buttonSize.width + padding.width
-        let hueIncrement = 1.0 / CGFloat(buttonCount)
-        var newHue = hueIncrement
+
         for i in 0...(buttonCount - 1)  {
             let button = UIButton(type: .Custom)
             button.frame.size = buttonSize
             button.frame.origin = buttonPosition
             buttonPosition.x = buttonPosition.x + buttonIncrement
-            button.backgroundColor = UIColor(hue: newHue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            button.setTitle((self.sessile ? "Sessile " : "Mobile ") + String(i), forState: .Normal)
-            newHue = newHue + hueIncrement
-            button.addTarget(self, action: "colorButtonPressed:", forControlEvents: .TouchUpInside)
+            button.backgroundColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1)
+            button.setTitle(titleArray[i], forState: .Normal)
+            button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
             buttonView.addSubview(button)
 
             if selectedButton == nil {
@@ -313,6 +357,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let selectedButtonView = UILabel()
         selectedButtonView.tag = 1
         selectedButtonView.text = selectedButton
+        selectedButtonView.textColor = UIColor.whiteColor()
         selectedButtonView.frame.size.width = self.speciesScrollView.frame.size.width
         selectedButtonView.frame.size.height = 22
         selectedButtonView.frame.origin = CGPointMake(0, self.speciesScrollView.frame.height * 0.65)
@@ -322,7 +367,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         return buttonView
     }
 
-    func colorButtonPressed(sender: UIButton){
+    func groupNameButtonPressed(sender: UIButton){
         self.speciesScrollView.backgroundColor = sender.backgroundColor
         self.speciesScrollView.subviews[0].subviews.forEach({
             if $0.tag == 1 {
@@ -331,7 +376,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.selectedSpeciesType = view.text!
             }
         })
+        
+        self.speciesInTable.removeAll()
+        
+        findSpeciesForTableView()
+        
         self.refreshTable()
+    }
+    
+    func findSpeciesForTableView() {
+        for species in allSpecies {
+            if species.groupName == selectedSpeciesType && species.isMobile == mobility {
+                speciesInTable.append(species)
+            }
+        }
     }
 
     // MARK: - Navigation
@@ -359,7 +417,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier != "viewReportsSegue" {
             let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
             
-            addCreatureVC.selectedSpecies = self.allSpecies[self.tableView.indexPathForSelectedRow!.row]
+            addCreatureVC.selectedSpecies = self.speciesInTable[self.tableView.indexPathForSelectedRow!.row].name
 
             if let p = Int(pilingTextBox.text!) {
                 if let r = Int(rotationTextBox.text!) {
@@ -427,7 +485,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let message = "Select a specific type of species above."
+        let message = "There is no species that matches the mobility and species type you selected."
         
         return NSAttributedString(string: message, attributes: nil)
     }
