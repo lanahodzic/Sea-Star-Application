@@ -15,6 +15,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var countTextBox: UITextField!
     @IBOutlet weak var healthTextBox: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var saveButton: UIButton!
     
     var selectedSpecies: String = ""
     var observer_name: String?
@@ -31,6 +32,8 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         self.countTextBox.keyboardType = .NumberPad
 
         self.speciesLabel.text = self.selectedSpecies
+        
+        decorateSaveButton()
     }
     
     func showAlert(title:String, message:String) {
@@ -135,5 +138,12 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func decorateSaveButton(){
+        let borderColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1).CGColor
+        saveButton.layer.cornerRadius = 5
+        saveButton.layer.borderColor = borderColor
+        saveButton.layer.borderWidth = 2
+    }
 
 }
