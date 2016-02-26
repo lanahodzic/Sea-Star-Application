@@ -144,7 +144,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="evr-uh-8GE">
+                            <datePicker userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="evr-uh-8GE">
                                 <rect key="frame" x="293" y="627" width="362" height="182"/>
                                 <date key="date" timeIntervalSinceReferenceDate="468216976.3398">
                                     <!--2015-11-03 04:16:16 +0000-->
