@@ -30,17 +30,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var allSpecies:[Species] = [Species]()
     var speciesInTable:[Species] = [Species]()
-    var mobileSpecies:[Species] = [Species]()
-    var sessileSpecies:[Species] = [Species]()
-    var mobileImages:[UIImage?] = [UIImage?]()
-    var sessileImages:[UIImage?] = [UIImage?]()
-    var species:[String] = [String]()
 
     var observer_name: String?
     var site_location: String?
     var report_date: String?
     
-    var sessile: Bool = false
     var selectedSpeciesType: String = ""
     var mobility = true
     
@@ -99,63 +93,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func refreshTable() -> Void {
         self.tableView.reloadData()
-    }
-    
-//    func convertFirstElementToImage(object:AnyObject) -> Void {
-//        let imagesArray:[PFFile] = (object as! PFObject)["images"] as! [PFFile]
-//        if self.seaStarImages.count < 7 && imagesArray.count > 0 {
-//            let imageFile:PFFile = imagesArray[0]
-//            do {
-//                let imageData = try imageFile.getData()
-//                let seaStarImage:UIImage = UIImage(data: imageData)!
-//                self.seaStarImages.append(seaStarImage)
-//            }
-//            catch {
-//                print(error)
-//            }
-//        }
-//        else {
-//            self.seaStarImages.append(nil)
-//        }
-//    }
-    
-    func convertFirstElementToImage(object:FDataSnapshot) -> Void {
-        let imagesArray = object.value["images"] as! [[String:String]]
-        
-        if mobilitySegmentedControl.selectedSegmentIndex == 0 {
-            if self.mobileImages.count < 7 && imagesArray.count > 0 {
-                let imageDictionary = imagesArray[0]
-                do {
-                    let imageURLString = imageDictionary["url"]! as String
-                    if let url = NSURL(string: imageURLString) {
-                        if let data = NSData(contentsOfURL: url) {
-                            let seaStarImage = UIImage(data: data)
-                            self.mobileImages.append(seaStarImage)
-                        }
-                    }
-                }
-            }
-            else {
-                self.mobileImages.append(nil)
-            }
-        }
-        else {
-            if self.sessileImages.count < 7 && imagesArray.count > 0 {
-                let imageDictionary = imagesArray[0]
-                do {
-                    let imageURLString = imageDictionary["url"]! as String
-                    if let url = NSURL(string: imageURLString) {
-                        if let data = NSData(contentsOfURL: url) {
-                            let seaStarImage = UIImage(data: data)
-                            self.sessileImages.append(seaStarImage)
-                        }
-                    }
-                }
-            }
-            else {
-                self.sessileImages.append(nil)
-            }
-        }
     }
     
     @IBAction func saveFinalReport(sender: AnyObject) {
@@ -295,11 +232,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func speciesMobilityChanged(sender: AnyObject) {
         if mobilitySegmentedControl.selectedSegmentIndex == 0 {
             mobility = true
-            self.speciesInTable = mobileSpecies
         }
         else {
             mobility = false
-            self.speciesInTable = sessileSpecies
         }
         
         speciesInTable.removeAll()
