@@ -25,6 +25,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var mobilitySegmentedControl: UISegmentedControl!
 
     @IBOutlet weak var speciesScrollView: UIScrollView!
+    @IBOutlet weak var selectedSpeciesLabel: UILabel!
 
     @IBOutlet weak var saveButton: UIButton!
     
@@ -289,28 +290,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
 
-        let selectedButtonView = UILabel()
-        selectedButtonView.tag = 1
-        selectedButtonView.text = selectedButton
-        selectedButtonView.textColor = UIColor.whiteColor()
-        selectedButtonView.frame.size.width = self.speciesScrollView.frame.size.width
-        selectedButtonView.frame.size.height = 22
-        selectedButtonView.frame.origin = CGPointMake(0, self.speciesScrollView.frame.height * 0.65)
-        selectedButtonView.textAlignment = .Center
-        buttonView.addSubview(selectedButtonView)
-
         return buttonView
     }
 
     func groupNameButtonPressed(sender: UIButton){
-        self.speciesScrollView.backgroundColor = sender.backgroundColor
-        self.speciesScrollView.subviews[0].subviews.forEach({
-            if $0.tag == 1 {
-                let view = $0 as! UILabel
-                view.text = sender.titleLabel?.text
-                self.selectedSpeciesType = view.text!
-            }
-        })
+        self.selectedSpeciesType = (sender.titleLabel?.text)!
+        selectedSpeciesLabel.text = self.selectedSpeciesType
         
         self.speciesInTable.removeAll()
         
