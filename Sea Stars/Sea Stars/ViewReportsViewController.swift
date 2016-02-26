@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import DZNEmptyDataSet
 import MessageUI
 
 class ReportTableViewCell: UITableViewCell {
@@ -16,7 +17,7 @@ class ReportTableViewCell: UITableViewCell {
     @IBOutlet weak var reportObserver: UILabel!
 }
 
-class ViewReportsViewController: UITableViewController, MFMailComposeViewControllerDelegate {
+class ViewReportsViewController: UITableViewController, MFMailComposeViewControllerDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
@@ -29,14 +30,20 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         
         let exportToCSVButton = UIBarButtonItem(title: "Export", style: .Plain, target: self, action: "exportAllReports")
         navigationItem.rightBarButtonItem = exportToCSVButton
+        
+        latestReports.dataSource = self
+        latestReports.delegate = self
+        
+        // A little trick for removing the cell separators for the empty table view.
+        latestReports.tableFooterView = UIView()
+        
+        latestReports.emptyDataSetDelegate = self
+        latestReports.emptyDataSetSource = self
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup after loading the view.
-        
-        latestReports.dataSource = self
-        latestReports.delegate = self
         
         reportDictionary.removeAll()
         
@@ -121,9 +128,9 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     func exportAllReports() {
         print("user requested .csv export")
         
-        var dataString: NSMutableString = ""
-        var dataArr: NSMutableArray = []
-        var currentReporter: NSMutableArray = []
+        let dataString: NSMutableString = ""
+        let dataArr: NSMutableArray = []
+        let currentReporter: NSMutableArray = []
         var currentReportNumber = 0
         
         // Get initial keys, "observer,site,date"
@@ -253,5 +260,34 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
             reportVC.report = reportDictionary[latestReports.indexPathForSelectedRow!.row]
         }
     }
-
+    
+    // DZNEmptyDataSetDataSource.
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "sea-star-black")
+    }
+    
+    func imageAnimationForEmptyDataSet(scrollView: UIScrollView!) -> CAAnimation! {
+        let animation = CABasicAnimation(keyPath: "transform")
+        
+        animation.fromValue = NSValue(CATransform3D: CATransform3DMakeRotation(CGFloat(M_PI_2), 0.0, 0.0, 1.0))
+        animation.duration = 0.25;
+        animation.cumulative = true;
+        animation.repeatCount = MAXFLOAT;
+        
+        return animation
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "Reports", attributes: nil)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let message = "There are no reports to view."
+        
+        return NSAttributedString(string: message, attributes: nil)
+    }
+    
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
+        return UIColor.whiteColor()
+    }
 }

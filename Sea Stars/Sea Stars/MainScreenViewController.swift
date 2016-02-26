@@ -8,10 +8,11 @@
 
 import UIKit
 import Firebase
+import DZNEmptyDataSet
 import SystemConfiguration
 import CoreData
 
-class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
@@ -62,6 +63,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         speciesScrollView.indicatorStyle = .Default
         
         decorateSaveButton()
+        
+        // A little trick for removing the cell separators for the empty table view.
+        tableView.tableFooterView = UIView()
+        
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -393,6 +400,36 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         saveButton.layer.borderWidth = 2
         saveButton.layer.borderColor = borderColor
         saveButton.layer.cornerRadius = 5
+    }
+    
+    // DZNEmptyDataSetDataSource.
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "sea-star-black")
+    }
+    
+    func imageAnimationForEmptyDataSet(scrollView: UIScrollView!) -> CAAnimation! {
+        let animation = CABasicAnimation(keyPath: "transform")
+        
+        animation.fromValue = NSValue(CATransform3D: CATransform3DMakeRotation(CGFloat(M_PI_2), 0.0, 0.0, 1.0))
+        animation.duration = 0.25;
+        animation.cumulative = true;
+        animation.repeatCount = MAXFLOAT;
+        
+        return animation
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "Species", attributes: nil)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let message = "Select a specific type of species above."
+        
+        return NSAttributedString(string: message, attributes: nil)
+    }
+    
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
+        return UIColor.whiteColor()
     }
 }
 
