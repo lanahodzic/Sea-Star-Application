@@ -11,11 +11,14 @@ import CoreData
 
 class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var healthTextBox: KSTokenView!
     @IBOutlet weak var speciesLabel: UILabel!
     @IBOutlet weak var countTextBox: UITextField!
-    @IBOutlet weak var healthTextBox: UITextField!
+//    @IBOutlet weak var healthTextBox: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
+    
+    var healthData: [String] = ["Healthy: no symptons of disease", "Mild: few lesions, deflated appearance, extreme twisting of rays", "Severe: many lesions, arm loss, disintegration"]
     
     var selectedSpecies: String = ""
     var observer_name: String?
@@ -32,6 +35,14 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         self.countTextBox.keyboardType = .NumberPad
 
         self.speciesLabel.text = self.selectedSpecies
+        
+        self.healthTextBox.delegate = self
+        self.healthTextBox.promptText = ""
+        self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
+        self.healthTextBox.maxTokenLimit = 1
+        self.healthTextBox.style = .Squared
+        self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height)
+        self.healthTextBox.font = UIFont.systemFontOfSize(17)
         
         decorateSaveButton()
     }
@@ -55,7 +66,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = appDel.managedObjectContext
         
-        if countTextBox.text != "" && healthTextBox.text != "" {
+        if countTextBox.text != "" && (healthTextBox.tokens() != nil || !self.healthTextBox.tokens()!.isEmpty) {
             if let _ = Int(countTextBox.text!) {
                 let reportRequest = NSFetchRequest(entityName: "Reports")
                 reportRequest.returnsObjectsAsFaults = false
@@ -87,7 +98,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
                 newReportXSpecies.setValue(rotation, forKey: "rotation")
                 newReportXSpecies.setValue(depth, forKey: "depth")
                 newReportXSpecies.setValue(Int(countTextBox.text!), forKey: "count")
-                newReportXSpecies.setValue(healthTextBox.text!, forKey: "health")
+                newReportXSpecies.setValue(healthTextBox.tokens()![0].title, forKey: "health")
                 newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
                 newReportXSpecies.setValue(selectedSpecies, forKey: "species")
                 do {
@@ -145,5 +156,27 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         saveButton.layer.borderColor = borderColor
         saveButton.layer.borderWidth = 2
     }
+}
 
+extension AddCreatureViewController: KSTokenViewDelegate {
+    func tokenView(token: KSTokenView, performSearchWithString string: String, completion: ((results: Array<AnyObject>) -> Void)?) {
+        var matches: Array<String> = []
+        let data = self.healthData
+        
+        for value: String in data {
+            if value.lowercaseString.rangeOfString(string.lowercaseString) != nil {
+               matches.append(value)
+            }
+        }
+        
+        completion!(results: matches)
+    }
+    
+    func tokenView(token: KSTokenView, displayTitleForObject object: AnyObject) -> String {
+        return object as! String
+    }
+    
+    func tokenView(token: KSTokenView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.view.endEditing(true)
+    }
 }

@@ -81,7 +81,7 @@
                                 <rect key="frame" x="0.0" y="92" width="768" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Crk-tK-gYZ">
@@ -227,7 +227,7 @@
                                         <rect key="frame" x="0.0" y="50" width="768" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UJK-Bd-6XO" id="s0d-1n-fwT">
-                                            <rect key="frame" x="0.0" y="0.0" width="682" height="119.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="682" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1rW-uU-ZIE">
@@ -412,11 +412,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Efd-dg-mW1">
-                                <rect key="frame" x="210" y="287" width="347" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Species:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6Z-Zm-4GS">
                                 <rect key="frame" x="70" y="106" width="132" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
@@ -445,13 +440,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idL-XR-QrO" customClass="KSTokenView" customModule="Sea_Stars" customModuleProvider="target">
+                                <rect key="frame" x="210" y="288" width="347" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="MMz-s0-1FN"/>
                     <connections>
                         <outlet property="countTextBox" destination="I3I-eM-vhf" id="SaY-z7-jmo"/>
-                        <outlet property="healthTextBox" destination="Efd-dg-mW1" id="6MI-CK-yen"/>
+                        <outlet property="healthTextBox" destination="idL-XR-QrO" id="tPr-Pd-xrB"/>
                         <outlet property="notesTextView" destination="LqU-Ih-0HQ" id="EPg-Di-w1c"/>
                         <outlet property="saveButton" destination="hhB-Sb-1Xr" id="0x0-hB-mbV"/>
                         <outlet property="speciesLabel" destination="Lxe-4p-hf6" id="t5N-ib-x5p"/>
