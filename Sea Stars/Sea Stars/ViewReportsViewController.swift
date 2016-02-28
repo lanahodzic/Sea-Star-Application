@@ -126,83 +126,89 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     // MARK: Exporting
     
     func exportAllReports() {
-        print("user requested .csv export")
-        
-        let dataString: NSMutableString = ""
-        let dataArr: NSMutableArray = []
-        let currentReporter: NSMutableArray = []
-        var currentReportNumber = 0
-        
-        // Get initial keys, "observer,site,date"
-        for value in reportDictionary[0] {
-            print(value)
-            if value.0 == "reportItems" {
-                continue
-            }
-            dataArr.addObject(value.0)
-        }
-        
-        // get keys from reportitems, count,depth,...,speciesID
-        for reportItem in reportDictionary[0]["reportItems"] as! [[String : AnyObject]] {
-            for (key, _) in reportItem { // god fucking damnit, get the keys
-                if dataArr.containsObject(key) {
-                    continue
-                }
-                dataArr.addObject(key)
-            }
-        }
-        
-        // Make the first character of each string of header in the .csv to uppercase, prettier
-        for val in dataArr {
-            var value: String = String(val)
+        if(reportDictionary.isEmpty) {
+            let alert = UIAlertController(title: "Export", message: "There are no reports in the database to export.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+
+        } else {
+            print("user requested .csv export")
             
-            value.replaceRange(value.startIndex...value.startIndex, with: String(value[value.startIndex]).capitalizedString)
-            dataString.appendString(value + ",")
-        }
-        
-        dataString.appendString("\n")
-        
-        // Start iterating through the reports and build the mutablestring, ie to be .csv
-        for i in 0..<reportDictionary.count {
-            for value in reportDictionary[i] {
+            let dataString: NSMutableString = ""
+            let dataArr: NSMutableArray = []
+            let currentReporter: NSMutableArray = []
+            var currentReportNumber = 0
+            
+            // Get initial keys, "observer,site,date"
+            for value in reportDictionary[0] {
+                print(value)
                 if value.0 == "reportItems" {
                     continue
                 }
-                
-                currentReporter.addObject(value.1)
-                dataString.appendString(String(value.1) + ",")
+                dataArr.addObject(value.0)
             }
             
-            // Grab data from the current report
-            for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
-                ++currentReportNumber
-                for (_, val) in reportItem {
-                    dataString.appendString(String(val) + ",")
-                }
-                dataString.appendString("\n")
-                
-                // Handle multiple reportitems logic
-                if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != (currentReportNumber - 1) {
-                    for val in currentReporter {
-                        dataString.appendString(String(val) + ",")
+            // get keys from reportitems, count,depth,...,speciesID
+            for reportItem in reportDictionary[0]["reportItems"] as! [[String : AnyObject]] {
+                for (key, _) in reportItem { // god fucking damnit, get the keys
+                    if dataArr.containsObject(key) {
+                        continue
                     }
-                    ++currentReportNumber
+                    dataArr.addObject(key)
                 }
             }
-            // Get ready for the next report
-            currentReporter.removeAllObjects()
-            currentReportNumber = 0
+            
+            // Make the first character of each string of header in the .csv to uppercase, prettier
+            for val in dataArr {
+                var value: String = String(val)
+                
+                value.replaceRange(value.startIndex...value.startIndex, with: String(value[value.startIndex]).capitalizedString)
+                dataString.appendString(value + ",")
+            }
+            
+            dataString.appendString("\n")
+            
+            // Start iterating through the reports and build the mutablestring, ie to be .csv
+            for i in 0..<reportDictionary.count {
+                for value in reportDictionary[i] {
+                    if value.0 == "reportItems" {
+                        continue
+                    }
+                    
+                    currentReporter.addObject(value.1)
+                    dataString.appendString(String(value.1) + ",")
+                }
+                
+                // Grab data from the current report
+                for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
+                    ++currentReportNumber
+                    for (_, val) in reportItem {
+                        dataString.appendString(String(val) + ",")
+                    }
+                    dataString.appendString("\n")
+                    
+                    // Handle multiple reportitems logic
+                    if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != (currentReportNumber - 1) {
+                        for val in currentReporter {
+                            dataString.appendString(String(val) + ",")
+                        }
+                        ++currentReportNumber
+                    }
+                }
+                // Get ready for the next report
+                currentReporter.removeAllObjects()
+                currentReportNumber = 0
+            }
+            
+            // Setup data for mail attachment
+            let data = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+            
+            let emailViewController = configuredMailComposeViewController(data!)
+            if MFMailComposeViewController.canSendMail() {
+                self.presentViewController(emailViewController, animated: true, completion: nil)
+            }
+            
         }
-    
-        // Setup data for mail attachment
-        let data = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        
-        let emailViewController = configuredMailComposeViewController(data!)
-        if MFMailComposeViewController.canSendMail() {
-            self.presentViewController(emailViewController, animated: true, completion: nil)
-        }
-        
-
     }
     
     // MARK: Share, TODO?
