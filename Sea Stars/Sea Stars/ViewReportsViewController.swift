@@ -130,7 +130,6 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
             let alert = UIAlertController(title: "Export", message: "There are no reports in the database to export.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
-
         } else {
             print("user requested .csv export")
             
@@ -150,7 +149,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
             
             // get keys from reportitems, count,depth,...,speciesID
             for reportItem in reportDictionary[0]["reportItems"] as! [[String : AnyObject]] {
-                for (key, _) in reportItem { // god fucking damnit, get the keys
+                for (key, _) in reportItem {
                     if dataArr.containsObject(key) {
                         continue
                     }
@@ -182,8 +181,12 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                 // Grab data from the current report
                 for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
                     ++currentReportNumber
-                    for (_, val) in reportItem {
-                        dataString.appendString(String(val) + ",")
+                    for (kind, val) in reportItem {
+                        if kind == "health" || kind == "notes" {
+                            dataString.appendString("\"" + String(val) + "\"" + ",")
+                        } else {
+                            dataString.appendString(String(val) + ",")
+                        }
                     }
                     dataString.appendString("\n")
                     
@@ -211,17 +214,6 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         }
     }
     
-    // MARK: Share, TODO?
-    @IBAction func shareDoc(sender: AnyObject) {
-        print("test share file")
-        
-     //   docController.UTI = "public.comma-separated-values-text"
-       // docController.delegate = self//delegate
-      //  docController.name = "Export Data"
-      //  docController.presentOptionsMenuFromBarButtonItem(sender as! UIBarButtonItem, animated: true)
-        
-        //}
-    }
     
     // MARK: Mail
     func configuredMailComposeViewController(data: NSData) -> MFMailComposeViewController {
