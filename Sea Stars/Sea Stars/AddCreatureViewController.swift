@@ -41,7 +41,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
         self.healthTextBox.maxTokenLimit = 1
         self.healthTextBox.style = .Squared
-        self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height)
+        self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height * 3)
         self.healthTextBox.font = UIFont.systemFontOfSize(17)
         
         decorateSaveButton()
@@ -66,7 +66,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = appDel.managedObjectContext
         
-        if countTextBox.text != "" && (healthTextBox.tokens() != nil || !self.healthTextBox.tokens()!.isEmpty) {
+        if countTextBox.text != "" && (healthTextBox.hasTokens() || !healthTextBox.text.isEmpty) {
             if let _ = Int(countTextBox.text!) {
                 let reportRequest = NSFetchRequest(entityName: "Reports")
                 reportRequest.returnsObjectsAsFaults = false
@@ -98,7 +98,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
                 newReportXSpecies.setValue(rotation, forKey: "rotation")
                 newReportXSpecies.setValue(depth, forKey: "depth")
                 newReportXSpecies.setValue(Int(countTextBox.text!), forKey: "count")
-                newReportXSpecies.setValue(healthTextBox.tokens()![0].title, forKey: "health")
+                newReportXSpecies.setValue(healthTextBox.hasTokens() ? healthTextBox.tokens()![0].title : healthTextBox.text, forKey: "health")
                 newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
                 newReportXSpecies.setValue(selectedSpecies, forKey: "species")
                 do {

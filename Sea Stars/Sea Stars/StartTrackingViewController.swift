@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import CoreData
 
 class StartTrackingViewController: UIViewController {
     
@@ -83,11 +84,11 @@ class StartTrackingViewController: UIViewController {
     }
 
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if self.observer_name.tokens() == nil || self.observer_name.tokens()!.isEmpty {
+        if !self.observer_name.hasTokens() && self.observer_name.text.isEmpty {
             return false
         }
 
-        if self.site.tokens() == nil || self.site.tokens()!.isEmpty {
+        if !self.site.hasTokens() && self.site.text.isEmpty {
             return false
         }
 
@@ -96,10 +97,10 @@ class StartTrackingViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let vc = segue.destinationViewController as! MainScreenViewController
-        vc.observer_name = self.observer_name.tokens()![0].title
+        vc.observer_name = self.observer_name.hasTokens() ? self.observer_name.tokens()![0].title : self.observer_name.text
         print("*** NAME: " + vc.observer_name!)
 
-        vc.site_location = self.site.tokens()![0].title
+        vc.site_location = self.site.hasTokens() ? self.site.tokens()![0].title : self.site.text
         print("*** SITE: " + vc.site_location!)
 
         let dateFormatter = NSDateFormatter()
@@ -107,6 +108,25 @@ class StartTrackingViewController: UIViewController {
         let date = dateFormatter.stringFromDate(self.report_date.date)
         vc.report_date = date
 
+        let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context = appDel.managedObjectContext
+        
+        let reportRequest = NSFetchRequest(entityName: "Reports")
+        reportRequest.returnsObjectsAsFaults = false
+
+        let reportXSpeciesRequest = NSFetchRequest(entityName: "ReportXSpecies")
+        reportXSpeciesRequest.returnsObjectsAsFaults = false
+
+        let reportDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportRequest)
+        let reportXSpeciesDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportXSpeciesRequest)
+        do {
+            try context.executeRequest(reportDeleteRequest)
+            try context.executeRequest(reportXSpeciesDeleteRequest)
+            print("Deleted all rows from unfinished report")
+        }
+        catch {
+            print("Error deleting all rows from entities")
+        }
     }
 
     /*

@@ -338,13 +338,13 @@ public class KSTokenField: UITextField {
         for token: KSToken in tokens {
             _insertToken(token, shouldLayout: false)
         }
-        updateLayout()
+        updateLayout(true, shouldClearTextOnBegin: false)
     }
 
     /**
      Updates the tokenView layout and calls delegate methods
      */
-    func updateLayout(shouldUpdateText: Bool = true) {
+    func updateLayout(shouldUpdateText: Bool = true, shouldClearTextOnBegin: Bool = true) {
         if (parentView == nil) {
             return
         }
@@ -352,7 +352,7 @@ public class KSTokenField: UITextField {
         deselectSelectedToken()
 
         if (shouldUpdateText) {
-            _updateText()
+            _updateText(shouldClearTextOnBegin)
         }
 
         if _caretPoint != .zero {
@@ -545,18 +545,20 @@ public class KSTokenField: UITextField {
     **************************** Placeholder ****************************
     */
 
-    private func _updateText() {
+    private func _updateText(shouldClearTextOnBegin: Bool = true) {
         if (!_setupCompleted) {return}
         _initPlaceholderLabel()
 
         switch(_state) {
         case .Opened:
-            text = KSTextEmpty
+            if shouldClearTextOnBegin == true || tokens.count >= parentView?.maxTokenLimit {
+                text = KSTextEmpty
+            }
             break
 
         case .Closed:
             if tokens.count == 0 {
-                text = KSTextEmpty
+//                text = KSTextEmpty
 
             } else {
                 var title = KSTextEmpty
