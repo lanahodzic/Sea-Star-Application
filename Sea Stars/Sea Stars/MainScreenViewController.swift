@@ -38,6 +38,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var selectedSpeciesType: String = ""
     var mobility = true
+
+    var mobileGroups: Set<String> = []
+    var sessileGroups: Set<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,16 +64,23 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 if species.isMobile == self.mobility {
                     self.speciesInTable.append(species)
                 }
+
+                if species.isMobile {
+                    self.mobileGroups.insert(species.groupName)
+                }
+                else {
+                    self.sessileGroups.insert(species.groupName)
+                }
             }
-            
+
+            let scrollView = self.groupNameButtonsView(CGSizeMake(150.0,50.0))
+            self.speciesScrollView.addSubview(scrollView)
+            self.speciesScrollView.showsHorizontalScrollIndicator = true
+            self.speciesScrollView.indicatorStyle = .Default
+
             self.refreshTable()
         })
 
-        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0), buttonCount: 10)
-        speciesScrollView.addSubview(scrollView)
-        speciesScrollView.showsHorizontalScrollIndicator = true
-        speciesScrollView.indicatorStyle = .Default
-        
         decorateSaveButton()
         
         // A little trick for removing the cell separators for the empty table view.
@@ -226,31 +236,31 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         else {
             mobility = false
         }
-        
+
+        self.selectedSpeciesType = ""
+        selectedSpeciesLabel.text = "No species type has been selected"
+
         speciesInTable.removeAll()
         
-        if selectedSpeciesType == "" {
-            for species in allSpecies {
-                if species.isMobile == mobility {
-                    speciesInTable.append(species)
-                }
+        for species in allSpecies {
+            if species.isMobile == mobility {
+                speciesInTable.append(species)
             }
         }
-        else {
-            findSpeciesForTableView()
-        }
-        
+
         self.speciesScrollView.subviews.forEach({ $0.removeFromSuperview() })
         
-        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0), buttonCount: 10)
+        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0))
         self.speciesScrollView.addSubview(scrollView)
         
         refreshTable()
     }
 
-    func groupNameButtonsView(buttonSize:CGSize, buttonCount:Int) -> UIView {
-        let titleArray = ["Sea Stars", "Crabs", "Anemones", "Bivalves", "Barnacles", "Bryozoans", "Sea Squirts", "Sea Cucumbers", "Chitons", "Sea Urchins"]
-        
+    func groupNameButtonsView(buttonSize:CGSize) -> UIView {
+//        let titleArray = ["Sea Stars", "Crabs", "Anemones", "Bivalves", "Barnacles", "Bryozoans", "Sea Squirts", "Sea Cucumbers", "Chitons", "Sea Urchins"]
+        let titleArray = self.mobility ? Array(self.mobileGroups) : Array(self.sessileGroups)
+        let buttonCount = titleArray.count
+
         let buttonView = UIView()
         buttonView.backgroundColor = UIColor.blackColor()
         buttonView.frame.origin = CGPointMake(0,0)
@@ -264,18 +274,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         var buttonPosition = CGPointMake(padding.width * 0.5, padding.height)
         let buttonIncrement = buttonSize.width + padding.width
 
-        for i in 0...(buttonCount - 1)  {
-            let button = UIButton(type: .Custom)
-            button.frame.size = buttonSize
-            button.frame.origin = buttonPosition
-            buttonPosition.x = buttonPosition.x + buttonIncrement
-            button.backgroundColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1)
-            button.setTitle(titleArray[i], forState: .Normal)
-            button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
-            buttonView.addSubview(button)
+        if buttonCount > 0 {
+            for i in 0...(buttonCount - 1)  {
+                let button = UIButton(type: .Custom)
+                button.frame.size = buttonSize
+                button.frame.origin = buttonPosition
+                buttonPosition.x = buttonPosition.x + buttonIncrement
+                button.backgroundColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1)
+                button.setTitle(titleArray[i], forState: .Normal)
+                button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
+                buttonView.addSubview(button)
 
-            if selectedButton == nil {
-                selectedButton = button.titleLabel?.text
+                if selectedButton == nil {
+                    selectedButton = button.titleLabel?.text
+                }
             }
         }
 
