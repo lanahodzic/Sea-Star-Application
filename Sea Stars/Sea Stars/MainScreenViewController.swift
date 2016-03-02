@@ -56,7 +56,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let speciesRef = ref.childByAppendingPath("species")
         speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
             for child in snapshot.children.allObjects as! [FDataSnapshot] {
-                let species = Species(fromSnapshot: child)
+                let species = Species(fromSnapshot: child, loadImages: true)
                 self.allSpecies.append(species)
             }
             

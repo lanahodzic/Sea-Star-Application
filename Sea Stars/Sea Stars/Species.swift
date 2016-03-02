@@ -19,7 +19,7 @@ class Species {
     var imageURL:String = ""
     var imageView:UIImageView = UIImageView()
     
-    init (fromSnapshot snapshot:FDataSnapshot) {
+    init (fromSnapshot snapshot:FDataSnapshot, loadImages:Bool) {
         let dictionary = snapshot.value as! [String:AnyObject]
         
         if let commonName = dictionary["commonName"] as? String {
@@ -43,19 +43,21 @@ class Species {
             }
         }
         
-        if let url = NSURL(string: imageURL) {
-            if let placeholder = UIImage(named: "sea-star-black") {
-                let urlRequest = NSURLRequest(URL: url)
-                imageView.setImageWithURLRequest(urlRequest, placeholderImage: placeholder, success: {
-                    (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
-                    self.imageView.image = image
-                    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
-                    let navVC = appDel.window?.rootViewController as! UINavigationController
-                    let vc = navVC.topViewController as! MainScreenViewController
-                    vc.refreshTable()
-                    }, failure: {
-                        (request: NSURLRequest, response: NSHTTPURLResponse?, error: NSError) -> Void in
-                })
+        if loadImages {
+            if let url = NSURL(string: imageURL) {
+                if let placeholder = UIImage(named: "sea-star-black") {
+                    let urlRequest = NSURLRequest(URL: url)
+                    imageView.setImageWithURLRequest(urlRequest, placeholderImage: placeholder, success: {
+                        (request: NSURLRequest, response: NSHTTPURLResponse?, image: UIImage) -> Void in
+                        self.imageView.image = image
+                        let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+                        let navVC = appDel.window?.rootViewController as! UINavigationController
+                        let vc = navVC.topViewController as! MainScreenViewController
+                        vc.refreshTable()
+                        }, failure: {
+                            (request: NSURLRequest, response: NSHTTPURLResponse?, error: NSError) -> Void in
+                    })
+                }
             }
         }
     }

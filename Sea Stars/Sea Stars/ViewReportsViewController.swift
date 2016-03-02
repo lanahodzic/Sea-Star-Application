@@ -20,6 +20,8 @@ class ReportTableViewCell: UITableViewCell {
 class ViewReportsViewController: UITableViewController, MFMailComposeViewControllerDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
+    
+    var allSpecies:[String:Species] = [String:Species]()
 
     @IBOutlet weak var exportToCSVButton: UIBarButtonItem!
     @IBOutlet weak var latestReports: UITableView!
@@ -39,42 +41,59 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         
         latestReports.emptyDataSetDelegate = self
         latestReports.emptyDataSetSource = self
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        // Do any additional setup after loading the view.
         
-        reportDictionary.removeAll()
-        
-        let reportsRef = ref.childByAppendingPath("reports")
-        reportsRef.queryOrderedByChild("date").observeSingleEventOfType(.Value, withBlock: {(reportSnapshot) in
-            for child in reportSnapshot.children.allObjects as! [FDataSnapshot] {
-                let reportXSpeciesRef = self.ref.childByAppendingPath("reportXSpecies")
-                reportXSpeciesRef.queryOrderedByChild("reportID").queryEqualToValue(child.key/*, childKey: "reportID"*/).observeSingleEventOfType(.Value, withBlock: {(reportXSpeciesSnapshot) in
-                    var dictionary = [String:AnyObject]()
-                    dictionary["observer"] = child.value["observer"] as! String
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "MM/dd/yyyy"
-                    dictionary["date"] = dateFormatter.stringFromDate(NSDate(timeIntervalSince1970: child.value["date"] as! Double))
-                    dictionary["site"] = child.value["site"] as! String
-                    var reportItemsArray:[[String:AnyObject]] = []
-                    for children in reportXSpeciesSnapshot.children.allObjects as! [FDataSnapshot] {
-                        var reportItemsDictionary = [String:AnyObject]()
-                        reportItemsDictionary["piling"] = children.value["piling"] as! Int
-                        reportItemsDictionary["depth"] = children.value["depth"] as! Int
-                        reportItemsDictionary["rotation"] = children.value["rotation"] as! Int
-                        reportItemsDictionary["speciesID"] = children.value["speciesID"] as! String
-                        reportItemsDictionary["count"] = children.value["count"] as! Int
-                        reportItemsDictionary["health"] = children.value["health"] as! String
-                        reportItemsDictionary["notes"] = children.value["notes"] as! String
-                        reportItemsArray.append(reportItemsDictionary)
-                    }
-                    dictionary["reportItems"] = reportItemsArray
-                    self.reportDictionary.append(dictionary)
-                    self.latestReports.reloadData()
-                })
+        let speciesRef = ref.childByAppendingPath("species")
+        speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+            for child in snapshot.children.allObjects as! [FDataSnapshot] {
+                let species = Species(fromSnapshot: child, loadImages:false)
+                self.allSpecies[species.name] = species
             }
+            
+            self.reportDictionary.removeAll()
+            
+            let reportsRef = self.ref.childByAppendingPath("reports")
+            reportsRef.queryOrderedByChild("date").observeSingleEventOfType(.Value, withBlock: {(reportSnapshot) in
+                for child in reportSnapshot.children.allObjects as! [FDataSnapshot] {
+                    let reportXSpeciesRef = self.ref.childByAppendingPath("reportXSpecies")
+                    reportXSpeciesRef.queryOrderedByChild("reportID").queryEqualToValue(child.key).observeSingleEventOfType(.Value, withBlock: {(reportXSpeciesSnapshot) in
+                        var dictionary = [String:AnyObject]()
+                        dictionary["observer"] = child.value["observer"] as! String
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "MM/dd/yyyy"
+                        dictionary["date"] = dateFormatter.stringFromDate(NSDate(timeIntervalSince1970: child.value["date"] as! Double))
+                        dictionary["site"] = child.value["site"] as! String
+                        var reportItemsArray:[[String:AnyObject]] = []
+                        for children in reportXSpeciesSnapshot.children.allObjects as! [FDataSnapshot] {
+                            var reportItemsDictionary = [String:AnyObject]()
+                            reportItemsDictionary["piling"] = children.value["piling"] as! Int
+                            reportItemsDictionary["depth"] = children.value["depth"] as! Int
+                            reportItemsDictionary["rotation"] = children.value["rotation"] as! Int
+                            reportItemsDictionary["count"] = children.value["count"] as! Int
+                            reportItemsDictionary["health"] = children.value["health"] as! String
+                            reportItemsDictionary["notes"] = children.value["notes"] as! String
+                            
+                            let speciesName = children.value["speciesID"] as! String
+                            let individualSpecies = self.allSpecies[speciesName]
+                            reportItemsDictionary["groupName"] = individualSpecies?.groupName
+                            reportItemsDictionary["species"] = individualSpecies?.name
+                            reportItemsDictionary["phylum"] = individualSpecies?.phylum
+                            if let individualSpecies = individualSpecies {
+                                if individualSpecies.isMobile {
+                                    reportItemsDictionary["isMobile"] = "Yes"
+                                }
+                                else {
+                                    reportItemsDictionary["isMobile"] = "No"
+                                }
+                            }
+                            
+                            reportItemsArray.append(reportItemsDictionary)
+                        }
+                        dictionary["reportItems"] = reportItemsArray
+                        self.reportDictionary.append(dictionary)
+                        self.latestReports.reloadData()
+                    })
+                }
+            })
         })
     }
 
@@ -256,6 +275,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         if  segue.identifier == "reportview" {
             let reportVC = segue.destinationViewController as! ReportViewController
             reportVC.report = reportDictionary[latestReports.indexPathForSelectedRow!.row]
+            reportVC.allSpecies = self.allSpecies
         }
     }
     

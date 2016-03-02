@@ -7,19 +7,15 @@
 //
 
 import UIKit
-import Firebase
 import MessageUI
 
 class ReportViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    
-    let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
     @IBOutlet weak var reportTextView: UITextView!
-    @IBOutlet weak var seaStarImage: UIImageView!
     @IBOutlet weak var exportButton: UIBarButtonItem!
     
     var report:[String:AnyObject] = [String:AnyObject]()
-    var speciesInfo:[String:AnyObject] = [String:AnyObject]()
+    var allSpecies:[String:Species] = [String:Species]()
     
     var piling:Int?
     var rotation:Int?
@@ -54,38 +50,22 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
 
         
         for reportItem in report["reportItems"] as! [[String:AnyObject]] {
-            let speciesRef = ref.childByAppendingPath("species")
-            speciesRef.queryOrderedByChild("name").queryEqualToValue("\(reportItem["speciesID"] as! String)").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-                if snapshot.childrenCount == 1 {
-                    for child in snapshot.children.allObjects as! [FDataSnapshot] {
-                        // make properties and assign these values that
-                        self.reportTextView.text = self.reportTextView.text + "Piling: \(reportItem["piling"] as! Int)   Depth: \(reportItem["depth"] as! Int)   Rotation: \(reportItem["rotation"] as! Int)\n\n"
-                        
-                        self.piling = reportItem["piling"] as? Int
-                        self.depth = reportItem["depth"] as? Int
-                        self.rotation = reportItem["rortation"] as? Int
-                        
-                        self.species = child.value["name"] as? String
-                        self.phylum = child.value["phylum"] as? String
-                        self.groupName = child.value["groupName"] as? String
-                        if child.value["isMobile"] as! Bool {
-                            self.isMobile = "Yes"
-                        }
-                        else {
-                            self.isMobile = "No"
-                        }
-                        self.reportTextView.text = self.reportTextView.text + "Group Name: \(self.groupName!)\nSpecies: \(self.species!)\nPhylum: \(self.phylum!)\nisMobile: \(self.isMobile!)\n"
-                        self.reportTextView.text = self.reportTextView.text + "Count: \(reportItem["count"] as! Int)\n"
-                        self.reportTextView.text = self.reportTextView.text + "Health: \(reportItem["health"] as! String)\n"
-                        self.reportTextView.text = self.reportTextView.text + "Notes: \(reportItem["notes"] as! String)\n\n"
-                        self.reportTextView.text = self.reportTextView.text + "---------------------------------------\n\n"
-                        
-                    }
-                }
-                else {
-                    print("Query returned too many objects.")
-                }
-            })
+            self.reportTextView.text = self.reportTextView.text + "Piling: \(reportItem["piling"] as! Int)   Depth: \(reportItem["depth"] as! Int)   Rotation: \(reportItem["rotation"] as! Int)\n\n"
+            
+            self.piling = reportItem["piling"] as? Int
+            self.depth = reportItem["depth"] as? Int
+            self.rotation = reportItem["rortation"] as? Int
+            
+            self.species = reportItem["species"] as? String
+            self.phylum = reportItem["phylum"] as? String
+            self.groupName = reportItem["groupName"] as? String
+            self.isMobile = reportItem["isMobile"] as? String
+            
+            self.reportTextView.text = self.reportTextView.text + "Group Name: \(self.groupName!)\nSpecies: \(self.species!)\nPhylum: \(self.phylum!)\nisMobile: \(self.isMobile!)\n"
+            self.reportTextView.text = self.reportTextView.text + "Count: \(reportItem["count"] as! Int)\n"
+            self.reportTextView.text = self.reportTextView.text + "Health: \(reportItem["health"] as! String)\n"
+            self.reportTextView.text = self.reportTextView.text + "Notes: \(reportItem["notes"] as! String)\n\n"
+            self.reportTextView.text = self.reportTextView.text + "---------------------------------------\n\n"
         }
     }
 
