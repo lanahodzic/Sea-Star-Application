@@ -59,9 +59,9 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
             self.species = reportItem["species"] as? String
             self.phylum = reportItem["phylum"] as? String
             self.groupName = reportItem["groupName"] as? String
-            self.isMobile = reportItem["isMobile"] as? String
+            self.isMobile = reportItem["mobility"] as? String
             
-            self.reportTextView.text = self.reportTextView.text + "Group Name: \(self.groupName!)\nSpecies: \(self.species!)\nPhylum: \(self.phylum!)\nisMobile: \(self.isMobile!)\n"
+            self.reportTextView.text = self.reportTextView.text + "Group Name: \(self.groupName!)\nSpecies: \(self.species!)\nPhylum: \(self.phylum!)\nMobility: \(self.isMobile!)\n"
             self.reportTextView.text = self.reportTextView.text + "Count: \(reportItem["count"] as! Int)\n"
             self.reportTextView.text = self.reportTextView.text + "Health: \(reportItem["health"] as! String)\n"
             self.reportTextView.text = self.reportTextView.text + "Notes: \(reportItem["notes"] as! String)\n\n"

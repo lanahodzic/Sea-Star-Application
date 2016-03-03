@@ -79,10 +79,10 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                             reportItemsDictionary["phylum"] = individualSpecies?.phylum
                             if let individualSpecies = individualSpecies {
                                 if individualSpecies.isMobile {
-                                    reportItemsDictionary["isMobile"] = "Yes"
+                                    reportItemsDictionary["mobility"] = "Mobile"
                                 }
                                 else {
-                                    reportItemsDictionary["isMobile"] = "No"
+                                    reportItemsDictionary["mobility"] = "Sessile"
                                 }
                             }
                             
