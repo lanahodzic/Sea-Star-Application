@@ -19,6 +19,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var cancelReportButton: UIBarButtonItem!
     @IBOutlet weak var pilingTextBox: UITextField!
     @IBOutlet weak var rotationTextBox: UITextField!
     @IBOutlet weak var depthTextBox: UITextField!
@@ -44,6 +45,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.hidesBackButton = true;
 
         self.pilingTextBox.delegate = self
         self.rotationTextBox.delegate = self
@@ -106,7 +109,55 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.reloadData()
     }
     
+    @IBAction func cancelReport(sender: AnyObject) {
+        let alert = UIAlertController(title: "Cancel Report", message: "Are you sure you want to cancel the report? Canceling the report will delete any creatures that haven't been saved in a final report.", preferredStyle: .Alert)
+        let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
+            
+        }
+        let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
+            let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+            let context = appDel.managedObjectContext
+            
+            let reportRequest = NSFetchRequest(entityName: "Reports")
+            reportRequest.returnsObjectsAsFaults = false
+            let reportXSpeciesRequest = NSFetchRequest(entityName: "ReportXSpecies")
+            reportXSpeciesRequest.returnsObjectsAsFaults = false
+            
+            let reportDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportRequest)
+            let reportXSpeciesDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportXSpeciesRequest)
+            do {
+                try context.executeRequest(reportDeleteRequest)
+                try context.executeRequest(reportXSpeciesDeleteRequest)
+            }
+            catch {
+                print("Error deleting all rows from entities")
+            }
+            
+            let storyboard = UIStoryboard(name: "SeaStar", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("beginNav")
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func saveFinalReport(sender: AnyObject) {
+        let alert = UIAlertController(title: "Save Final Report", message: "Are you sure you want to save the final report? This action will save all the added creatures and end the current report.", preferredStyle: .Alert)
+        let noAction = UIAlertAction(title: "No", style: .Default, handler: { (action) -> Void in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        })
+        let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in
+            self.pushFinalReportToFirebase()
+        })
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func pushFinalReportToFirebase() {
         if Reachability.isConnectedToNetwork() {
             var site:String?
             var observer:String?
@@ -145,12 +196,18 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             reportXSpeciesRequest.returnsObjectsAsFaults = false
             do {
                 let reportXSpeciesResults = try context.executeFetchRequest(reportXSpeciesRequest)
+                print(reportXSpeciesResults)
                 
-                for result in reportXSpeciesResults as! [NSManagedObject] {
-                    let saveReportXSpecies = createReportXSpeciesJSON(result, reportID: reportID!)
-                    let reportXSpeciesRef = ref.childByAppendingPath("reportXSpecies")
-                    let newReportXSpeciesRef = reportXSpeciesRef.childByAutoId()
-                    newReportXSpeciesRef.setValue(saveReportXSpecies)
+                if reportXSpeciesResults.count == 0 {
+                    showAlert("Save Final Report", message: "There are no creatures to save.")
+                }
+                else {
+                    for result in reportXSpeciesResults as! [NSManagedObject] {
+                        let saveReportXSpecies = createReportXSpeciesJSON(result, reportID: reportID!)
+                        let reportXSpeciesRef = ref.childByAppendingPath("reportXSpecies")
+                        let newReportXSpeciesRef = reportXSpeciesRef.childByAutoId()
+                        newReportXSpeciesRef.setValue(saveReportXSpecies)
+                    }
                 }
             }
             catch {

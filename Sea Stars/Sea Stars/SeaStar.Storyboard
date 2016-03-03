@@ -324,6 +324,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sea Stars" id="R94-8T-PKb">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel Report" id="2Pb-Fn-hvE">
+                            <connections>
+                                <action selector="cancelReport:" destination="ice-62-bKu" id="TFG-bm-FIM"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="View Reports" id="CUb-Wv-TgZ">
                             <connections>
                                 <segue destination="XWX-bg-HCg" kind="push" identifier="viewReportsSegue" id="PFP-7H-lyc"/>
@@ -332,6 +337,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="cancelReportButton" destination="2Pb-Fn-hvE" id="mVN-rX-1ec"/>
                         <outlet property="depthTextBox" destination="6kF-oo-r9M" id="x0o-C2-ogd"/>
                         <outlet property="mobilitySegmentedControl" destination="QJH-Bv-6QC" id="tC9-Sh-dck"/>
                         <outlet property="pilingTextBox" destination="4KQ-7B-WFC" id="FBM-gf-DC7"/>
@@ -471,6 +477,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dEt-Nt-xKS"/>
+        <segue reference="PFP-7H-lyc"/>
     </inferredMetricsTieBreakers>
 </document>
