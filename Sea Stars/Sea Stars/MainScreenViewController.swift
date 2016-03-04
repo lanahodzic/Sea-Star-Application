@@ -75,6 +75,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.sessileGroups.insert(species.groupName)
                 }
             }
+            
+            self.mobileGroups.insert("Unknown")
+            self.sessileGroups.insert("Unknown")
 
             let scrollView = self.groupNameButtonsView(CGSizeMake(150.0,50.0))
             self.speciesScrollView.addSubview(scrollView)
@@ -314,7 +317,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func groupNameButtonsView(buttonSize:CGSize) -> UIView {
-//        let titleArray = ["Sea Stars", "Crabs", "Anemones", "Bivalves", "Barnacles", "Bryozoans", "Sea Squirts", "Sea Cucumbers", "Chitons", "Sea Urchins"]
         let titleArray = self.mobility ? Array(self.mobileGroups) : Array(self.sessileGroups)
         let buttonCount = titleArray.count
 
@@ -363,9 +365,18 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func findSpeciesForTableView() {
-        for species in allSpecies {
-            if species.groupName == selectedSpeciesType && species.isMobile == mobility {
-                speciesInTable.append(species)
+        if selectedSpeciesType == "Unknown" {
+            for species in allSpecies {
+                if species.isMobile == mobility {
+                    speciesInTable.append(species)
+                }
+            }
+        }
+        else {
+            for species in allSpecies {
+                if species.groupName == selectedSpeciesType && species.isMobile == mobility {
+                    speciesInTable.append(species)
+                }
             }
         }
     }
