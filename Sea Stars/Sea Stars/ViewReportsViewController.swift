@@ -49,6 +49,8 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                 self.allSpecies[species.name] = species
             }
             
+            self.allSpecies["Unknown"] = Species(mobility: true)
+            
             self.reportDictionary.removeAll()
             
             let reportsRef = self.ref.childByAppendingPath("reports")
@@ -78,11 +80,16 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                             reportItemsDictionary["species"] = individualSpecies?.name
                             reportItemsDictionary["phylum"] = individualSpecies?.phylum
                             if let individualSpecies = individualSpecies {
-                                if individualSpecies.isMobile {
-                                    reportItemsDictionary["mobility"] = "Mobile"
+                                if individualSpecies.name == "Unknown" {
+                                    reportItemsDictionary["mobility"] = "Unknown"
                                 }
                                 else {
-                                    reportItemsDictionary["mobility"] = "Sessile"
+                                    if individualSpecies.isMobile {
+                                        reportItemsDictionary["mobility"] = "Mobile"
+                                    }
+                                    else {
+                                        reportItemsDictionary["mobility"] = "Sessile"
+                                    }
                                 }
                             }
                             

@@ -54,7 +54,7 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
             
             self.piling = reportItem["piling"] as? Int
             self.depth = reportItem["depth"] as? Int
-            self.rotation = reportItem["rortation"] as? Int
+            self.rotation = reportItem["rotation"] as? Int
             
             self.species = reportItem["species"] as? String
             self.phylum = reportItem["phylum"] as? String

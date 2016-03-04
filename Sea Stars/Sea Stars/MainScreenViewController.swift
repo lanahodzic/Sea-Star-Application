@@ -63,6 +63,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.allSpecies.append(species)
             }
             
+            self.allSpecies.append(Species(mobility: true))
+            self.allSpecies.append(Species(mobility: false))
+            
             for species in self.allSpecies {
                 if species.isMobile == self.mobility {
                     self.speciesInTable.append(species)

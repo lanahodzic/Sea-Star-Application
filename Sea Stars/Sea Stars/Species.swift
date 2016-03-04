@@ -61,4 +61,13 @@ class Species {
             }
         }
     }
+    
+    init(mobility:Bool) {
+        commonName = "Unknown"
+        groupName = "Unknown"
+        isMobile = mobility
+        name = "Unknown"
+        phylum = "Unkown"
+        imageView.image = UIImage(named: "sea-star-black")
+    }
 }
