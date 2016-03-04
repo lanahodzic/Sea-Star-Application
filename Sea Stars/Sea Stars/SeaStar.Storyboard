@@ -375,7 +375,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="BbP-l9-4zq">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="agQ-io-z8x">
+                        <barButtonItem key="rightBarButtonItem" id="agQ-io-z8x">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HsI-nY-Wax">
                                 <rect key="frame" x="578" y="7" width="170" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -477,6 +477,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="PFP-7H-lyc"/>
+        <segue reference="dEt-Nt-xKS"/>
     </inferredMetricsTieBreakers>
 </document>
