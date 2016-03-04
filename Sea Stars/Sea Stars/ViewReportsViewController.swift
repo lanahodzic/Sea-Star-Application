@@ -20,6 +20,8 @@ class ReportTableViewCell: UITableViewCell {
 class ViewReportsViewController: UITableViewController, MFMailComposeViewControllerDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
+    
+    var allSpecies:[String:Species] = [String:Species]()
 
     @IBOutlet weak var exportToCSVButton: UIBarButtonItem!
     @IBOutlet weak var latestReports: UITableView!
@@ -28,7 +30,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let exportToCSVButton = UIBarButtonItem(title: "Export", style: .Plain, target: self, action: "exportAllReports")
+        let exportToCSVButton = UIBarButtonItem(title: "Export All", style: .Plain, target: self, action: "exportAllReports")
         navigationItem.rightBarButtonItem = exportToCSVButton
         
         latestReports.dataSource = self
@@ -39,42 +41,66 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         
         latestReports.emptyDataSetDelegate = self
         latestReports.emptyDataSetSource = self
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        // Do any additional setup after loading the view.
         
-        reportDictionary.removeAll()
-        
-        let reportsRef = ref.childByAppendingPath("reports")
-        reportsRef.queryOrderedByChild("date").observeSingleEventOfType(.Value, withBlock: {(reportSnapshot) in
-            for child in reportSnapshot.children.allObjects as! [FDataSnapshot] {
-                let reportXSpeciesRef = self.ref.childByAppendingPath("reportXSpecies")
-                reportXSpeciesRef.queryOrderedByChild("reportID").queryEqualToValue(child.key/*, childKey: "reportID"*/).observeSingleEventOfType(.Value, withBlock: {(reportXSpeciesSnapshot) in
-                    var dictionary = [String:AnyObject]()
-                    dictionary["observer"] = child.value["observer"] as! String
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "MM/dd/yyyy"
-                    dictionary["date"] = dateFormatter.stringFromDate(NSDate(timeIntervalSince1970: child.value["date"] as! Double))
-                    dictionary["site"] = child.value["site"] as! String
-                    var reportItemsArray:[[String:AnyObject]] = []
-                    for children in reportXSpeciesSnapshot.children.allObjects as! [FDataSnapshot] {
-                        var reportItemsDictionary = [String:AnyObject]()
-                        reportItemsDictionary["piling"] = children.value["piling"] as! Int
-                        reportItemsDictionary["depth"] = children.value["depth"] as! Int
-                        reportItemsDictionary["rotation"] = children.value["rotation"] as! Int
-                        reportItemsDictionary["speciesID"] = children.value["speciesID"] as! String
-                        reportItemsDictionary["count"] = children.value["count"] as! Int
-                        reportItemsDictionary["health"] = children.value["health"] as! String
-                        reportItemsDictionary["notes"] = children.value["notes"] as! String
-                        reportItemsArray.append(reportItemsDictionary)
-                    }
-                    dictionary["reportItems"] = reportItemsArray
-                    self.reportDictionary.append(dictionary)
-                    self.latestReports.reloadData()
-                })
+        let speciesRef = ref.childByAppendingPath("species")
+        speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+            for child in snapshot.children.allObjects as! [FDataSnapshot] {
+                let species = Species(fromSnapshot: child, loadImages:false)
+                self.allSpecies[species.name] = species
             }
+            
+            self.allSpecies["Unknown"] = Species(mobility: true)
+            
+            self.reportDictionary.removeAll()
+            
+            let reportsRef = self.ref.childByAppendingPath("reports")
+            reportsRef.queryOrderedByChild("date").observeSingleEventOfType(.Value, withBlock: {(reportSnapshot) in
+                for child in reportSnapshot.children.allObjects as! [FDataSnapshot] {
+                    let reportXSpeciesRef = self.ref.childByAppendingPath("reportXSpecies")
+                    reportXSpeciesRef.queryOrderedByChild("reportID").queryEqualToValue(child.key).observeSingleEventOfType(.Value, withBlock: {(reportXSpeciesSnapshot) in
+                        var dictionary = [String:AnyObject]()
+                        dictionary["observer"] = child.value["observer"] as! String
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "MM/dd/yyyy"
+                        dictionary["date"] = dateFormatter.stringFromDate(NSDate(timeIntervalSince1970: child.value["date"] as! Double))
+                        dictionary["site"] = child.value["site"] as! String
+                        var reportItemsArray:[[String:AnyObject]] = []
+                        for children in reportXSpeciesSnapshot.children.allObjects as! [FDataSnapshot] {
+                            var reportItemsDictionary = [String:AnyObject]()
+                            reportItemsDictionary["piling"] = children.value["piling"] as! Int
+                            reportItemsDictionary["depth"] = children.value["depth"] as! Int
+                            reportItemsDictionary["rotation"] = children.value["rotation"] as! Int
+                            reportItemsDictionary["count"] = children.value["count"] as! Int
+                            reportItemsDictionary["health"] = children.value["health"] as! String
+                            reportItemsDictionary["notes"] = children.value["notes"] as! String
+                            
+                            let speciesName = children.value["speciesID"] as! String
+                            let individualSpecies = self.allSpecies[speciesName]
+                            reportItemsDictionary["groupName"] = individualSpecies?.groupName
+                            reportItemsDictionary["species"] = individualSpecies?.name
+                            reportItemsDictionary["phylum"] = individualSpecies?.phylum
+                            if let individualSpecies = individualSpecies {
+                                if individualSpecies.name == "Unknown" {
+                                    reportItemsDictionary["mobility"] = "Unknown"
+                                }
+                                else {
+                                    if individualSpecies.isMobile {
+                                        reportItemsDictionary["mobility"] = "Mobile"
+                                    }
+                                    else {
+                                        reportItemsDictionary["mobility"] = "Sessile"
+                                    }
+                                }
+                            }
+                            
+                            reportItemsArray.append(reportItemsDictionary)
+                        }
+                        dictionary["reportItems"] = reportItemsArray
+                        self.reportDictionary.append(dictionary)
+                        self.latestReports.reloadData()
+                    })
+                }
+            })
         })
     }
 
@@ -126,101 +152,100 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     // MARK: Exporting
     
     func exportAllReports() {
-        print("user requested .csv export")
-        
-        let dataString: NSMutableString = ""
-        let dataArr: NSMutableArray = []
-        let currentReporter: NSMutableArray = []
-        var currentReportNumber = 0
-        
-        // Get initial keys, "observer,site,date"
-        for value in reportDictionary[0] {
-            print(value)
-            if value.0 == "reportItems" {
-                continue
-            }
-            dataArr.addObject(value.0)
-        }
-        
-        // get keys from reportitems, count,depth,...,speciesID
-        for reportItem in reportDictionary[0]["reportItems"] as! [[String : AnyObject]] {
-            for (key, _) in reportItem { // god fucking damnit, get the keys
-                if dataArr.containsObject(key) {
-                    continue
-                }
-                dataArr.addObject(key)
-            }
-        }
-        
-        // Make the first character of each string of header in the .csv to uppercase, prettier
-        for val in dataArr {
-            var value: String = String(val)
+        if(reportDictionary.isEmpty) {
+            let alert = UIAlertController(title: "Export", message: "There are no reports in the database to export.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            print("user requested .csv export")
             
-            value.replaceRange(value.startIndex...value.startIndex, with: String(value[value.startIndex]).capitalizedString)
-            dataString.appendString(value + ",")
-        }
-        
-        dataString.appendString("\n")
-        
-        // Start iterating through the reports and build the mutablestring, ie to be .csv
-        for i in 0..<reportDictionary.count {
-            for value in reportDictionary[i] {
+            let dataString: NSMutableString = ""
+            let dataArr: NSMutableArray = []
+            let currentReporter: NSMutableArray = []
+            var currentReportNumber = 0
+            
+            // Get initial keys, "observer,site,date"
+            for value in reportDictionary[0] {
+                print(value)
                 if value.0 == "reportItems" {
                     continue
                 }
-                
-                currentReporter.addObject(value.1)
-                dataString.appendString(String(value.1) + ",")
+                dataArr.addObject(value.0)
             }
             
-            // Grab data from the current report
-            for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
-                ++currentReportNumber
-                for (_, val) in reportItem {
-                    dataString.appendString(String(val) + ",")
-                }
-                dataString.appendString("\n")
-                
-                // Handle multiple reportitems logic
-                if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != (currentReportNumber - 1) {
-                    for val in currentReporter {
-                        dataString.appendString(String(val) + ",")
+            // get keys from reportitems, count,depth,...,speciesID
+            for reportItem in reportDictionary[0]["reportItems"] as! [[String : AnyObject]] {
+                for (key, _) in reportItem {
+                    if dataArr.containsObject(key) {
+                        continue
                     }
-                    ++currentReportNumber
+                    dataArr.addObject(key)
                 }
             }
-            // Get ready for the next report
-            currentReporter.removeAllObjects()
-            currentReportNumber = 0
+            
+            // Make the first character of each string of header in the .csv to uppercase, prettier
+            for val in dataArr {
+                var value: String = String(val)
+                
+                value.replaceRange(value.startIndex...value.startIndex, with: String(value[value.startIndex]).capitalizedString)
+                dataString.appendString(value + ",")
+            }
+            
+            dataString.appendString("\n")
+            
+            // Start iterating through the reports and build the mutablestring, ie to be .csv
+            for i in 0..<reportDictionary.count {
+                for value in reportDictionary[i] {
+                    if value.0 == "reportItems" {
+                        continue
+                    }
+                    
+                    currentReporter.addObject(value.1)
+                    dataString.appendString(String(value.1) + ",")
+                }
+                
+                // Grab data from the current report
+                for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
+                    ++currentReportNumber
+                    for (kind, val) in reportItem {
+                        if kind == "health" || kind == "notes" {
+                            dataString.appendString("\"" + String(val) + "\"" + ",")
+                        } else {
+                            dataString.appendString(String(val) + ",")
+                        }
+                    }
+                    dataString.appendString("\n")
+                    
+                    // Handle multiple reportitems logic
+                    if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != (currentReportNumber - 1) {
+                        for val in currentReporter {
+                            dataString.appendString(String(val) + ",")
+                        }
+                        ++currentReportNumber
+                    }
+                }
+                // Get ready for the next report
+                currentReporter.removeAllObjects()
+                currentReportNumber = 0
+            }
+            
+            // Setup data for mail attachment
+            let data = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+            
+            let emailViewController = configuredMailComposeViewController(data!)
+            if MFMailComposeViewController.canSendMail() {
+                self.presentViewController(emailViewController, animated: true, completion: nil)
+            }
+            
         }
-    
-        // Setup data for mail attachment
-        let data = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        
-        let emailViewController = configuredMailComposeViewController(data!)
-        if MFMailComposeViewController.canSendMail() {
-            self.presentViewController(emailViewController, animated: true, completion: nil)
-        }
-        
-
     }
     
-    // MARK: Share, TODO?
-    @IBAction func shareDoc(sender: AnyObject) {
-        print("test share file")
-        
-     //   docController.UTI = "public.comma-separated-values-text"
-       // docController.delegate = self//delegate
-      //  docController.name = "Export Data"
-      //  docController.presentOptionsMenuFromBarButtonItem(sender as! UIBarButtonItem, animated: true)
-        
-        //}
-    }
     
     // MARK: Mail
     func configuredMailComposeViewController(data: NSData) -> MFMailComposeViewController {
         let emailController = MFMailComposeViewController()
         emailController.mailComposeDelegate = self
+        emailController.setCcRecipients(["lneedles@calpoly.edu"])
         emailController.setSubject("CSV File of Report")
         emailController.setMessageBody("Here are the reports, they should be attached!", isHTML: false)
         
@@ -258,6 +283,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         if  segue.identifier == "reportview" {
             let reportVC = segue.destinationViewController as! ReportViewController
             reportVC.report = reportDictionary[latestReports.indexPathForSelectedRow!.row]
+            reportVC.allSpecies = self.allSpecies
         }
     }
     

@@ -458,6 +458,10 @@ public class KSTokenView: UIView {
         return _tokenField.tokens
     }
 
+    public func hasTokens() -> Bool {
+        return tokens() != nil && tokens()!.count > 0
+    }
+
     //MARK: - Add Token
     //__________________________________________________________________________________
     //
@@ -626,9 +630,7 @@ public class KSTokenView: UIView {
 
     func tokenFieldDidEndEditing(tokenField: KSTokenField) {
         delegate?.tokenViewDidEndEditing?(self)
-//        if (!_addTokenFromUntokenizedText(tokenField)) {
-//            tokenField.untokenize()
-//        }
+        tokenField.untokenize()
         _hideSearchResults()
     }
 

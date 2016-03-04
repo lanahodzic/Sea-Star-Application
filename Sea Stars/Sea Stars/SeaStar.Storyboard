@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="DXH-ao-7JF">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -81,7 +82,7 @@
                                 <rect key="frame" x="0.0" y="92" width="768" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Crk-tK-gYZ">
@@ -227,7 +228,7 @@
                                         <rect key="frame" x="0.0" y="50" width="768" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UJK-Bd-6XO" id="s0d-1n-fwT">
-                                            <rect key="frame" x="0.0" y="0.0" width="682" height="119"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="682" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1rW-uU-ZIE">
@@ -324,6 +325,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sea Stars" id="R94-8T-PKb">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel Report" id="2Pb-Fn-hvE">
+                            <connections>
+                                <action selector="cancelReport:" destination="ice-62-bKu" id="TFG-bm-FIM"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="View Reports" id="CUb-Wv-TgZ">
                             <connections>
                                 <segue destination="XWX-bg-HCg" kind="push" identifier="viewReportsSegue" id="PFP-7H-lyc"/>
@@ -332,6 +338,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="cancelReportButton" destination="2Pb-Fn-hvE" id="mVN-rX-1ec"/>
                         <outlet property="depthTextBox" destination="6kF-oo-r9M" id="x0o-C2-ogd"/>
                         <outlet property="mobilitySegmentedControl" destination="QJH-Bv-6QC" id="tC9-Sh-dck"/>
                         <outlet property="pilingTextBox" destination="4KQ-7B-WFC" id="FBM-gf-DC7"/>
@@ -358,8 +365,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qub-13-Elp">
-                                <rect key="frame" x="0.0" y="72" width="768" height="728"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qub-13-Elp">
+                                <rect key="frame" x="0.0" y="72" width="768" height="952"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -367,9 +374,24 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1A7-8W-9U8" firstAttribute="top" secondItem="qub-13-Elp" secondAttribute="bottom" id="Vdq-cu-24X"/>
+                            <constraint firstItem="qub-13-Elp" firstAttribute="top" secondItem="SnS-qb-UyW" secondAttribute="bottom" constant="8" id="kYP-kT-VWK"/>
+                            <constraint firstItem="qub-13-Elp" firstAttribute="leading" secondItem="uwm-qG-Nca" secondAttribute="leadingMargin" constant="-20" id="mVw-FP-rOQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qub-13-Elp" secondAttribute="trailing" constant="-20" id="sDK-Kz-YaG"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="BbP-l9-4zq"/>
+                    <navigationItem key="navigationItem" id="BbP-l9-4zq">
+                        <barButtonItem key="rightBarButtonItem" id="agQ-io-z8x">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HsI-nY-Wax">
+                                <rect key="frame" x="578" y="7" width="170" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Export"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="exportButton" destination="agQ-io-z8x" id="l8U-Qh-OuE"/>
                         <outlet property="reportTextView" destination="qub-13-Elp" id="Lhz-r5-aLC"/>
                     </connections>
                 </viewController>
@@ -462,6 +484,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="PFP-7H-lyc"/>
+        <segue reference="dEt-Nt-xKS"/>
     </inferredMetricsTieBreakers>
 </document>

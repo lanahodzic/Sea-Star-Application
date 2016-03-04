@@ -19,6 +19,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var cancelReportButton: UIBarButtonItem!
     @IBOutlet weak var pilingTextBox: UITextField!
     @IBOutlet weak var rotationTextBox: UITextField!
     @IBOutlet weak var depthTextBox: UITextField!
@@ -38,9 +39,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var selectedSpeciesType: String = ""
     var mobility = true
+
+    var mobileGroups: Set<String> = []
+    var sessileGroups: Set<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.hidesBackButton = true;
 
         self.pilingTextBox.delegate = self
         self.rotationTextBox.delegate = self
@@ -53,24 +59,37 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let speciesRef = ref.childByAppendingPath("species")
         speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
             for child in snapshot.children.allObjects as! [FDataSnapshot] {
-                let species = Species(fromSnapshot: child)
+                let species = Species(fromSnapshot: child, loadImages: true)
                 self.allSpecies.append(species)
             }
+            
+            self.allSpecies.append(Species(mobility: true))
+            self.allSpecies.append(Species(mobility: false))
             
             for species in self.allSpecies {
                 if species.isMobile == self.mobility {
                     self.speciesInTable.append(species)
                 }
+
+                if species.isMobile {
+                    self.mobileGroups.insert(species.groupName)
+                }
+                else {
+                    self.sessileGroups.insert(species.groupName)
+                }
             }
             
+            self.mobileGroups.insert("Unknown")
+            self.sessileGroups.insert("Unknown")
+
+            let scrollView = self.groupNameButtonsView(CGSizeMake(150.0,50.0))
+            self.speciesScrollView.addSubview(scrollView)
+            self.speciesScrollView.showsHorizontalScrollIndicator = true
+            self.speciesScrollView.indicatorStyle = .Default
+
             self.refreshTable()
         })
 
-        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0), buttonCount: 10)
-        speciesScrollView.addSubview(scrollView)
-        speciesScrollView.showsHorizontalScrollIndicator = true
-        speciesScrollView.indicatorStyle = .Default
-        
         decorateSaveButton()
         
         // A little trick for removing the cell separators for the empty table view.
@@ -96,7 +115,55 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.tableView.reloadData()
     }
     
+    @IBAction func cancelReport(sender: AnyObject) {
+        let alert = UIAlertController(title: "Cancel Report", message: "Are you sure you want to cancel the report? Canceling the report will delete any creatures that haven't been saved in a final report.", preferredStyle: .Alert)
+        let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
+            
+        }
+        let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
+            let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+            let context = appDel.managedObjectContext
+            
+            let reportRequest = NSFetchRequest(entityName: "Reports")
+            reportRequest.returnsObjectsAsFaults = false
+            let reportXSpeciesRequest = NSFetchRequest(entityName: "ReportXSpecies")
+            reportXSpeciesRequest.returnsObjectsAsFaults = false
+            
+            let reportDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportRequest)
+            let reportXSpeciesDeleteRequest = NSBatchDeleteRequest(fetchRequest: reportXSpeciesRequest)
+            do {
+                try context.executeRequest(reportDeleteRequest)
+                try context.executeRequest(reportXSpeciesDeleteRequest)
+            }
+            catch {
+                print("Error deleting all rows from entities")
+            }
+            
+            let storyboard = UIStoryboard(name: "SeaStar", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("beginNav")
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func saveFinalReport(sender: AnyObject) {
+        let alert = UIAlertController(title: "Save Final Report", message: "Are you sure you want to save the final report? This action will save all the added creatures and end the current report.", preferredStyle: .Alert)
+        let noAction = UIAlertAction(title: "No", style: .Default, handler: { (action) -> Void in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        })
+        let yesAction = UIAlertAction(title: "Yes", style: .Default, handler: { (action) -> Void in
+            self.pushFinalReportToFirebase()
+        })
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func pushFinalReportToFirebase() {
         if Reachability.isConnectedToNetwork() {
             var site:String?
             var observer:String?
@@ -135,12 +202,18 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             reportXSpeciesRequest.returnsObjectsAsFaults = false
             do {
                 let reportXSpeciesResults = try context.executeFetchRequest(reportXSpeciesRequest)
+                print(reportXSpeciesResults)
                 
-                for result in reportXSpeciesResults as! [NSManagedObject] {
-                    let saveReportXSpecies = createReportXSpeciesJSON(result, reportID: reportID!)
-                    let reportXSpeciesRef = ref.childByAppendingPath("reportXSpecies")
-                    let newReportXSpeciesRef = reportXSpeciesRef.childByAutoId()
-                    newReportXSpeciesRef.setValue(saveReportXSpecies)
+                if reportXSpeciesResults.count == 0 {
+                    showAlert("Save Final Report", message: "There are no creatures to save.")
+                }
+                else {
+                    for result in reportXSpeciesResults as! [NSManagedObject] {
+                        let saveReportXSpecies = createReportXSpeciesJSON(result, reportID: reportID!)
+                        let reportXSpeciesRef = ref.childByAppendingPath("reportXSpecies")
+                        let newReportXSpeciesRef = reportXSpeciesRef.childByAutoId()
+                        newReportXSpeciesRef.setValue(saveReportXSpecies)
+                    }
                 }
             }
             catch {
@@ -226,31 +299,30 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         else {
             mobility = false
         }
-        
+
+        self.selectedSpeciesType = ""
+        selectedSpeciesLabel.text = "No species type has been selected"
+
         speciesInTable.removeAll()
         
-        if selectedSpeciesType == "" {
-            for species in allSpecies {
-                if species.isMobile == mobility {
-                    speciesInTable.append(species)
-                }
+        for species in allSpecies {
+            if species.isMobile == mobility {
+                speciesInTable.append(species)
             }
         }
-        else {
-            findSpeciesForTableView()
-        }
-        
+
         self.speciesScrollView.subviews.forEach({ $0.removeFromSuperview() })
         
-        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0), buttonCount: 10)
+        let scrollView = groupNameButtonsView(CGSizeMake(150.0,50.0))
         self.speciesScrollView.addSubview(scrollView)
         
         refreshTable()
     }
 
-    func groupNameButtonsView(buttonSize:CGSize, buttonCount:Int) -> UIView {
-        let titleArray = ["Sea Stars", "Crabs", "Anemones", "Bivalves", "Barnacles", "Bryozoans", "Sea Squirts", "Sea Cucumbers", "Chitons", "Sea Urchins"]
-        
+    func groupNameButtonsView(buttonSize:CGSize) -> UIView {
+        let titleArray = self.mobility ? Array(self.mobileGroups) : Array(self.sessileGroups)
+        let buttonCount = titleArray.count
+
         let buttonView = UIView()
         buttonView.backgroundColor = UIColor.blackColor()
         buttonView.frame.origin = CGPointMake(0,0)
@@ -264,18 +336,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         var buttonPosition = CGPointMake(padding.width * 0.5, padding.height)
         let buttonIncrement = buttonSize.width + padding.width
 
-        for i in 0...(buttonCount - 1)  {
-            let button = UIButton(type: .Custom)
-            button.frame.size = buttonSize
-            button.frame.origin = buttonPosition
-            buttonPosition.x = buttonPosition.x + buttonIncrement
-            button.backgroundColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1)
-            button.setTitle(titleArray[i], forState: .Normal)
-            button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
-            buttonView.addSubview(button)
+        if buttonCount > 0 {
+            for i in 0...(buttonCount - 1)  {
+                let button = UIButton(type: .Custom)
+                button.frame.size = buttonSize
+                button.frame.origin = buttonPosition
+                buttonPosition.x = buttonPosition.x + buttonIncrement
+                button.backgroundColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1)
+                button.setTitle(titleArray[i], forState: .Normal)
+                button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
+                buttonView.addSubview(button)
 
-            if selectedButton == nil {
-                selectedButton = button.titleLabel?.text
+                if selectedButton == nil {
+                    selectedButton = button.titleLabel?.text
+                }
             }
         }
 
@@ -294,9 +368,18 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func findSpeciesForTableView() {
-        for species in allSpecies {
-            if species.groupName == selectedSpeciesType && species.isMobile == mobility {
-                speciesInTable.append(species)
+        if selectedSpeciesType == "Unknown" {
+            for species in allSpecies {
+                if species.isMobile == mobility {
+                    speciesInTable.append(species)
+                }
+            }
+        }
+        else {
+            for species in allSpecies {
+                if species.groupName == selectedSpeciesType && species.isMobile == mobility {
+                    speciesInTable.append(species)
+                }
             }
         }
     }
