@@ -30,7 +30,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let exportToCSVButton = UIBarButtonItem(title: "Export", style: .Plain, target: self, action: "exportAllReports")
+        let exportToCSVButton = UIBarButtonItem(title: "Export All", style: .Plain, target: self, action: "exportAllReports")
         navigationItem.rightBarButtonItem = exportToCSVButton
         
         latestReports.dataSource = self
@@ -238,6 +238,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     func configuredMailComposeViewController(data: NSData) -> MFMailComposeViewController {
         let emailController = MFMailComposeViewController()
         emailController.mailComposeDelegate = self
+        emailController.setCcRecipients(["lneedles@calpoly.edu"])
         emailController.setSubject("CSV File of Report")
         emailController.setMessageBody("Here are the reports, they should be attached!", isHTML: false)
         

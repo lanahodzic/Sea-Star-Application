@@ -130,6 +130,7 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
     func configuredMailComposeViewController(data: NSData) -> MFMailComposeViewController {
         let emailController = MFMailComposeViewController()
         emailController.mailComposeDelegate = self
+        emailController.setCcRecipients(["lneedles@calpoly.edu"])
         emailController.setSubject("CSV File of Report")
         emailController.setMessageBody("Here are the reports, they should be attached!", isHTML: false)
         
