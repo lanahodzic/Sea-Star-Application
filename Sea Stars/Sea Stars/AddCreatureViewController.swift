@@ -11,12 +11,17 @@ import CoreData
 
 class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var healthLabel: UILabel!
     @IBOutlet weak var healthTextBox: KSTokenView!
     @IBOutlet weak var speciesLabel: UILabel!
     @IBOutlet weak var countTextBox: UITextField!
+    @IBOutlet weak var countLabel: UILabel!
 //    @IBOutlet weak var healthTextBox: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
+    
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var sizeTextBox: UITextField!
     
     var healthData: [String] = ["Healthy: no symptons of disease", "Mild: few lesions, deflated appearance, extreme twisting of rays", "Severe: many lesions, arm loss, disintegration"]
     
@@ -28,21 +33,37 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     var rotation:Int?
     var depth:Int?
     
+    var seaStarSeleted: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.countTextBox.delegate = self
-        self.countTextBox.keyboardType = .NumberPad
-
-        self.speciesLabel.text = self.selectedSpecies
+        if (seaStarSeleted) {
+            self.countTextBox.hidden = true
+            self.speciesLabel.text = self.selectedSpecies
+            self.countLabel.hidden = true
+            self.healthLabel.hidden = true
+            self.healthTextBox.hidden = true
+            
+        }
+        else {
         
-        self.healthTextBox.delegate = self
-        self.healthTextBox.promptText = ""
-        self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
-        self.healthTextBox.maxTokenLimit = 1
-        self.healthTextBox.style = .Squared
-        self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height * 3)
-        self.healthTextBox.font = UIFont.systemFontOfSize(17)
+            self.countTextBox.delegate = self
+            self.countTextBox.keyboardType = .NumberPad
+
+            self.speciesLabel.text = self.selectedSpecies
+            
+            self.healthTextBox.delegate = self
+            self.healthTextBox.promptText = ""
+            self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
+            self.healthTextBox.maxTokenLimit = 1
+            self.healthTextBox.style = .Squared
+            self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height * 3)
+            self.healthTextBox.font = UIFont.systemFontOfSize(17)
+            
+            self.sizeLabel.hidden = true
+            self.sizeTextBox.hidden = true
+        }
         
         decorateSaveButton()
     }
@@ -115,7 +136,9 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
             }
         }
         else {
-            showAlert("Incorrect Format", message: "The count and health must be entered.")
+            if (!self.countTextBox.hidden && !self.healthTextBox.hidden){
+                showAlert("Incorrect Format", message: "The count and health must be entered.")
+            }
         }
     }
 

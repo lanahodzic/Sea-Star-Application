@@ -410,6 +410,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
             
             addCreatureVC.selectedSpecies = self.speciesInTable[self.tableView.indexPathForSelectedRow!.row].name
+            
+            if (self.selectedSpeciesType == "Sea Stars") {
+                addCreatureVC.seaStarSeleted = true
+            }
 
             if let p = Int(pilingTextBox.text!) {
                 if let r = Int(rotationTextBox.text!) {
