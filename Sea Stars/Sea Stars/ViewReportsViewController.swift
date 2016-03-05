@@ -62,7 +62,8 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                         dictionary["observer"] = child.value["observer"] as! String
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
-                        dictionary["date"] = dateFormatter.stringFromDate(NSDate(timeIntervalSince1970: child.value["date"] as! Double))
+                        let date = NSDate(timeIntervalSince1970: child.value["date"] as! Double)
+                        dictionary["date"] = dateFormatter.stringFromDate(date)
                         dictionary["site"] = child.value["site"] as! String
                         var reportItemsArray:[[String:AnyObject]] = []
                         for children in reportXSpeciesSnapshot.children.allObjects as! [FDataSnapshot] {
@@ -95,8 +96,17 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                             
                             reportItemsArray.append(reportItemsDictionary)
                         }
+                        
                         dictionary["reportItems"] = reportItemsArray
                         self.reportDictionary.append(dictionary)
+                        
+                        self.reportDictionary.sortInPlace({ (report1, report2) -> Bool in
+                            let report1Date = dateFormatter.dateFromString(report1["date"] as! String)
+                            let report2Date = dateFormatter.dateFromString(report2["date"] as! String)
+                            
+                            return report1Date!.compare(report2Date!) == NSComparisonResult.OrderedDescending
+                        })
+                        
                         self.latestReports.reloadData()
                     })
                 }
