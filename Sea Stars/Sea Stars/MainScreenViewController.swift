@@ -412,7 +412,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             addCreatureVC.selectedSpecies = self.speciesInTable[self.tableView.indexPathForSelectedRow!.row].name
             
             if (self.selectedSpeciesType == "Sea Stars") {
-                addCreatureVC.seaStarSeleted = true
+                addCreatureVC.seaStarSelected = true
+            }
+            
+            if mobilitySegmentedControl.selectedSegmentIndex == 0 {
+                addCreatureVC.mobileSpecies = true
             }
 
             if let p = Int(pilingTextBox.text!) {

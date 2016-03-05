@@ -16,8 +16,8 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var speciesLabel: UILabel!
     @IBOutlet weak var countTextBox: UITextField!
     @IBOutlet weak var countLabel: UILabel!
-//    @IBOutlet weak var healthTextBox: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var notesLabel: UILabel!
     @IBOutlet weak var saveButton: UIButton!
     
     @IBOutlet weak var sizeLabel: UILabel!
@@ -33,23 +33,46 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     var rotation:Int?
     var depth:Int?
     
-    var seaStarSeleted: Bool = false
+    var seaStarSelected: Bool = false
+    var mobileSpecies: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (seaStarSeleted) {
+        if (seaStarSelected) {
             self.countTextBox.hidden = true
             self.speciesLabel.text = self.selectedSpecies
             self.countLabel.hidden = true
-            self.healthLabel.hidden = true
-            self.healthTextBox.hidden = true
+            
+            self.sizeLabel.frame = CGRectMake(self.countLabel.frame.minX, self.countLabel.frame.minY, self.sizeLabel.frame.width, self.sizeLabel.frame.height)
+            self.sizeTextBox.frame = CGRectMake(self.countTextBox.frame.minX, self.countTextBox.frame.minY, self.sizeTextBox.frame.width, self.sizeTextBox.frame.height)
+            
+            
+            self.healthTextBox.delegate = self
+            self.healthTextBox.promptText = ""
+            self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
+            self.healthTextBox.maxTokenLimit = 1
+            self.healthTextBox.style = .Squared
+            self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height * 3)
+            self.healthTextBox.font = UIFont.systemFontOfSize(17)
+            
+            self.countLabel.translatesAutoresizingMaskIntoConstraints = true
+            self.countTextBox.translatesAutoresizingMaskIntoConstraints = true
+            self.sizeTextBox.translatesAutoresizingMaskIntoConstraints = true
+            self.sizeLabel.translatesAutoresizingMaskIntoConstraints = true
+            
             
         }
         else {
         
-            self.countTextBox.delegate = self
-            self.countTextBox.keyboardType = .NumberPad
+            if (!mobileSpecies) {
+                self.countLabel.hidden = true
+                self.countTextBox.hidden = true
+            }
+            else {
+                self.countTextBox.delegate = self
+                self.countTextBox.keyboardType = .NumberPad
+            }
 
             self.speciesLabel.text = self.selectedSpecies
             
@@ -86,6 +109,8 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         
         let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = appDel.managedObjectContext
+        
+        //TODO: need to get info from size and turn into XS, S, M, L, XL in report/database
         
         if countTextBox.text != "" && (healthTextBox.hasTokens() || !healthTextBox.text.isEmpty) {
             if let _ = Int(countTextBox.text!) {
