@@ -410,7 +410,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Count:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fw1-xP-j1C">
-                                <rect key="frame" x="70" y="191" width="104" height="45"/>
+                                <rect key="frame" x="70" y="215" width="104" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -428,7 +428,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I3I-eM-vhf">
-                                <rect key="frame" x="210" y="199" width="70" height="30"/>
+                                <rect key="frame" x="210" y="223" width="70" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
@@ -475,11 +475,23 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqa-Zg-4Uq" customClass="Checkbox" customModule="Sea_Stars" customModuleProvider="target">
+                                <rect key="frame" x="70" y="163" width="37" height="39"/>
+                                <state key="normal" backgroundImage="unchecked"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Benthos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SZ-aU-iEd">
+                                <rect key="frame" x="115" y="169" width="88" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="MMz-s0-1FN"/>
                     <connections>
+                        <outlet property="benthosCheckbox" destination="gqa-Zg-4Uq" id="IaT-Rf-SMy"/>
+                        <outlet property="checkboxLabel" destination="4SZ-aU-iEd" id="eVw-yQ-14J"/>
                         <outlet property="countLabel" destination="Fw1-xP-j1C" id="R9t-ZR-VOE"/>
                         <outlet property="countTextBox" destination="I3I-eM-vhf" id="SaY-z7-jmo"/>
                         <outlet property="healthLabel" destination="Ztm-7f-4oi" id="UbT-cC-fDB"/>
@@ -497,6 +509,9 @@
             <point key="canvasLocation" x="3059" y="773"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="unchecked" width="225" height="225"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="PFP-7H-lyc"/>
     </inferredMetricsTieBreakers>
