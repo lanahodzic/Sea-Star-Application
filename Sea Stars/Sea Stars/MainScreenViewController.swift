@@ -78,17 +78,24 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.sessileGroups.insert(species.groupName)
                 }
             }
-            
-            self.mobileGroups.insert("Unknown")
-            self.sessileGroups.insert("Unknown")
+
+            self.speciesScrollView.subviews.forEach({ $0.removeFromSuperview() })
 
             let scrollView = self.groupNameButtonsView(CGSizeMake(150.0,50.0))
             self.speciesScrollView.addSubview(scrollView)
-            self.speciesScrollView.showsHorizontalScrollIndicator = true
-            self.speciesScrollView.indicatorStyle = .Default
 
             self.refreshTable()
         })
+
+
+        self.speciesScrollView.showsHorizontalScrollIndicator = true
+        self.speciesScrollView.indicatorStyle = .Default
+
+        self.mobileGroups.insert("Unknown")
+        self.sessileGroups.insert("Unknown")
+
+        let scrollView = self.groupNameButtonsView(CGSizeMake(150.0,50.0))
+        self.speciesScrollView.addSubview(scrollView)
 
         decorateSaveButton()
         
@@ -320,7 +327,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func groupNameButtonsView(buttonSize:CGSize) -> UIView {
-        let titleArray = self.mobility ? Array(self.mobileGroups) : Array(self.sessileGroups)
+        let titleArray = self.mobility ? Array(self.mobileGroups).sort() : Array(self.sessileGroups).sort()
         let buttonCount = titleArray.count
 
         let buttonView = UIView()
