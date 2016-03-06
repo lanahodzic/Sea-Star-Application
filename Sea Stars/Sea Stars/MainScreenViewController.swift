@@ -104,6 +104,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
+
+        tableView.keyboardDismissMode = .OnDrag
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -279,6 +281,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -460,10 +463,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        textField.text = ""
-    }
-
     func decorateSaveButton() {
         let borderColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1).CGColor
         saveButton.layer.borderWidth = 2

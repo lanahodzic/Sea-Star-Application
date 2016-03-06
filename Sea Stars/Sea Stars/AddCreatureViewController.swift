@@ -248,6 +248,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

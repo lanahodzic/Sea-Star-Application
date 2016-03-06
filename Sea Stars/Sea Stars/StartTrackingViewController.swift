@@ -81,6 +81,7 @@ class StartTrackingViewController: UIViewController {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
 
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
