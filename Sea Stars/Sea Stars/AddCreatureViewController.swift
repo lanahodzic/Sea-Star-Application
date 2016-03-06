@@ -9,13 +9,52 @@
 import UIKit
 import CoreData
 
+class Checkbox: UIButton {
+    let checkedImage = UIImage(named: "checked")! as UIImage
+    let uncheckedImage = UIImage(named: "unchecked")! as UIImage
+    
+    // Bool property
+    var isChecked: Bool = false {
+        didSet{
+            if isChecked == true {
+                self.setImage(checkedImage, forState: .Normal)
+            } else {
+                self.setImage(uncheckedImage, forState: .Normal)
+            }
+        }
+    }
+    
+    override func awakeFromNib() {
+        self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.isChecked = false
+    }
+    
+    func buttonClicked(sender: UIButton) {
+        if sender == self {
+            if isChecked == true {
+                isChecked = false
+            } else {
+                isChecked = true
+            }
+        }
+    }
+}
+
 class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet weak var checkboxLabel: UILabel!
+    @IBOutlet weak var benthosCheckbox: Checkbox!
+    @IBOutlet weak var healthLabel: UILabel!
     @IBOutlet weak var healthTextBox: KSTokenView!
     @IBOutlet weak var speciesLabel: UILabel!
     @IBOutlet weak var countTextBox: UITextField!
+    @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var notesLabel: UILabel!
     @IBOutlet weak var saveButton: UIButton!
+    
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var sizeTextBox: UITextField!
     
     var healthData: [String] = ["Healthy: no symptons of disease", "Mild: few lesions, deflated appearance, extreme twisting of rays", "Severe: many lesions, arm loss, disintegration"]
     
@@ -31,21 +70,75 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     var images:[UIImage] = []
     
     @IBOutlet weak var imageView: UIImageView!
+
+    var benthosChecked: Bool = false
+    var seaStarSelected: Bool = false
+    var mobileSpecies: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.countTextBox.delegate = self
-        self.countTextBox.keyboardType = .NumberPad
-
-        self.speciesLabel.text = self.selectedSpecies
+        if (seaStarSelected) {
+            self.countTextBox.hidden = true
+            self.speciesLabel.text = self.selectedSpecies
+            self.countLabel.hidden = true
+            
+            self.sizeLabel.frame = CGRectMake(self.countLabel.frame.minX, self.countLabel.frame.minY, self.sizeLabel.frame.width, self.sizeLabel.frame.height)
+            self.sizeTextBox.frame = CGRectMake(self.countTextBox.frame.minX, self.countTextBox.frame.minY, self.sizeTextBox.frame.width, self.sizeTextBox.frame.height)
+            
+            
+            self.healthTextBox.delegate = self
+            self.healthTextBox.promptText = ""
+            self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
+            self.healthTextBox.maxTokenLimit = 1
+            self.healthTextBox.style = .Squared
+            self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height * 3)
+            self.healthTextBox.font = UIFont.systemFontOfSize(17)
+            
+            self.countLabel.translatesAutoresizingMaskIntoConstraints = true
+            self.countTextBox.translatesAutoresizingMaskIntoConstraints = true
+            self.sizeTextBox.translatesAutoresizingMaskIntoConstraints = true
+            self.sizeLabel.translatesAutoresizingMaskIntoConstraints = true
+            
+            
+        }
+        else {
         
-        self.healthTextBox.delegate = self
-        self.healthTextBox.promptText = ""
-        self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
-        self.healthTextBox.maxTokenLimit = 1
-        self.healthTextBox.style = .Squared
-        self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height * 3)
-        self.healthTextBox.font = UIFont.systemFontOfSize(17)
+            if (mobileSpecies) {
+                self.countLabel.hidden = true
+                self.countTextBox.hidden = true
+                
+                self.countLabel.translatesAutoresizingMaskIntoConstraints = true
+                self.countTextBox.translatesAutoresizingMaskIntoConstraints = true
+            }
+            else {
+                self.countTextBox.delegate = self
+                self.countTextBox.keyboardType = .NumberPad
+                
+                self.benthosCheckbox.hidden = true
+                self.checkboxLabel.hidden = true
+                
+                self.benthosCheckbox.translatesAutoresizingMaskIntoConstraints = true
+                self.checkboxLabel.translatesAutoresizingMaskIntoConstraints = true
+                
+            }
+
+            self.speciesLabel.text = self.selectedSpecies
+            
+            self.notesLabel.frame = CGRectMake(self.healthLabel.frame.minX, self.healthLabel.frame.minY, self.notesLabel.frame.width, self.notesLabel.frame.height)
+            self.notesTextView.frame = CGRectMake(self.healthTextBox.frame.minX, self.healthTextBox.frame.minY, self.notesTextView.frame.width, self.notesTextView.frame.height)
+            
+
+            self.notesLabel.translatesAutoresizingMaskIntoConstraints = true
+            self.notesTextView.translatesAutoresizingMaskIntoConstraints = true
+            self.healthLabel.translatesAutoresizingMaskIntoConstraints = true
+            self.healthTextBox.translatesAutoresizingMaskIntoConstraints = true
+            
+            self.healthLabel.hidden = true
+            self.healthTextBox.hidden = true
+            self.sizeLabel.hidden = true
+            self.sizeTextBox.hidden = true
+        }
         
         decorateSaveButton()
     }
@@ -90,6 +183,8 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         
         let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = appDel.managedObjectContext
+        
+        //TODO: need to get info from size and turn into XS, S, M, L, XL in report/database
         
         if countTextBox.text != "" && (healthTextBox.hasTokens() || !healthTextBox.text.isEmpty) {
             if let _ = Int(countTextBox.text!) {
@@ -140,7 +235,9 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
             }
         }
         else {
-            showAlert("Incorrect Format", message: "The count and health must be entered.")
+            if (!self.countTextBox.hidden && !self.healthTextBox.hidden){
+                showAlert("Incorrect Format", message: "The count and health must be entered.")
+            }
         }
     }
 
