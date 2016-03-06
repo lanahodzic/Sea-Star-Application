@@ -116,6 +116,8 @@ public class KSTokenField: UITextField {
                 _descriptionText = tokenView!.descriptionText
                 _setPromptText(tokenView!.promptText)
 
+                self.font = _font
+
                 if (_setupCompleted) {
                     updateLayout()
                 }
@@ -579,6 +581,7 @@ public class KSTokenField: UITextField {
             }
             break
         }
+
         _updatePlaceHolderVisibility()
     }
 

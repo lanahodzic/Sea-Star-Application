@@ -379,6 +379,7 @@ public class KSTokenView: UIView {
         _searchTableView.frame = CGRectMake(0, frame.height, searchResultSize.width, searchResultSize.height)
         _searchTableView.delegate = self
         _searchTableView.dataSource = self
+        _searchTableView.rowHeight = 50
 
         addSubview(_searchTableView)
         _hideSearchResults()
@@ -924,6 +925,7 @@ extension KSTokenView : UITableViewDataSource {
         
         let title = delegate?.tokenView(self, displayTitleForObject: _resultArray[indexPath.row])
         cell!.textLabel!.text = (title != nil) ? title : "No Title"
+        cell!.textLabel!.font = UIFont.systemFontOfSize(20)
         cell!.selectionStyle = UITableViewCellSelectionStyle.None
         return cell!
     }
