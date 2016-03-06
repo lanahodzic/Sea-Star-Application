@@ -9,12 +9,11 @@
 import UIKit
 import CoreData
 
-class AddCreatureViewController: UIViewController, UITextFieldDelegate {
+class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var healthTextBox: KSTokenView!
     @IBOutlet weak var speciesLabel: UILabel!
     @IBOutlet weak var countTextBox: UITextField!
-//    @IBOutlet weak var healthTextBox: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     
@@ -28,6 +27,10 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
     var rotation:Int?
     var depth:Int?
     
+    var imagePicker: UIImagePickerController!
+    var images:[UIImage] = []
+    
+    @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +58,28 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(okayAction)
         
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func takePhoto(sender: AnyObject) {
+        imagePicker =  UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .Camera
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+        
+        // TODO: See why image gets rendered sideways
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            images.append(image)
+            let imageData = UIImagePNGRepresentation(image)
+            let dataString = imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+            let data = NSData(base64EncodedString: dataString!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
+            let creatureImage = UIImage(data: data!)
+            imageView.image = creatureImage
+        }
     }
     
     @IBAction func save(sender: AnyObject) {
