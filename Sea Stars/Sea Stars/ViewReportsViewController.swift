@@ -167,20 +167,6 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         cell.reportLocation.text = (report["site"] as! String)
         cell.reportDate.text = (report["date"] as! String)
         cell.reportObserver.text = (report["observer"] as! String)
-
-        /*
-        //set the cell info to the report info
-        if let site = report.site {
-            cell.site = site
-        }
-        
-        if let observer = report.observer {
-            cell.observer = observer
-        }
-        
-        if let date = report.date {
-            cell.date = date
-        }*/
         
         return cell
     }
@@ -240,9 +226,10 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                     dataString.appendString(String(value.1) + ",")
                 }
                 
+                ++currentReportNumber
+                
                 // Grab data from the current report
                 for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
-                    ++currentReportNumber
                     for (kind, val) in reportItem {
                         if kind == "health" || kind == "notes" {
                             dataString.appendString("\"" + String(val) + "\"" + ",")
@@ -253,7 +240,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                     dataString.appendString("\n")
                     
                     // Handle multiple reportitems logic
-                    if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != (currentReportNumber - 1) {
+                    if reportDictionary[i]["reportItems"]?.count > 1 && reportDictionary[i]["reportItems"]?.count != currentReportNumber {
                         for val in currentReporter {
                             dataString.appendString(String(val) + ",")
                         }
