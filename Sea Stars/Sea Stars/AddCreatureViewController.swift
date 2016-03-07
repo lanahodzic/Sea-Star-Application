@@ -348,61 +348,6 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
                 saveSessileToCoreData()
             }
         }
-        
-        // Old stuff
-//        if countTextBox.text != "" && (healthTextBox.hasTokens() || !healthTextBox.text.isEmpty) {
-//            if let _ = Int(countTextBox.text!) {
-//                let reportRequest = NSFetchRequest(entityName: "Reports")
-//                reportRequest.returnsObjectsAsFaults = false
-//                let predicate = NSPredicate(format: "site = %@ AND date = %@ AND observer = %@", site_location!, reportDate!, observer_name!)
-//                reportRequest.predicate = predicate
-//                
-//                do {
-//                    let results = try context.executeFetchRequest(reportRequest)
-//                    
-//                    if results.count == 0 {
-//                        let newReport = NSEntityDescription.insertNewObjectForEntityForName("Reports", inManagedObjectContext: context)
-//                        newReport.setValue(site_location!, forKey: "site")
-//                        newReport.setValue(reportDate!, forKey: "date")
-//                        newReport.setValue(observer_name!, forKey: "observer")
-//                        do {
-//                            try context.save()
-//                        }
-//                        catch {
-//                            print("Error while saving report")
-//                        }
-//                    }
-//                }
-//                catch {
-//                    print("There was an error with the request!")
-//                }
-//                
-//                let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
-//                newReportXSpecies.setValue(piling, forKey: "piling")
-//                newReportXSpecies.setValue(rotation, forKey: "rotation")
-//                newReportXSpecies.setValue(depth, forKey: "depth")
-//                newReportXSpecies.setValue(Int(countTextBox.text!), forKey: "count")
-//                newReportXSpecies.setValue(healthTextBox.hasTokens() ? healthTextBox.tokens()![0].title : healthTextBox.text, forKey: "health")
-//                newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
-//                newReportXSpecies.setValue(selectedSpecies, forKey: "species")
-//                do {
-//                    try context.save()
-//                }
-//                catch {
-//                    print("Error while saving reportXSpecies")
-//                }
-//                
-//                self.navigationController?.popViewControllerAnimated(true)
-//            }
-//            else {
-//                showAlert("Incorrect Format", message: "The count must be an integer.")
-//            }
-//        }
-//        else {
-//            if (!self.countTextBox.hidden && !self.healthTextBox.hidden){
-//                showAlert("Incorrect Format", message: "The count and health must be entered.")
-//            }
-//        }
     }
 
     override func didReceiveMemoryWarning() {
