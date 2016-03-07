@@ -70,7 +70,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                             var reportItemsDictionary = [String:AnyObject]()
                             reportItemsDictionary["piling"] = children.value["piling"] as! Int
                             reportItemsDictionary["depth"] = children.value["depth"] as! Int
-                            reportItemsDictionary["rotation"] = children.value["rotation"] as! Int
+                            reportItemsDictionary["direction"] = children.value["direction"] as! Int
                             reportItemsDictionary["notes"] = children.value["notes"] as! String
                             
                             if let count = children.value["count"] as? Int {

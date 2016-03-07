@@ -249,7 +249,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func createReportXSpeciesJSON(object:NSManagedObject, reportID:String) -> [String:AnyObject] {
-        var reportJSON:[String:AnyObject] = ["piling":object.valueForKey("piling") as! Int, "rotation":object.valueForKey("rotation") as! Int, "depth":object.valueForKey("depth") as! Int, "notes":object.valueForKey("notes") as! String, "reportID":reportID, "speciesID":object.valueForKey("species") as! String]
+        var reportJSON:[String:AnyObject] = ["piling":object.valueForKey("piling") as! Int, "direction":object.valueForKey("direction") as! Int, "depth":object.valueForKey("depth") as! Int, "notes":object.valueForKey("notes") as! String, "reportID":reportID, "speciesID":object.valueForKey("species") as! String]
         
         if let count = object.valueForKey("count") as? Int {
             if count > 0 {
@@ -421,7 +421,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if identifier != "viewReportsSegue" {
             if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
-                showAlert("Missing Information", message: "Please make sure to enter a piling number, a rotation angle, and depth before proceeding.")
+                showAlert("Missing Information", message: "Please make sure to enter a piling number, a direction angle, and depth before proceeding.")
                 
                 return false
             }
@@ -455,7 +455,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 if let r = Int(rotationTextBox.text!) {
                     if let d = Int(depthTextBox.text!) {
                         addCreatureVC.piling = p
-                        addCreatureVC.rotation = r
+                        addCreatureVC.direction = r
                         addCreatureVC.depth = d
                     }
                     else {
@@ -463,7 +463,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                 }
                 else {
-                    showAlert("Incorrect Format", message: "The rotation must be an integer.")
+                    showAlert("Incorrect Format", message: "The direction must be an integer.")
                 }
             }
             else {

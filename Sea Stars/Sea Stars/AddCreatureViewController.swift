@@ -63,7 +63,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     var site_location: String?
     var report_date: String?
     var piling:Int?
-    var rotation:Int?
+    var direction:Int?
     var depth:Int?
     
     var imagePicker: UIImagePickerController!
@@ -224,7 +224,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         if reportResult {
             let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
             newReportXSpecies.setValue(piling, forKey: "piling")
-            newReportXSpecies.setValue(rotation, forKey: "rotation")
+            newReportXSpecies.setValue(direction, forKey: "direction")
             newReportXSpecies.setValue(depth, forKey: "depth")
             newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
             newReportXSpecies.setValue(selectedSpecies, forKey: "species")
@@ -273,7 +273,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         if reportResult {
             let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
             newReportXSpecies.setValue(piling, forKey: "piling")
-            newReportXSpecies.setValue(rotation, forKey: "rotation")
+            newReportXSpecies.setValue(direction, forKey: "direction")
             newReportXSpecies.setValue(depth, forKey: "depth")
             newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
             newReportXSpecies.setValue(selectedSpecies, forKey: "species")
@@ -300,7 +300,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         if reportResult {
             let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
             newReportXSpecies.setValue(piling, forKey: "piling")
-            newReportXSpecies.setValue(rotation, forKey: "rotation")
+            newReportXSpecies.setValue(direction, forKey: "direction")
             newReportXSpecies.setValue(depth, forKey: "depth")
             newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
             newReportXSpecies.setValue(selectedSpecies, forKey: "species")

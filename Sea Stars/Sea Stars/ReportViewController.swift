@@ -18,7 +18,7 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
     var allSpecies:[String:Species] = [String:Species]()
     
     var piling:Int?
-    var rotation:Int?
+    var direction:Int?
     var depth:Int?
     var speciesCount:Int?
     var benthos:String?
@@ -52,11 +52,11 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
 
         
         for reportItem in report["reportItems"] as! [[String:AnyObject]] {
-            self.reportTextView.text = self.reportTextView.text + "Piling: \(reportItem["piling"] as! Int)   Depth: \(reportItem["depth"] as! Int)   Rotation: \(reportItem["rotation"] as! Int)\n\n"
+            self.reportTextView.text = self.reportTextView.text + "Piling: \(reportItem["piling"] as! Int)   Depth: \(reportItem["depth"] as! Int)   Direction: \(reportItem["direction"] as! Int)\n\n"
             
             self.piling = reportItem["piling"] as? Int
             self.depth = reportItem["depth"] as? Int
-            self.rotation = reportItem["rotation"] as? Int
+            self.direction = reportItem["direction"] as? Int
             
             self.species = reportItem["species"] as? String
             self.phylum = reportItem["phylum"] as? String
