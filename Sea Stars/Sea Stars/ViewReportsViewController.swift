@@ -83,6 +83,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                         let date = NSDate(timeIntervalSince1970: child.value["date"] as! Double)
                         dictionary["date"] = dateFormatter.stringFromDate(date)
                         dictionary["site"] = child.value["site"] as! String
+                        dictionary["reportID"] = child.key
                         var reportItemsArray:[[String:AnyObject]] = []
                         for children in reportXSpeciesSnapshot.children.allObjects as! [FDataSnapshot] {
                             var reportItemsDictionary = [String:AnyObject]()
@@ -178,6 +179,39 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         cell.reportObserver.text = (report["observer"] as! String)
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let alert = UIAlertController(title: "Are you sure you want to delete this report?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) {(action) -> Void in })
+            alert.addAction(UIAlertAction(title: "Delete", style: .Destructive) { (action) -> Void in
+                let deletedReport = self.reportDictionary.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                let deletedReportID = deletedReport["reportID"] as! String
+                
+                let reportRef = self.ref.childByAppendingPath("reports/\(deletedReportID)")
+                reportRef.removeValue()
+                
+                var reportXSpeciesIDToDelete:[String] = []
+                let reportXSpeciesRef = self.ref.childByAppendingPath("reportXSpecies")
+                reportXSpeciesRef.queryOrderedByChild("reportID").queryEqualToValue(deletedReportID).observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+                    for child in snapshot.children.allObjects as! [FDataSnapshot] {
+                        reportXSpeciesIDToDelete.append(child.key as String)
+                    }
+                    
+                    for id in reportXSpeciesIDToDelete {
+                        reportXSpeciesRef.childByAppendingPath("\(id)").removeValue()
+                    }
+                })
+            })
+            
+            self.presentViewController(alert, animated: false, completion: nil)
+        }
     }
 
     // MARK: Exporting
