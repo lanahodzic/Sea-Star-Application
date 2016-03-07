@@ -21,6 +21,8 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
     var rotation:Int?
     var depth:Int?
     var speciesCount:Int?
+    var benthos:String?
+    var size:String?
     
     var health:String?
     var notes:String?
@@ -61,11 +63,40 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
             self.groupName = reportItem["groupName"] as? String
             self.isMobile = reportItem["mobility"] as? String
             
-            self.reportTextView.text = self.reportTextView.text + "Group Name: \(self.groupName!)\nSpecies: \(self.species!)\nPhylum: \(self.phylum!)\nMobility: \(self.isMobile!)\n"
-            self.reportTextView.text = self.reportTextView.text + "Count: \(reportItem["count"] as! Int)\n"
-            self.reportTextView.text = self.reportTextView.text + "Health: \(reportItem["health"] as! String)\n"
-            self.reportTextView.text = self.reportTextView.text + "Notes: \(reportItem["notes"] as! String)\n\n"
-            self.reportTextView.text = self.reportTextView.text + "---------------------------------------\n\n"
+            self.speciesCount = reportItem["count"] as? Int
+            self.notes = reportItem["notes"] as? String
+            self.health = reportItem["health"] as? String
+            self.benthos = reportItem["benthos"] as? String
+            self.size = reportItem["size"] as? String
+            
+            self.reportTextView.text = self.reportTextView.text + "Group Name: \(self.groupName!)\n"
+            self.reportTextView.text = self.reportTextView.text + "Species: \(self.species!)\n"
+            self.reportTextView.text = self.reportTextView.text + "Phylum: \(self.phylum!)\n"
+            self.reportTextView.text = self.reportTextView.text + "Mobility: \(self.isMobile!)\n"
+            
+            if let count = self.speciesCount {
+                self.reportTextView.text = self.reportTextView.text + "Count: \(count)\n"
+            }
+            if let health = self.health {
+                if health != "N/A" {
+                    self.reportTextView.text = self.reportTextView.text + "Health: \(health)\n"
+                }
+            }
+            if let benthos = self.benthos {
+                if benthos != "N/A" {
+                    self.reportTextView.text = self.reportTextView.text + "Benthos: \(benthos)\n"
+                }
+            }
+            if let size = self.size {
+                if size != "N/A" {
+                    self.reportTextView.text = self.reportTextView.text + "Size: \(size)\n"
+                }
+            }
+            if let notes = self.notes {
+                self.reportTextView.text = self.reportTextView.text + "Notes: \(notes)\n"
+            }
+            
+            self.reportTextView.text = self.reportTextView.text + "\n---------------------------------------\n\n"
         }
     }
 

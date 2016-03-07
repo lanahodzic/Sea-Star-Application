@@ -71,9 +71,35 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                             reportItemsDictionary["piling"] = children.value["piling"] as! Int
                             reportItemsDictionary["depth"] = children.value["depth"] as! Int
                             reportItemsDictionary["rotation"] = children.value["rotation"] as! Int
-                            reportItemsDictionary["count"] = children.value["count"] as! Int
-                            reportItemsDictionary["health"] = children.value["health"] as! String
                             reportItemsDictionary["notes"] = children.value["notes"] as! String
+                            
+                            if let count = children.value["count"] as? Int {
+                                reportItemsDictionary["count"] = count
+                            }
+                            else {
+                                reportItemsDictionary["count"] = "N/A"
+                            }
+                            
+                            if let health = children.value["health"] as? String {
+                                reportItemsDictionary["health"] = health
+                            }
+                            else {
+                                reportItemsDictionary["health"] = "N/A"
+                            }
+                            
+                            if let size = children.value["size"] as? String {
+                                reportItemsDictionary["size"] = size
+                            }
+                            else {
+                                reportItemsDictionary["size"] = "N/A"
+                            }
+                            
+                            if let benthos = children.value["benthos"] as? String {
+                                reportItemsDictionary["benthos"] = benthos
+                            }
+                            else {
+                                reportItemsDictionary["benthos"] = "N/A"
+                            }
                             
                             let speciesName = children.value["speciesID"] as! String
                             let individualSpecies = self.allSpecies[speciesName]

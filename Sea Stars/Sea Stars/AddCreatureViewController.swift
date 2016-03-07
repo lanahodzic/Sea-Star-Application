@@ -175,7 +175,8 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
     }
     
-    @IBAction func save(sender: AnyObject) {
+    // true indicates the save was successful, false unsuccessful
+    func saveReportToCoreData() -> Bool {
         var reportDate:NSDate?
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -184,43 +185,70 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = appDel.managedObjectContext
         
-        //TODO: need to get info from size and turn into XS, S, M, L, XL in report/database
+        let reportRequest = NSFetchRequest(entityName: "Reports")
+        reportRequest.returnsObjectsAsFaults = false
+        let predicate = NSPredicate(format: "site = %@ AND date = %@ AND observer = %@", site_location!, reportDate!, observer_name!)
+        reportRequest.predicate = predicate
         
-        if countTextBox.text != "" && (healthTextBox.hasTokens() || !healthTextBox.text.isEmpty) {
-            if let _ = Int(countTextBox.text!) {
-                let reportRequest = NSFetchRequest(entityName: "Reports")
-                reportRequest.returnsObjectsAsFaults = false
-                let predicate = NSPredicate(format: "site = %@ AND date = %@ AND observer = %@", site_location!, reportDate!, observer_name!)
-                reportRequest.predicate = predicate
-                
+        do {
+            let results = try context.executeFetchRequest(reportRequest)
+            
+            if results.count == 0 {
+                let newReport = NSEntityDescription.insertNewObjectForEntityForName("Reports", inManagedObjectContext: context)
+                newReport.setValue(site_location!, forKey: "site")
+                newReport.setValue(reportDate!, forKey: "date")
+                newReport.setValue(observer_name!, forKey: "observer")
                 do {
-                    let results = try context.executeFetchRequest(reportRequest)
-                    
-                    if results.count == 0 {
-                        let newReport = NSEntityDescription.insertNewObjectForEntityForName("Reports", inManagedObjectContext: context)
-                        newReport.setValue(site_location!, forKey: "site")
-                        newReport.setValue(reportDate!, forKey: "date")
-                        newReport.setValue(observer_name!, forKey: "observer")
-                        do {
-                            try context.save()
-                        }
-                        catch {
-                            print("Error while saving report")
-                        }
-                    }
+                    try context.save()
                 }
                 catch {
-                    print("There was an error with the request!")
+                    print("Error while saving report")
+                    return false
+                }
+            }
+        }
+        catch {
+            print("There was an error with the request!")
+            return false
+        }
+        
+        return true
+    }
+    
+    func saveSeaStarToCoreData() {
+        let reportResult = saveReportToCoreData()
+        
+        let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context = appDel.managedObjectContext
+        
+        if reportResult {
+            let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
+            newReportXSpecies.setValue(piling, forKey: "piling")
+            newReportXSpecies.setValue(rotation, forKey: "rotation")
+            newReportXSpecies.setValue(depth, forKey: "depth")
+            newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
+            newReportXSpecies.setValue(selectedSpecies, forKey: "species")
+            
+            newReportXSpecies.setValue(benthosCheckbox.isChecked, forKey: "benthos")
+            newReportXSpecies.setValue(healthTextBox.hasTokens() ? healthTextBox.tokens()![0].title : healthTextBox.text, forKey: "health")
+            
+            if let inputtedSize = Double(sizeTextBox.text!) {
+                if inputtedSize < 2.5 {
+                    newReportXSpecies.setValue("X-Small", forKey: "size")
+                }
+                else if inputtedSize >= 2.5 && inputtedSize < 6 {
+                    newReportXSpecies.setValue("Small", forKey: "size")
+                }
+                else if inputtedSize >= 6 && inputtedSize < 11 {
+                    newReportXSpecies.setValue("Medium", forKey: "size")
+                }
+                else if inputtedSize >= 11 && inputtedSize < 15 {
+                    newReportXSpecies.setValue("Large", forKey: "size")
+                }
+                else if inputtedSize >= 15 {
+                    newReportXSpecies.setValue("X-Large", forKey: "size")
                 }
                 
-                let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
-                newReportXSpecies.setValue(piling, forKey: "piling")
-                newReportXSpecies.setValue(rotation, forKey: "rotation")
-                newReportXSpecies.setValue(depth, forKey: "depth")
-                newReportXSpecies.setValue(Int(countTextBox.text!), forKey: "count")
-                newReportXSpecies.setValue(healthTextBox.hasTokens() ? healthTextBox.tokens()![0].title : healthTextBox.text, forKey: "health")
-                newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
-                newReportXSpecies.setValue(selectedSpecies, forKey: "species")
                 do {
                     try context.save()
                 }
@@ -231,14 +259,150 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
                 self.navigationController?.popViewControllerAnimated(true)
             }
             else {
-                showAlert("Incorrect Format", message: "The count must be an integer.")
+                self.showAlert("Size", message: "The size must be a number.")
+            }
+        }
+    }
+    
+    func saveMobileToCoreData() {
+        let reportResult = saveReportToCoreData()
+        
+        let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context = appDel.managedObjectContext
+        
+        if reportResult {
+            let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
+            newReportXSpecies.setValue(piling, forKey: "piling")
+            newReportXSpecies.setValue(rotation, forKey: "rotation")
+            newReportXSpecies.setValue(depth, forKey: "depth")
+            newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
+            newReportXSpecies.setValue(selectedSpecies, forKey: "species")
+            
+            newReportXSpecies.setValue(benthosCheckbox.isChecked, forKey: "benthos")
+
+            do {
+                try context.save()
+            }
+            catch {
+                print("Error while saving reportXSpecies")
+            }
+            
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
+    func saveSessileToCoreData() {
+        let reportResult = saveReportToCoreData()
+        
+        let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context = appDel.managedObjectContext
+        
+        if reportResult {
+            let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
+            newReportXSpecies.setValue(piling, forKey: "piling")
+            newReportXSpecies.setValue(rotation, forKey: "rotation")
+            newReportXSpecies.setValue(depth, forKey: "depth")
+            newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
+            newReportXSpecies.setValue(selectedSpecies, forKey: "species")
+            
+            if let count = Int(countTextBox.text!) {
+                if count <= 0 {
+                    self.showAlert("Count Value", message: "The value of count must be greater than zero.")
+                }
+                else {
+                    newReportXSpecies.setValue(count, forKey: "count")
+                    
+                    do {
+                        try context.save()
+                    }
+                    catch {
+                        print("Error while saving reportXSpecies")
+                    }
+                    
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            }
+            else {
+                self.showAlert("Count", message: "The count field must be specified.")
+            }
+        }
+    }
+    
+    @IBAction func save(sender: AnyObject) {
+        //TODO: need to get info from size and turn into XS, S, M, L, XL in report/database
+        
+        let health = self.healthTextBox.hasTokens() ? self.healthTextBox.tokens()![0].title : self.healthTextBox.text
+        if seaStarSelected {
+            if health != "" && sizeLabel.text != "" {
+                saveSeaStarToCoreData()
+            }
+            else {
+                self.showAlert("Fields Missing", message: "An entry for health and size must be provided.")
             }
         }
         else {
-            if (!self.countTextBox.hidden && !self.healthTextBox.hidden){
-                showAlert("Incorrect Format", message: "The count and health must be entered.")
+            if mobileSpecies {
+                saveMobileToCoreData()
+            }
+            else {
+                saveSessileToCoreData()
             }
         }
+        
+        // Old stuff
+//        if countTextBox.text != "" && (healthTextBox.hasTokens() || !healthTextBox.text.isEmpty) {
+//            if let _ = Int(countTextBox.text!) {
+//                let reportRequest = NSFetchRequest(entityName: "Reports")
+//                reportRequest.returnsObjectsAsFaults = false
+//                let predicate = NSPredicate(format: "site = %@ AND date = %@ AND observer = %@", site_location!, reportDate!, observer_name!)
+//                reportRequest.predicate = predicate
+//                
+//                do {
+//                    let results = try context.executeFetchRequest(reportRequest)
+//                    
+//                    if results.count == 0 {
+//                        let newReport = NSEntityDescription.insertNewObjectForEntityForName("Reports", inManagedObjectContext: context)
+//                        newReport.setValue(site_location!, forKey: "site")
+//                        newReport.setValue(reportDate!, forKey: "date")
+//                        newReport.setValue(observer_name!, forKey: "observer")
+//                        do {
+//                            try context.save()
+//                        }
+//                        catch {
+//                            print("Error while saving report")
+//                        }
+//                    }
+//                }
+//                catch {
+//                    print("There was an error with the request!")
+//                }
+//                
+//                let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
+//                newReportXSpecies.setValue(piling, forKey: "piling")
+//                newReportXSpecies.setValue(rotation, forKey: "rotation")
+//                newReportXSpecies.setValue(depth, forKey: "depth")
+//                newReportXSpecies.setValue(Int(countTextBox.text!), forKey: "count")
+//                newReportXSpecies.setValue(healthTextBox.hasTokens() ? healthTextBox.tokens()![0].title : healthTextBox.text, forKey: "health")
+//                newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
+//                newReportXSpecies.setValue(selectedSpecies, forKey: "species")
+//                do {
+//                    try context.save()
+//                }
+//                catch {
+//                    print("Error while saving reportXSpecies")
+//                }
+//                
+//                self.navigationController?.popViewControllerAnimated(true)
+//            }
+//            else {
+//                showAlert("Incorrect Format", message: "The count must be an integer.")
+//            }
+//        }
+//        else {
+//            if (!self.countTextBox.hidden && !self.healthTextBox.hidden){
+//                showAlert("Incorrect Format", message: "The count and health must be entered.")
+//            }
+//        }
     }
 
     override func didReceiveMemoryWarning() {

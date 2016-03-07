@@ -249,7 +249,29 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func createReportXSpeciesJSON(object:NSManagedObject, reportID:String) -> [String:AnyObject] {
-        return ["piling":object.valueForKey("piling") as! Int, "rotation":object.valueForKey("rotation") as! Int, "depth":object.valueForKey("depth") as! Int, "count":object.valueForKey("count") as! Int, "health":object.valueForKey("health") as! String, "notes":object.valueForKey("notes") as! String, "reportID":reportID, "speciesID":object.valueForKey("species") as! String]
+        var reportJSON:[String:AnyObject] = ["piling":object.valueForKey("piling") as! Int, "rotation":object.valueForKey("rotation") as! Int, "depth":object.valueForKey("depth") as! Int, "notes":object.valueForKey("notes") as! String, "reportID":reportID, "speciesID":object.valueForKey("species") as! String]
+        
+        if let count = object.valueForKey("count") as? Int {
+            if count > 0 {
+                reportJSON["count"] = count
+            }
+        }
+        if let health = object.valueForKey("health") as? String {
+            reportJSON["health"] = health
+        }
+        if let benthos = object.valueForKey("benthos") as? Bool {
+            if benthos {
+                reportJSON["benthos"] = "Yes"
+            }
+            else {
+                reportJSON["benthos"] = "No"
+            }
+        }
+        if let size = object.valueForKey("size") as? String {
+            reportJSON["size"] = size
+        }
+        
+        return reportJSON
     }
     
     func showAlert(title:String, message:String) {
