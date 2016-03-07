@@ -92,8 +92,9 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
             self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
             self.healthTextBox.maxTokenLimit = 1
             self.healthTextBox.style = .Squared
-            self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: self.healthTextBox.frame.height * 3)
-            self.healthTextBox.font = UIFont.systemFontOfSize(17)
+            self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: 160)
+            self.healthTextBox.font = UIFont.systemFontOfSize(26)
+            self.healthTextBox.direction = .Horizontal
             
             self.countLabel.translatesAutoresizingMaskIntoConstraints = true
             self.countTextBox.translatesAutoresizingMaskIntoConstraints = true

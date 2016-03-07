@@ -52,8 +52,9 @@ class Species {
                         self.imageView.image = image
                         let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
                         let navVC = appDel.window?.rootViewController as! UINavigationController
-                        let vc = navVC.topViewController as! MainScreenViewController
-                        vc.refreshTable()
+                        if let vc = navVC.topViewController as? MainScreenViewController {
+                            vc.refreshTable()
+                        }
                         }, failure: {
                             (request: NSURLRequest, response: NSHTTPURLResponse?, error: NSError) -> Void in
                     })

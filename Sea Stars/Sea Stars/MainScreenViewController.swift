@@ -143,6 +143,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             do {
                 try context.executeRequest(reportDeleteRequest)
                 try context.executeRequest(reportXSpeciesDeleteRequest)
+                print("Deleted unwanted current report data")
             }
             catch {
                 print("Error deleting all rows from entities")

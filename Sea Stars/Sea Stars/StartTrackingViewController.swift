@@ -100,11 +100,16 @@ class StartTrackingViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier != "segueMainScreen" {
+            print("ERROR: Wrong segue identifier detected: " + segue.identifier!)
+            return
+        }
+
         let vc = segue.destinationViewController as! MainScreenViewController
-        vc.observer_name = self.observer_name.hasTokens() ? self.observer_name.tokens()![0].title : self.observer_name.text
+        vc.observer_name = self.observer_name.text
         print("*** NAME: " + vc.observer_name!)
 
-        vc.site_location = self.site.hasTokens() ? self.site.tokens()![0].title : self.site.text
+        vc.site_location = self.site.text
         print("*** SITE: " + vc.site_location!)
 
         let dateFormatter = NSDateFormatter()
@@ -130,6 +135,66 @@ class StartTrackingViewController: UIViewController {
         }
         catch {
             print("Error deleting all rows from entities")
+        }
+    }
+
+    @IBAction func segueToMainScreen(sender: AnyObject) {
+        if !self.observer_name.hasTokens() && self.observer_name.text.isEmpty {
+            return
+        }
+
+        if !self.site.hasTokens() && self.site.text.isEmpty {
+            return
+        }
+
+        var newNames = Array<String>()
+        var newSite = false
+        var newObserver = false
+        if !self.siteData.contains(self.site.text) {
+            newNames.append("\"\(self.site.text)\"")
+            newSite = true
+        }
+        if !self.names.contains(self.observer_name.text) {
+            let nameTokens = self.observer_name.text.componentsSeparatedByString(" ")
+            let firstName = nameTokens[0]
+            let lastName = nameTokens.count > 1 ? nameTokens[nameTokens.endIndex - 1] : ""
+            newNames.append("\"\(firstName) \(lastName)\"")
+            newObserver = true
+        }
+
+        if newNames.count > 0 {
+            let saveMessage = "Would you like Sea Stars to remember " + newNames.joinWithSeparator(" and ") + " for the future?"
+            let alert = UIAlertController(title: "Remember new names?", message: saveMessage, preferredStyle: .Alert)
+            let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
+                self.performSegueWithIdentifier("segueMainScreen", sender: self)
+            }
+            let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
+                if newSite {
+                    let siteRef = self.ref.childByAppendingPath("sites")
+                    let newSiteRef = siteRef.childByAutoId()
+                    newSiteRef.setValue(["name":self.site.text])
+                }
+
+                if newObserver {
+                    let nameTokens = self.observer_name.text.componentsSeparatedByString(" ")
+                    let firstName = nameTokens[0]
+                    let lastName = nameTokens.count > 1 ? nameTokens[nameTokens.endIndex - 1] : ""
+
+                    let observerRef = self.ref.childByAppendingPath("observers")
+                    let newObserverRef = observerRef.childByAutoId()
+                    newObserverRef.setValue(["firstName":firstName, "lastName":lastName])
+                }
+
+                self.performSegueWithIdentifier("segueMainScreen", sender: self)
+            }
+
+            alert.addAction(noAction)
+            alert.addAction(yesAction)
+
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        else {
+            self.performSegueWithIdentifier("segueMainScreen", sender: self)
         }
     }
 
