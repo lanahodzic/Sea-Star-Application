@@ -25,7 +25,24 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
 
     @IBOutlet weak var exportToCSVButton: UIBarButtonItem!
     @IBOutlet weak var latestReports: UITableView!
-    var reportDictionary:[[String:AnyObject]] = [[String:AnyObject]]()
+    var reportDictionary:[[String:AnyObject]] = [[String:AnyObject]]() {
+        didSet {
+            if reportDictionary.count == Int(self.numReports) {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yyyy"
+                
+                self.reportDictionary.sortInPlace({ (report1, report2) -> Bool in
+                    let report1Date = dateFormatter.dateFromString(report1["date"] as! String)
+                    let report2Date = dateFormatter.dateFromString(report2["date"] as! String)
+                    
+                    return report1Date!.compare(report2Date!) == NSComparisonResult.OrderedDescending
+                })
+                
+                self.latestReports.reloadData()
+            }
+        }
+    }
+    var numReports:UInt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +72,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
             
             let reportsRef = self.ref.childByAppendingPath("reports")
             reportsRef.queryOrderedByChild("date").observeSingleEventOfType(.Value, withBlock: {(reportSnapshot) in
+                self.numReports = reportSnapshot.childrenCount
                 for child in reportSnapshot.children.allObjects as! [FDataSnapshot] {
                     let reportXSpeciesRef = self.ref.childByAppendingPath("reportXSpecies")
                     reportXSpeciesRef.queryOrderedByChild("reportID").queryEqualToValue(child.key).observeSingleEventOfType(.Value, withBlock: {(reportXSpeciesSnapshot) in
@@ -125,15 +143,6 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                         
                         dictionary["reportItems"] = reportItemsArray
                         self.reportDictionary.append(dictionary)
-                        
-                        self.reportDictionary.sortInPlace({ (report1, report2) -> Bool in
-                            let report1Date = dateFormatter.dateFromString(report1["date"] as! String)
-                            let report2Date = dateFormatter.dateFromString(report2["date"] as! String)
-                            
-                            return report1Date!.compare(report2Date!) == NSComparisonResult.OrderedDescending
-                        })
-                        
-                        self.latestReports.reloadData()
                     })
                 }
             })
