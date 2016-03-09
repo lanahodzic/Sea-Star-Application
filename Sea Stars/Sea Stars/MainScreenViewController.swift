@@ -318,13 +318,68 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.titleLabel.text = species.name
         cell.seaStarImage.image = species.imageView.image
 
+        if !self.mobility {
+            let longPress = UILongPressGestureRecognizer(target: self, action: "quickAddSessile:")
+            cell.addGestureRecognizer(longPress)
+        }
+
         return cell
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Species"
     }
-    
+
+    func quickAddSessile(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == .Began {
+            let touchPoint = longPressGestureRecognizer.locationInView(self.tableView)
+            if let indexPath = self.tableView.indexPathForRowAtPoint(touchPoint) {
+                let speciesName = self.speciesInTable[indexPath.row].name
+                let message = "Add one " + speciesName + "?"
+                let alert = UIAlertController(title: "Quick Add", message: message, preferredStyle: .Alert)
+                let noAction = UIAlertAction(title: "No", style: .Default) { (action) -> Void in
+                    alert.dismissViewControllerAnimated(true, completion: nil)
+                }
+                let yesAction = UIAlertAction(title: "Yes", style: .Default) { (action) -> Void in
+                    var addCreatureVC: AddCreatureViewController! = AddCreatureViewController()
+                    addCreatureVC.selectedSpecies = self.speciesInTable[indexPath.row].name
+                    addCreatureVC.mobileSpecies = false
+
+                    if let p = Int(self.pilingTextBox.text!) {
+                        if let r = Int(self.rotationTextBox.text!) {
+                            if let d = Int(self.depthTextBox.text!) {
+                                addCreatureVC.piling = p
+                                addCreatureVC.direction = r
+                                addCreatureVC.depth = d
+                            }
+                            else {
+                                self.showAlert("Incorrect Format", message: "The depth must be an integer.")
+                            }
+                        }
+                        else {
+                            self.showAlert("Incorrect Format", message: "The direction must be an integer.")
+                        }
+                    }
+                    else {
+                        self.showAlert("Incorrect Format", message: "The piling must be an integer.")
+                    }
+
+                    addCreatureVC.observer_name = self.observer_name
+                    addCreatureVC.report_date = self.report_date
+                    addCreatureVC.site_location = self.site_location
+
+                    addCreatureVC.saveSessileToCoreData(true)
+                    addCreatureVC = nil
+                }
+                
+                alert.addAction(noAction)
+                alert.addAction(yesAction)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+    }
+
     @IBAction func speciesMobilityChanged(sender: AnyObject) {
         if mobilitySegmentedControl.selectedSegmentIndex == 0 {
             mobility = true

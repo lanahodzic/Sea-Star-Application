@@ -292,7 +292,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
     }
     
-    func saveSessileToCoreData() {
+    func saveSessileToCoreData(countOne: Bool = false) {
         let reportResult = saveReportToCoreData()
         
         let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -303,10 +303,10 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
             newReportXSpecies.setValue(piling, forKey: "piling")
             newReportXSpecies.setValue(direction, forKey: "direction")
             newReportXSpecies.setValue(depth, forKey: "depth")
-            newReportXSpecies.setValue(notesTextView.text, forKey: "notes")
+            newReportXSpecies.setValue(countOne ? "" : notesTextView.text, forKey: "notes")
             newReportXSpecies.setValue(selectedSpecies, forKey: "species")
             
-            if let count = Int(countTextBox.text!) {
+            if let count = (countOne ? 1 : Int(countTextBox.text!)) {
                 if count <= 0 {
                     self.showAlert("Count Value", message: "The value of count must be greater than zero.")
                 }
