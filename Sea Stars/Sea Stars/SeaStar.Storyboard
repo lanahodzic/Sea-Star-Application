@@ -528,7 +528,7 @@
         <image name="unchecked" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="dEt-Nt-xKS"/>
         <segue reference="hcy-z8-vkS"/>
-        <segue reference="PFP-7H-lyc"/>
     </inferredMetricsTieBreakers>
 </document>

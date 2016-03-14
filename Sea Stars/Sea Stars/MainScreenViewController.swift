@@ -417,7 +417,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         else {
             mobility = false
-            self.decrementSessileDepth(true)
+            self.depthTextBox.text = "500"
         }
 
         self.selectedSpeciesType = ""
@@ -445,11 +445,16 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func decrementSessileDepth(reset:Bool) {
         if !self.mobility {
-            var newDepth = reset ? 500 : Int(self.depthTextBox.text!)! - 5
-            if newDepth < 0 {
-                newDepth = 500
+            var depth = Int(self.depthTextBox.text!)!
+            if reset {
+                if depth <= 0 {
+                    depth = 500
+                }
             }
-            self.depthTextBox.text = String(newDepth)
+            else {
+                depth -= 5
+            }
+            self.depthTextBox.text = String(depth)
         }
     }
 
