@@ -38,7 +38,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     var report_date: String?
     
     var selectedSpeciesType: String = ""
-    var mobility = true
+    var mobility = false
 
     var mobileGroups: Set<String> = []
     var sessileGroups: Set<String> = []
@@ -89,6 +89,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             self.refreshTable()
         })
 
+
+        self.depthTextBox.text = "500"
 
         self.speciesScrollView.showsHorizontalScrollIndicator = true
         self.speciesScrollView.indicatorStyle = .Default
