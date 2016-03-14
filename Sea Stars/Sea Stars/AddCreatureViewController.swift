@@ -40,6 +40,10 @@ class Checkbox: UIButton {
     }
 }
 
+protocol SaveSessileDelegate: class {
+    func decrementSessileDepth(reset:Bool)
+}
+
 class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var checkboxLabel: UILabel!
@@ -74,7 +78,9 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     var benthosChecked: Bool = false
     var seaStarSelected: Bool = false
     var mobileSpecies: Bool = false
-    
+
+    weak var delegate: SaveSessileDelegate? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -299,18 +305,18 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
         let context = appDel.managedObjectContext
         
         if reportResult {
-            let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
-            newReportXSpecies.setValue(piling, forKey: "piling")
-            newReportXSpecies.setValue(direction, forKey: "direction")
-            newReportXSpecies.setValue(depth, forKey: "depth")
-            newReportXSpecies.setValue(countOne ? "" : notesTextView.text, forKey: "notes")
-            newReportXSpecies.setValue(selectedSpecies, forKey: "species")
-            
             if let count = (countOne ? 1 : Int(countTextBox.text!)) {
                 if count <= 0 {
                     self.showAlert("Count Value", message: "The value of count must be greater than zero.")
                 }
                 else {
+                    let newReportXSpecies = NSEntityDescription.insertNewObjectForEntityForName("ReportXSpecies", inManagedObjectContext: context)
+                    newReportXSpecies.setValue(piling, forKey: "piling")
+                    newReportXSpecies.setValue(direction, forKey: "direction")
+                    newReportXSpecies.setValue(depth, forKey: "depth")
+                    newReportXSpecies.setValue(countOne ? "" : notesTextView.text, forKey: "notes")
+                    newReportXSpecies.setValue(selectedSpecies, forKey: "species")
+
                     newReportXSpecies.setValue(count, forKey: "count")
                     
                     do {
@@ -319,7 +325,8 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
                     catch {
                         print("Error while saving reportXSpecies")
                     }
-                    
+
+                    delegate?.decrementSessileDepth(false)
                     self.navigationController?.popViewControllerAnimated(true)
                 }
             }

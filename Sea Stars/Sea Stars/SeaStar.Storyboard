@@ -229,6 +229,10 @@
                                 <rect key="frame" x="122" y="89" width="67" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="pilingOrDirectionChanged:" destination="ice-62-bKu" eventType="valueChanged" id="QLi-XK-ARU"/>
+                                    <action selector="pilingOrDirectionChanged:" destination="ice-62-bKu" eventType="editingChanged" id="RBK-m0-s9i"/>
+                                </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="50" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gWM-mQ-8eh">
                                 <rect key="frame" x="0.0" y="371" width="768" height="553"/>
@@ -282,6 +286,9 @@
                                 <rect key="frame" x="374" y="89" width="100" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="pilingOrDirectionChanged:" destination="ice-62-bKu" eventType="editingChanged" id="uAU-BZ-rdT"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6kF-oo-r9M">
                                 <rect key="frame" x="648" y="90" width="100" height="61"/>
@@ -521,7 +528,7 @@
         <image name="unchecked" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PFP-7H-lyc"/>
         <segue reference="hcy-z8-vkS"/>
+        <segue reference="PFP-7H-lyc"/>
     </inferredMetricsTieBreakers>
 </document>

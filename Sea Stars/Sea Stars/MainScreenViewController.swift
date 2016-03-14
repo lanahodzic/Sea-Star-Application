@@ -13,7 +13,7 @@ import SystemConfiguration
 import AFNetworking
 import CoreData
 
-class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, SaveSessileDelegate {
     
     let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
 
@@ -187,7 +187,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             
             let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
             let context = appDel.managedObjectContext
-            
+
+            let reportXSpeciesRequest = NSFetchRequest(entityName: "ReportXSpecies")
+            reportXSpeciesRequest.returnsObjectsAsFaults = false
+            do {
+                let reportXSpeciesResults = try context.executeFetchRequest(reportXSpeciesRequest)
+                if reportXSpeciesResults.count == 0 {
+                    showAlert("Save Final Report", message: "There are no creatures to save. Report not saved.")
+                    return
+                }
+            }
+            catch {
+                print("No reportXSpecies were found in core data")
+            }
+
             let reportRequest = NSFetchRequest(entityName: "Reports")
             reportRequest.returnsObjectsAsFaults = false
             do {
@@ -210,8 +223,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("No reports were found in core data")
             }
             
-            let reportXSpeciesRequest = NSFetchRequest(entityName: "ReportXSpecies")
-            reportXSpeciesRequest.returnsObjectsAsFaults = false
             do {
                 let reportXSpeciesResults = try context.executeFetchRequest(reportXSpeciesRequest)
                 print(reportXSpeciesResults)
@@ -305,6 +316,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.pilingTextBox.endEditing(true)
+        self.rotationTextBox.endEditing(true)
+        self.depthTextBox.endEditing(true)
         self.view.endEditing(true)
         super.touchesBegan(touches, withEvent: event)
     }
@@ -385,6 +399,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
                     addCreatureVC.saveSessileToCoreData(true)
                     addCreatureVC = nil
+
+                    self.decrementSessileDepth(false)
                 }
                 
                 alert.addAction(noAction)
@@ -401,6 +417,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         else {
             mobility = false
+            self.decrementSessileDepth(true)
         }
 
         self.selectedSpeciesType = ""
@@ -420,6 +437,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.speciesScrollView.addSubview(scrollView)
         
         refreshTable()
+    }
+
+    @IBAction func pilingOrDirectionChanged(sender: AnyObject) {
+        decrementSessileDepth(true)
+    }
+
+    func decrementSessileDepth(reset:Bool) {
+        if !self.mobility {
+            var newDepth = reset ? 500 : Int(self.depthTextBox.text!)! - 5
+            if newDepth < 0 {
+                newDepth = 500
+            }
+            self.depthTextBox.text = String(newDepth)
+        }
     }
 
     func groupNameButtonsView(buttonSize:CGSize) -> UIView {
@@ -491,7 +522,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if identifier == "mobileSegue" {
-            if self.mobility == false {
+            if !self.mobility {
                 return false
             }
             if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
@@ -555,11 +586,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             addCreatureVC.observer_name = observer_name
             addCreatureVC.report_date = report_date
             addCreatureVC.site_location = site_location
+
+            addCreatureVC.delegate = self
         }
     }
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let invalidCharacters = NSCharacterSet(charactersInString: "0123456789.").invertedSet
+        let invalidCharacters = NSCharacterSet(charactersInString: "0123456789").invertedSet
         if let _ = string.rangeOfCharacterFromSet(invalidCharacters, options: [], range:Range<String.Index>(start: string.startIndex, end: string.endIndex)) {
             return false
         }
