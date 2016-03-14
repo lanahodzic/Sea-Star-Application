@@ -42,6 +42,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     var mobileGroups: Set<String> = []
     var sessileGroups: Set<String> = []
+
+    var longPressSelectedSpecies: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -319,7 +321,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.seaStarImage.image = species.imageView.image
 
         if !self.mobility {
-            let longPress = UILongPressGestureRecognizer(target: self, action: "quickAddSessile:")
+            let quickAdd = UITapGestureRecognizer(target: self, action: "quickAddSessile:")
+            cell.addGestureRecognizer(quickAdd)
+
+            let longPress = UILongPressGestureRecognizer(target: self, action: "performLongPressSessileSegue:")
             cell.addGestureRecognizer(longPress)
         }
 
@@ -330,9 +335,19 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         return "Species"
     }
 
-    func quickAddSessile(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+    func performLongPressSessileSegue(longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == .Began {
             let touchPoint = longPressGestureRecognizer.locationInView(self.tableView)
+            if let indexPath = self.tableView.indexPathForRowAtPoint(touchPoint) {
+                self.longPressSelectedSpecies = self.speciesInTable[indexPath.row].name
+                self.performSegueWithIdentifier("longPressSessileSegue", sender: self)
+            }
+        }
+    }
+
+    func quickAddSessile(tapGestureRecognizer: UITapGestureRecognizer) {
+        if tapGestureRecognizer.state == .Ended {
+            let touchPoint = tapGestureRecognizer.locationInView(self.tableView)
             if let indexPath = self.tableView.indexPathForRowAtPoint(touchPoint) {
                 let speciesName = self.speciesInTable[indexPath.row].name
                 let message = "Add one " + speciesName + "?"
@@ -430,7 +445,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 button.frame.size = buttonSize
                 button.frame.origin = buttonPosition
                 buttonPosition.x = buttonPosition.x + buttonIncrement
-                button.backgroundColor = UIColor(red: 2/255, green: 204/255, blue: 184/255, alpha: 1)
+                button.backgroundColor = BASE_COLOR
                 button.setTitle(titleArray[i], forState: .Normal)
                 button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
                 buttonView.addSubview(button)
@@ -475,7 +490,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Navigation
 
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if identifier != "viewReportsSegue" {
+        if identifier == "mobileSegue" {
+            if self.mobility == false {
+                return false
+            }
             if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
                 showAlert("Missing Information", message: "Please make sure to enter a piling number, a direction angle, and depth before proceeding.")
                 
@@ -496,9 +514,17 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier != "viewReportsSegue" {
             let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
-            
-            addCreatureVC.selectedSpecies = self.speciesInTable[self.tableView.indexPathForSelectedRow!.row].name
-            
+
+            if segue.identifier == "mobileSegue" {
+                addCreatureVC.selectedSpecies = self.speciesInTable[self.tableView.indexPathForSelectedRow!.row].name
+            }
+            else {
+                if self.longPressSelectedSpecies != "" {
+                    addCreatureVC.selectedSpecies = self.longPressSelectedSpecies
+                    self.longPressSelectedSpecies = ""
+                }
+            }
+
             if (self.selectedSpeciesType == "Sea Stars") {
                 addCreatureVC.seaStarSelected = true
             }

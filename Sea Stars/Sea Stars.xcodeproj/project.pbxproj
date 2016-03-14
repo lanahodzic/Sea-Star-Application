@@ -16,6 +16,7 @@
 		833F83D81C6C00C200A86DF8 /* KSTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833F83D41C6C00C200A86DF8 /* KSTokenView.swift */; };
 		833F83D91C6C00C200A86DF8 /* KSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833F83D51C6C00C200A86DF8 /* KSUtils.swift */; };
 		8359799A1C6D108500CDCAE3 /* ViewReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */; };
+		8384A3111C975E7800B21E19 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8384A3101C975E7800B21E19 /* Globals.swift */; };
 		83A53C7B1C717FD5006AFF08 /* UIButtonScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A53C7A1C717FD5006AFF08 /* UIButtonScrollView.swift */; };
 		A501BC521C7FF6230019E1A6 /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501BC511C7FF6230019E1A6 /* Species.swift */; };
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 		833F83D41C6C00C200A86DF8 /* KSTokenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSTokenView.swift; sourceTree = "<group>"; };
 		833F83D51C6C00C200A86DF8 /* KSUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSUtils.swift; sourceTree = "<group>"; };
 		835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewReportsViewController.swift; sourceTree = "<group>"; };
+		8384A3101C975E7800B21E19 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		83A53C7A1C717FD5006AFF08 /* UIButtonScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonScrollView.swift; sourceTree = "<group>"; };
 		A501BC511C7FF6230019E1A6 /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
 		A579190E1BE8345E00ECC184 /* Sea Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sea Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 				833F83D51C6C00C200A86DF8 /* KSUtils.swift */,
 				A57919111BE8345E00ECC184 /* AppDelegate.swift */,
 				A501BC511C7FF6230019E1A6 /* Species.swift */,
+				8384A3101C975E7800B21E19 /* Globals.swift */,
 				A5C48B231C72965A00C86494 /* Controllers */,
 				A5B4F0DE1BEFDAA000E5C2D6 /* SeaStar.Storyboard */,
 				A5BE1D201C12352300CB9349 /* Sea_Stars.xcdatamodeld */,
@@ -271,6 +274,7 @@
 				3FA2E9921BE87260008BDBE6 /* MainViewController.swift in Sources */,
 				833F83D91C6C00C200A86DF8 /* KSUtils.swift in Sources */,
 				83A53C7B1C717FD5006AFF08 /* UIButtonScrollView.swift in Sources */,
+				8384A3111C975E7800B21E19 /* Globals.swift in Sources */,
 				833F83D61C6C00C200A86DF8 /* KSToken.swift in Sources */,
 				833F83D81C6C00C200A86DF8 /* KSTokenView.swift in Sources */,
 				A57919141BE8345E00ECC184 /* ViewController.swift in Sources */,

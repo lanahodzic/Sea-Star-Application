@@ -82,7 +82,7 @@
                                 <rect key="frame" x="0.0" y="92" width="768" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ls7-yJ-gFO" id="5aa-N9-137">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="eFA-OL-wd2">
@@ -95,13 +95,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDK-dW-BTd">
-                                                    <rect key="frame" x="251" y="0.0" width="251" height="36"/>
+                                                    <rect key="frame" x="251" y="0.0" width="250" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MT-LU-R0W">
-                                                    <rect key="frame" x="502" y="0.0" width="251" height="36"/>
+                                                    <rect key="frame" x="501" y="0.0" width="251" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -239,7 +239,7 @@
                                         <rect key="frame" x="0.0" y="50" width="768" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UJK-Bd-6XO" id="s0d-1n-fwT">
-                                            <rect key="frame" x="0.0" y="0.0" width="682" height="119.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="682" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1rW-uU-ZIE">
@@ -256,7 +256,7 @@
                                         <connections>
                                             <outlet property="seaStarImage" destination="1rW-uU-ZIE" id="7bT-r6-FhR"/>
                                             <outlet property="titleLabel" destination="hhW-2z-aFF" id="pe4-kM-mnh"/>
-                                            <segue destination="oCx-Gv-XVe" kind="push" id="aZA-tc-JdZ"/>
+                                            <segue destination="oCx-Gv-XVe" kind="push" identifier="mobileSegue" id="aZA-tc-JdZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -358,6 +358,7 @@
                         <outlet property="selectedSpeciesLabel" destination="pjJ-j3-ftm" id="7eu-fN-kT5"/>
                         <outlet property="speciesScrollView" destination="UI9-wu-rMi" id="K2X-m9-1Vh"/>
                         <outlet property="tableView" destination="gWM-mQ-8eh" id="gGs-uS-U9n"/>
+                        <segue destination="oCx-Gv-XVe" kind="push" identifier="longPressSessileSegue" id="hcy-z8-vkS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kAX-2W-ACw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -521,5 +522,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="PFP-7H-lyc"/>
+        <segue reference="hcy-z8-vkS"/>
     </inferredMetricsTieBreakers>
 </document>
