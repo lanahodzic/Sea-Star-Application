@@ -324,11 +324,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.endAllEditing()
+        super.touchesBegan(touches, withEvent: event)
+    }
+
+    func endAllEditing() {
         self.pilingTextBox.endEditing(true)
         self.rotationTextBox.endEditing(true)
         self.depthTextBox.endEditing(true)
         self.view.endEditing(true)
-        super.touchesBegan(touches, withEvent: event)
     }
     
     @IBAction func mobilitySegmentedControlValueChanged(sender: AnyObject) {
@@ -353,7 +357,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let species = speciesInTable[indexPath.row]
         cell.titleLabel.text = species.name
+        cell.seaStarImage.userInteractionEnabled = true
         cell.seaStarImage.image = species.imageView.image
+
+        let expandImageGesture = UITapGestureRecognizer(target: self, action: "expandSpeciesImage:")
+        cell.seaStarImage.addGestureRecognizer(expandImageGesture)
 
         if !self.mobility {
             let quickAdd = UITapGestureRecognizer(target: self, action: "quickAddSessile:")
@@ -364,6 +372,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         else {
             cell.gestureRecognizers?.forEach({ cell.removeGestureRecognizer($0) })
+            cell.seaStarImage.gestureRecognizers?.forEach({ cell.removeGestureRecognizer($0) })
         }
 
         return cell
@@ -373,8 +382,45 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         return "Species"
     }
 
+    func expandSpeciesImage(tapGestureRecognizer: UITapGestureRecognizer) {
+        if tapGestureRecognizer.state == .Ended {
+            let touchPoint = tapGestureRecognizer.locationInView(self.tableView)
+            if let indexPath = self.tableView.indexPathForRowAtPoint(touchPoint) {
+                self.endAllEditing()
+
+                let species = self.speciesInTable[indexPath.row]
+
+                let photoView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width / 3, self.view.frame.size.height / 3))
+                photoView.backgroundColor = UIColor.blackColor()
+                photoView.image = species.imageView.image
+                photoView.contentMode = .ScaleAspectFit
+                photoView.userInteractionEnabled = true
+
+                let dismiss = UITapGestureRecognizer(target: self, action: "dismissSpeciesImage:")
+                photoView.addGestureRecognizer(dismiss)
+
+                self.view.window?.addSubview(photoView)
+
+                UIView.animateWithDuration(0.1, animations: {
+                    photoView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+                    }, completion: nil)
+            }
+        }
+    }
+
+    func dismissSpeciesImage(tapGestureRecognizer: UITapGestureRecognizer) {
+        UIView.animateWithDuration(0.1, animations: {
+            tapGestureRecognizer.view?.frame = CGRectMake(0, 0, self.view.frame.size.width / 3, self.view.frame.size.height / 3)
+            }, completion: { (Bool) -> Void in tapGestureRecognizer.view?.removeFromSuperview() })
+    }
+
     func performLongPressSessileSegue(longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == .Began {
+            if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
+                showAlert("Missing Information", message: "Please make sure to enter a piling number, a direction angle, and depth before proceeding.")
+                return
+            }
+
             let touchPoint = longPressGestureRecognizer.locationInView(self.tableView)
             if let indexPath = self.tableView.indexPathForRowAtPoint(touchPoint) {
                 self.longPressSelectedSpecies = self.speciesInTable[indexPath.row].name
@@ -385,8 +431,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func quickAddSessile(tapGestureRecognizer: UITapGestureRecognizer) {
         if tapGestureRecognizer.state == .Ended {
+            if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
+                showAlert("Missing Information", message: "Please make sure to enter a piling number, a direction angle, and depth before proceeding.")
+                return
+            }
+
             let touchPoint = tapGestureRecognizer.locationInView(self.tableView)
             if let indexPath = self.tableView.indexPathForRowAtPoint(touchPoint) {
+                self.endAllEditing()
+
                 let speciesName = self.speciesInTable[indexPath.row].name
                 let message = "Add one " + speciesName + "?"
                 let alert = UIAlertController(title: "Quick Add", message: message, preferredStyle: .Alert)
@@ -558,8 +611,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             if !self.mobility {
                 return false
             }
-            if pilingTextBox.text! == "" || rotationTextBox.text! == "" || depthTextBox.text! == "" {
-                showAlert("Missing Information", message: "Please make sure to enter a piling number, a direction angle, and depth before proceeding.")
+            if pilingTextBox.text! == "" || depthTextBox.text! == "" {
+                showAlert("Missing Information", message: "Please make sure to enter a piling number and depth before proceeding.")
                 
                 return false
             }
@@ -578,6 +631,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if segue.identifier != "viewReportsSegue" {
             let addCreatureVC = segue.destinationViewController as! AddCreatureViewController
+
+            self.endAllEditing()
 
             if segue.identifier == "mobileSegue" {
                 addCreatureVC.selectedSpecies = self.speciesInTable[self.tableView.indexPathForSelectedRow!.row].name
@@ -598,7 +653,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             }
 
             if let p = Int(pilingTextBox.text!) {
-                if let r = Int(rotationTextBox.text!) {
+                if let r = segue.identifier == "mobileSegue" ? 0 : Int(rotationTextBox.text!) {
                     if let d = Int(depthTextBox.text!) {
                         addCreatureVC.piling = p
                         addCreatureVC.direction = r
