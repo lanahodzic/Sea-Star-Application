@@ -49,7 +49,6 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBOutlet weak var checkboxLabel: UILabel!
     @IBOutlet weak var benthosCheckbox: Checkbox!
     @IBOutlet weak var healthLabel: UILabel!
-    @IBOutlet weak var healthTextBox: KSTokenView!
     @IBOutlet weak var speciesLabel: UILabel!
     @IBOutlet weak var countTextBox: UITextField!
     @IBOutlet weak var countLabel: UILabel!
@@ -57,6 +56,8 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBOutlet weak var notesLabel: UILabel!
     @IBOutlet weak var saveButton: UIButton!
     
+    
+    @IBOutlet weak var healthSegmentControl: UISegmentedControl!
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var sizeTextBox: UITextField!
     
@@ -92,16 +93,6 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
             self.sizeLabel.frame = CGRectMake(self.countLabel.frame.minX, self.countLabel.frame.minY, self.sizeLabel.frame.width, self.sizeLabel.frame.height)
             self.sizeTextBox.frame = CGRectMake(self.countTextBox.frame.minX, self.countTextBox.frame.minY, self.sizeTextBox.frame.width, self.sizeTextBox.frame.height)
             
-            
-            self.healthTextBox.delegate = self
-            self.healthTextBox.promptText = ""
-            self.healthTextBox.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)
-            self.healthTextBox.maxTokenLimit = 1
-            self.healthTextBox.style = .Squared
-            self.healthTextBox.searchResultSize = CGSize(width: self.healthTextBox.frame.width, height: 160)
-            self.healthTextBox.font = UIFont.systemFontOfSize(26)
-            self.healthTextBox.direction = .Horizontal
-            
             self.countLabel.translatesAutoresizingMaskIntoConstraints = true
             self.countTextBox.translatesAutoresizingMaskIntoConstraints = true
             self.sizeTextBox.translatesAutoresizingMaskIntoConstraints = true
@@ -133,16 +124,16 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
             self.speciesLabel.text = self.selectedSpecies
             
             self.notesLabel.frame = CGRectMake(self.healthLabel.frame.minX, self.healthLabel.frame.minY, self.notesLabel.frame.width, self.notesLabel.frame.height)
-            self.notesTextView.frame = CGRectMake(self.healthTextBox.frame.minX, self.healthTextBox.frame.minY, self.notesTextView.frame.width, self.notesTextView.frame.height)
+            self.notesTextView.frame = CGRectMake(self.notesTextView.frame.minX, self.notesTextView.frame.minY - 200, self.notesTextView.frame.width, self.notesTextView.frame.height)
             
 
             self.notesLabel.translatesAutoresizingMaskIntoConstraints = true
             self.notesTextView.translatesAutoresizingMaskIntoConstraints = true
             self.healthLabel.translatesAutoresizingMaskIntoConstraints = true
-            self.healthTextBox.translatesAutoresizingMaskIntoConstraints = true
+            self.healthSegmentControl.translatesAutoresizingMaskIntoConstraints = true
             
             self.healthLabel.hidden = true
-            self.healthTextBox.hidden = true
+            self.healthSegmentControl.hidden = true
             self.sizeLabel.hidden = true
             self.sizeTextBox.hidden = true
         }
@@ -237,7 +228,17 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
             newReportXSpecies.setValue(selectedSpecies, forKey: "species")
             
             newReportXSpecies.setValue(benthosCheckbox.isChecked, forKey: "benthos")
-            newReportXSpecies.setValue(healthTextBox.hasTokens() ? healthTextBox.tokens()![0].title : healthTextBox.text, forKey: "health")
+            
+            if (healthSegmentControl.selectedSegmentIndex == 0) {
+                newReportXSpecies.setValue(healthData[0], forKey: "health")
+            }
+            else if (healthSegmentControl.selectedSegmentIndex == 1) {
+                newReportXSpecies.setValue(healthData[1], forKey: "health")
+            }
+            else if (healthSegmentControl.selectedSegmentIndex == 2) {
+                newReportXSpecies.setValue(healthData[2], forKey: "health")
+            }
+
             
             if let inputtedSize = Double(sizeTextBox.text!) {
                 if inputtedSize < 2.5 {
@@ -339,7 +340,7 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     @IBAction func save(sender: AnyObject) {
         //TODO: need to get info from size and turn into XS, S, M, L, XL in report/database
         
-        let health = self.healthTextBox.hasTokens() ? self.healthTextBox.tokens()![0].title : self.healthTextBox.text
+        let health = healthData[healthSegmentControl.selectedSegmentIndex]
         if seaStarSelected {
             if health != "" && sizeLabel.text != "" {
                 saveSeaStarToCoreData()
@@ -398,25 +399,25 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
     }
 }
 
-extension AddCreatureViewController: KSTokenViewDelegate {
-    func tokenView(token: KSTokenView, performSearchWithString string: String, completion: ((results: Array<AnyObject>) -> Void)?) {
-        var matches: Array<String> = []
-        let data = self.healthData
-        
-        for value: String in data {
-            if value.lowercaseString.rangeOfString(string.lowercaseString) != nil {
-               matches.append(value)
-            }
-        }
-        
-        completion!(results: matches)
-    }
-    
-    func tokenView(token: KSTokenView, displayTitleForObject object: AnyObject) -> String {
-        return object as! String
-    }
-    
-    func tokenView(token: KSTokenView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.view.endEditing(true)
-    }
-}
+//extension AddCreatureViewController: SMSegment {
+//    func tokenView(token: KSTokenView, performSearchWithString string: String, completion: ((results: Array<AnyObject>) -> Void)?) {
+//        var matches: Array<String> = []
+//        let data = self.healthData
+//        
+//        for value: String in data {
+//            if value.lowercaseString.rangeOfString(string.lowercaseString) != nil {
+//               matches.append(value)
+//            }
+//        }
+//        
+//        completion!(results: matches)
+//    }
+//    
+//    func tokenView(token: KSTokenView, displayTitleForObject object: AnyObject) -> String {
+//        return object as! String
+//    }
+//    
+//    func tokenView(token: KSTokenView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        self.view.endEditing(true)
+//    }
+//}

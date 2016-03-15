@@ -328,6 +328,7 @@
                                 </segments>
                                 <color key="tintColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
+                                    <action selector="mobilitySegmentedControlValueChanged:" destination="ice-62-bKu" eventType="valueChanged" id="JeJ-hD-8am"/>
                                     <action selector="speciesMobilityChanged:" destination="ice-62-bKu" eventType="valueChanged" id="mqj-ql-kmW"/>
                                 </connections>
                             </segmentedControl>
@@ -360,6 +361,8 @@
                         <outlet property="depthTextBox" destination="6kF-oo-r9M" id="x0o-C2-ogd"/>
                         <outlet property="mobilitySegmentedControl" destination="QJH-Bv-6QC" id="tC9-Sh-dck"/>
                         <outlet property="pilingTextBox" destination="4KQ-7B-WFC" id="FBM-gf-DC7"/>
+                        <outlet property="rotationHint" destination="0eB-4f-69a" id="Y5c-pf-Hnk"/>
+                        <outlet property="rotationLabel" destination="0Iq-QC-vtg" id="hRx-eR-1ti"/>
                         <outlet property="rotationTextBox" destination="ldb-1u-XbB" id="amT-vG-Wzh"/>
                         <outlet property="saveButton" destination="Ex0-qq-bq8" id="2HN-VD-feh"/>
                         <outlet property="selectedSpeciesLabel" destination="pjJ-j3-ftm" id="7eu-fN-kT5"/>
@@ -437,14 +440,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUB-tj-AKA">
-                                <rect key="frame" x="70" y="464" width="101" height="35"/>
+                                <rect key="frame" x="70" y="514" width="101" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I3I-eM-vhf">
-                                <rect key="frame" x="210" y="223" width="70" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I3I-eM-vhf">
+                                <rect key="frame" x="210" y="207" width="94" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Species:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6Z-Zm-4GS">
@@ -460,7 +463,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhB-Sb-1Xr">
-                                <rect key="frame" x="314" y="681" width="140" height="77"/>
+                                <rect key="frame" x="314" y="738" width="140" height="77"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -470,22 +473,13 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LqU-Ih-0HQ">
-                                <rect key="frame" x="210" y="464" width="347" height="200"/>
+                                <rect key="frame" x="210" y="514" width="347" height="200"/>
                                 <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="0.20257092199999999" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idL-XR-QrO" customClass="KSTokenView" customModule="Sea_Stars" customModuleProvider="target">
-                                <rect key="frame" x="210" y="268" width="347" height="67"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6FU-JO-YVl">
-                                <rect key="frame" x="210" y="378" width="78" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdn-M2-FEZ">
-                                <rect key="frame" x="70" y="370" width="80" height="45"/>
+                                <rect key="frame" x="70" y="420" width="80" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -500,6 +494,20 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="21" translatesAutoresizingMaskIntoConstraints="NO" id="6FU-JO-YVl">
+                                <rect key="frame" x="210" y="414" width="94" height="57"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zGL-jP-V0j">
+                                <rect key="frame" x="210" y="331" width="347" height="29"/>
+                                <segments>
+                                    <segment title="Healthy"/>
+                                    <segment title="Mild"/>
+                                    <segment title="Severe"/>
+                                </segments>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -510,7 +518,7 @@
                         <outlet property="countLabel" destination="Fw1-xP-j1C" id="R9t-ZR-VOE"/>
                         <outlet property="countTextBox" destination="I3I-eM-vhf" id="SaY-z7-jmo"/>
                         <outlet property="healthLabel" destination="Ztm-7f-4oi" id="UbT-cC-fDB"/>
-                        <outlet property="healthTextBox" destination="idL-XR-QrO" id="tPr-Pd-xrB"/>
+                        <outlet property="healthSegmentControl" destination="zGL-jP-V0j" id="cxg-60-4gl"/>
                         <outlet property="notesLabel" destination="vUB-tj-AKA" id="Qnj-5f-16x"/>
                         <outlet property="notesTextView" destination="LqU-Ih-0HQ" id="EPg-Di-w1c"/>
                         <outlet property="saveButton" destination="hhB-Sb-1Xr" id="0x0-hB-mbV"/>

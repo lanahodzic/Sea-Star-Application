@@ -19,6 +19,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var rotationHint: UILabel!
+    @IBOutlet weak var rotationLabel: UILabel!
     @IBOutlet weak var cancelReportButton: UIBarButtonItem!
     @IBOutlet weak var pilingTextBox: UITextField!
     @IBOutlet weak var rotationTextBox: UITextField!
@@ -129,6 +131,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func refreshTable() -> Void {
         self.tableView.reloadData()
     }
+    
+    
     
     @IBAction func cancelReport(sender: AnyObject) {
         let alert = UIAlertController(title: "Cancel Report", message: "Are you sure you want to cancel the report? Canceling the report will delete any creatures that haven't been saved in a final report.", preferredStyle: .Alert)
@@ -325,6 +329,19 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.depthTextBox.endEditing(true)
         self.view.endEditing(true)
         super.touchesBegan(touches, withEvent: event)
+    }
+    
+    @IBAction func mobilitySegmentedControlValueChanged(sender: AnyObject) {
+        if (self.mobilitySegmentedControl.selectedSegmentIndex == 0) {
+            self.rotationTextBox.hidden = true
+            self.rotationLabel.hidden = true
+            self.rotationHint.hidden = true
+        }
+        else {
+            self.rotationHint.hidden = false
+            self.rotationLabel.hidden = false
+            self.rotationTextBox.hidden = false
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
