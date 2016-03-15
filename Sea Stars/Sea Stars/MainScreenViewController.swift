@@ -44,6 +44,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     var sessileGroups: Set<String> = []
 
     var longPressSelectedSpecies: String = ""
+
+    weak var selectedGroupButton: UIButton? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -343,6 +345,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             let longPress = UILongPressGestureRecognizer(target: self, action: "performLongPressSessileSegue:")
             cell.addGestureRecognizer(longPress)
         }
+        else {
+            cell.gestureRecognizers?.forEach({ cell.removeGestureRecognizer($0) })
+        }
 
         return cell
     }
@@ -498,6 +503,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func groupNameButtonPressed(sender: UIButton){
+        self.selectedGroupButton?.backgroundColor = BASE_COLOR
+        sender.backgroundColor = SELECTED_GROUP_COLOR
+        self.selectedGroupButton = sender
+
         self.selectedSpeciesType = (sender.titleLabel?.text)!
         selectedSpeciesLabel.text = self.selectedSpeciesType
         
