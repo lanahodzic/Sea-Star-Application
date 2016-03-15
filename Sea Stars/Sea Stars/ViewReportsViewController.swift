@@ -61,13 +61,33 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
         
         let speciesRef = ref.childByAppendingPath("species")
         speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
+            var mobileGroups: Set<String> = []
+            var sessileGroups: Set<String> = []
+
             for child in snapshot.children.allObjects as! [FDataSnapshot] {
                 let species = Species(fromSnapshot: child, loadImages:false)
                 self.allSpecies[species.name] = species
+
+                if species.isMobile {
+                    mobileGroups.insert(species.groupName)
+                }
+                else {
+                    sessileGroups.insert(species.groupName)
+                }
             }
-            
-            self.allSpecies["Unknown"] = Species(mobility: true)
-            
+
+            mobileGroups.forEach({
+                let species = Species(mobility: true)
+                species.name = "Unknown " + $0
+                self.allSpecies[species.name] = species
+            })
+
+            sessileGroups.forEach({
+                let species = Species(mobility: false)
+                species.name = "Unknown " + $0
+                self.allSpecies[species.name] = species
+            })
+
             self.reportDictionary.removeAll()
             
             let reportsRef = self.ref.childByAppendingPath("reports")
