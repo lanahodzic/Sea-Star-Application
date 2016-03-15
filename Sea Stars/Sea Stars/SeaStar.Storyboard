@@ -159,7 +159,7 @@
                                 <rect key="frame" x="256" y="879" width="257" height="110"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <state key="normal" title="Start">
-                                    <color key="titleColor" red="0.0026731181650000001" green="0.53868189099999997" blue="0.4881682383" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="segueToMainScreen:" destination="oRK-ZS-Spb" eventType="primaryActionTriggered" id="VV7-1v-eh6"/>
@@ -302,7 +302,7 @@
                                 <rect key="frame" x="269" y="923" width="249" height="57"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Save Final Report">
-                                    <color key="titleColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="saveFinalReport:" destination="ice-62-bKu" eventType="touchUpInside" id="m92-WL-6fV"/>
@@ -320,25 +320,25 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No species type has been selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjJ-j3-ftm">
+                                <rect key="frame" x="0.0" y="315" width="768" height="56"/>
+                                <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="QJH-Bv-6QC">
                                 <rect key="frame" x="268" y="186" width="232" height="29"/>
                                 <segments>
                                     <segment title="Mobile"/>
                                     <segment title="Sessile"/>
                                 </segments>
-                                <color key="tintColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <connections>
                                     <action selector="mobilitySegmentedControlValueChanged:" destination="ice-62-bKu" eventType="valueChanged" id="JeJ-hD-8am"/>
                                     <action selector="speciesMobilityChanged:" destination="ice-62-bKu" eventType="valueChanged" id="mqj-ql-kmW"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No species type has been selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjJ-j3-ftm">
-                                <rect key="frame" x="0.0" y="315" width="768" height="56"/>
-                                <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -473,7 +473,7 @@
                                 <rect key="frame" x="314" y="738" width="140" height="77"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Save">
-                                    <color key="titleColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="save:" destination="oCx-Gv-XVe" eventType="touchUpInside" id="56B-oZ-uQ8"/>
@@ -546,4 +546,5 @@
         <segue reference="hcy-z8-vkS"/>
         <segue reference="PFP-7H-lyc"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
 </document>

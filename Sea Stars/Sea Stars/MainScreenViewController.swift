@@ -61,7 +61,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.pilingTextBox.keyboardType = .NumberPad
         self.rotationTextBox.keyboardType = .NumberPad
         self.depthTextBox.keyboardType = .NumberPad
-        
+
+        let segmentFont = UIFont.systemFontOfSize(18)
+        mobilitySegmentedControl.setTitleTextAttributes([NSFontAttributeName: segmentFont], forState: .Normal)
+
         let speciesRef = ref.childByAppendingPath("species")
         speciesRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) in
             for child in snapshot.children.allObjects as! [FDataSnapshot] {
@@ -507,6 +510,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.selectedSpeciesType = ""
         selectedSpeciesLabel.text = "No species type has been selected"
+        selectedSpeciesLabel.font = UIFont.systemFontOfSize(17)
 
         speciesInTable.removeAll()
         
@@ -567,6 +571,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 button.frame.origin = buttonPosition
                 buttonPosition.x = buttonPosition.x + buttonIncrement
                 button.backgroundColor = BASE_COLOR
+                button.setTitleColor(UIColor.blackColor(), forState: .Normal)
                 button.setTitle(titleArray[i], forState: .Normal)
                 button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
                 buttonView.addSubview(button)
@@ -587,7 +592,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
         self.selectedSpeciesType = (sender.titleLabel?.text)!
         selectedSpeciesLabel.text = self.selectedSpeciesType
-        
+        selectedSpeciesLabel.font = UIFont.boldSystemFontOfSize(20)
+
         self.speciesInTable.removeAll()
         
         findSpeciesForTableView()

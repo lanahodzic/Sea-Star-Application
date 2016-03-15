@@ -84,7 +84,10 @@ class AddCreatureViewController: UIViewController, UITextFieldDelegate, UIImageP
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        let segmentFont = UIFont.systemFontOfSize(18)
+        healthSegmentControl.setTitleTextAttributes([NSFontAttributeName: segmentFont], forState: .Normal)
+
         if (seaStarSelected) {
             self.countTextBox.hidden = true
             self.speciesLabel.text = self.selectedSpecies
