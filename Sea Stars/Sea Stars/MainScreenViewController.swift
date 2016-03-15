@@ -69,9 +69,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.allSpecies.append(species)
             }
             
-            self.allSpecies.append(Species(mobility: true))
-            self.allSpecies.append(Species(mobility: false))
-            
             for species in self.allSpecies {
                 if species.isMobile == self.mobility {
                     self.speciesInTable.append(species)
@@ -87,20 +84,31 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
             self.speciesScrollView.subviews.forEach({ $0.removeFromSuperview() })
 
+            self.mobileGroups.forEach({
+                let species = Species(mobility: true)
+                species.name = "Unknown " + $0
+                self.allSpecies.append(species)
+            })
+
+            self.sessileGroups.forEach({
+                let species = Species(mobility: false)
+                species.name = "Unknown " + $0
+                self.allSpecies.append(species)
+            })
+
+            self.mobileGroups.insert("Unknown")
+            self.sessileGroups.insert("Unknown")
+
             let scrollView = self.groupNameButtonsView(CGSizeMake(150.0,50.0))
             self.speciesScrollView.addSubview(scrollView)
 
             self.refreshTable()
         })
 
-
         self.depthTextBox.text = "500"
 
         self.speciesScrollView.showsHorizontalScrollIndicator = true
         self.speciesScrollView.indicatorStyle = .Default
-
-        self.mobileGroups.insert("Unknown")
-        self.sessileGroups.insert("Unknown")
 
         let scrollView = self.groupNameButtonsView(CGSizeMake(150.0,50.0))
         self.speciesScrollView.addSubview(scrollView)
@@ -590,7 +598,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func findSpeciesForTableView() {
         if selectedSpeciesType == "Unknown" {
             for species in allSpecies {
-                if species.isMobile == mobility {
+                if species.isMobile == mobility && species.name.rangeOfString("Unknown") != nil {
                     speciesInTable.append(species)
                 }
             }
