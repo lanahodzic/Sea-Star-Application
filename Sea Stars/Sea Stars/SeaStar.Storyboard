@@ -345,11 +345,13 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sea Stars" id="R94-8T-PKb">
                         <barButtonItem key="leftBarButtonItem" title="Cancel Report" id="2Pb-Fn-hvE">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancelReport:" destination="ice-62-bKu" id="TFG-bm-FIM"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="View Reports" id="CUb-Wv-TgZ">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="XWX-bg-HCg" kind="push" identifier="viewReportsSegue" id="PFP-7H-lyc"/>
                             </connections>
@@ -398,12 +400,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="BbP-l9-4zq">
-                        <barButtonItem key="rightBarButtonItem" id="agQ-io-z8x">
+                        <barButtonItem key="rightBarButtonItem" title="EXPORT" id="agQ-io-z8x">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HsI-nY-Wax">
                                 <rect key="frame" x="578" y="7" width="170" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Export"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Export">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                             </button>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
