@@ -51,7 +51,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        self.navigationItem.backBarButtonItem = movedBackButton()
+
         self.navigationItem.hidesBackButton = true;
 
         self.pilingTextBox.delegate = self

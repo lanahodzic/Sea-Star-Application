@@ -46,7 +46,9 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        self.navigationItem.backBarButtonItem = movedBackButton()
+
         let exportToCSVButton = UIBarButtonItem(title: "Export All", style: .Plain, target: self, action: "exportAllReports")
         navigationItem.rightBarButtonItem = exportToCSVButton
         

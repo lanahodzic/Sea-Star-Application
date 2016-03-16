@@ -38,7 +38,9 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        self.navigationItem.backBarButtonItem = movedBackButton()
+
         let exportToCSVButton = UIBarButtonItem(title: "Export", style: .Plain, target: self, action: "exportReportToCSV")
         navigationItem.rightBarButtonItem = exportToCSVButton
     

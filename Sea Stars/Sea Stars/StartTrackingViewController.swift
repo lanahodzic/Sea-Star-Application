@@ -31,6 +31,8 @@ class StartTrackingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.backBarButtonItem = movedBackButton()
+
         self.site.delegate = self
         self.site.promptText = ""
         self.site.backgroundColor = UIColor(red: 0.00784314, green: 0.8, blue: 0.721569, alpha: 0.202571)

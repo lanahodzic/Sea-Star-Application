@@ -344,13 +344,13 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Sea Stars" id="R94-8T-PKb">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel Report" id="2Pb-Fn-hvE">
+                        <barButtonItem key="leftBarButtonItem" title="             Cancel Report" id="2Pb-Fn-hvE">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancelReport:" destination="ice-62-bKu" id="TFG-bm-FIM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="View Reports" id="CUb-Wv-TgZ">
+                        <barButtonItem key="rightBarButtonItem" title="View Reports                 " id="CUb-Wv-TgZ">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="XWX-bg-HCg" kind="push" identifier="viewReportsSegue" id="PFP-7H-lyc"/>

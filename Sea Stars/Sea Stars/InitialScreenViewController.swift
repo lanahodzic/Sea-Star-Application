@@ -16,6 +16,8 @@ class InitialScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.backBarButtonItem = movedBackButton()
+
         decorateButtons()
     }
     
