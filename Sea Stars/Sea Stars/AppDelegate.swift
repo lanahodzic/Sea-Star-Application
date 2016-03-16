@@ -26,7 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         lagFreeField.becomeFirstResponder()
         lagFreeField.resignFirstResponder()
         lagFreeField.removeFromSuperview()
-        
+
+        UINavigationBar.appearance().backIndicatorImage = UIImage()
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage()
+
         return true
     }
 
