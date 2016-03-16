@@ -49,7 +49,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
 
         self.navigationItem.backBarButtonItem = movedBackButton()
 
-        let exportToCSVButton = UIBarButtonItem(title: "Export All", style: .Plain, target: self, action: "exportAllReports")
+        let exportToCSVButton = UIBarButtonItem(title: "Export All                      ", style: .Plain, target: self, action: "exportAllReports")
         navigationItem.rightBarButtonItem = exportToCSVButton
         
         latestReports.dataSource = self
