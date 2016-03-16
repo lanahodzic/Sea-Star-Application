@@ -350,7 +350,7 @@
                                 <action selector="cancelReport:" destination="ice-62-bKu" id="TFG-bm-FIM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="View Reports                 " id="CUb-Wv-TgZ">
+                        <barButtonItem key="rightBarButtonItem" title="View Reports                      " id="CUb-Wv-TgZ">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="XWX-bg-HCg" kind="push" identifier="viewReportsSegue" id="PFP-7H-lyc"/>
