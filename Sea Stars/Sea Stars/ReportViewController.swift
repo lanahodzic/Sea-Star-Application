@@ -42,7 +42,7 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
 
         self.navigationItem.backBarButtonItem = movedBackButton()
 
-        let exportToCSVButton = UIBarButtonItem(title: "Export                      ", style: .Plain, target: self, action: "exportReportToCSV")
+        let exportToCSVButton = UIBarButtonItem(title: "Export                      ", style: .Plain, target: self, action: #selector(ReportViewController.exportReportToCSV))
         navigationItem.rightBarButtonItem = exportToCSVButton
     
         reportTextView.text = "Observer: \(report["observer"] as! String)\n"

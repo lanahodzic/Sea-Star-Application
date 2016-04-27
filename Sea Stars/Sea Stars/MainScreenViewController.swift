@@ -373,14 +373,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.seaStarImage.userInteractionEnabled = true
         cell.seaStarImage.image = species.imageView.image
 
-        let expandImageGesture = UITapGestureRecognizer(target: self, action: "expandSpeciesImage:")
+        let expandImageGesture = UITapGestureRecognizer(target: self, action: #selector(MainScreenViewController.expandSpeciesImage(_:)))
         cell.seaStarImage.addGestureRecognizer(expandImageGesture)
 
         if !self.mobility {
-            let quickAdd = UITapGestureRecognizer(target: self, action: "quickAddSessile:")
+            let quickAdd = UITapGestureRecognizer(target: self, action: #selector(MainScreenViewController.quickAddSessile(_:)))
             cell.addGestureRecognizer(quickAdd)
 
-            let longPress = UILongPressGestureRecognizer(target: self, action: "performLongPressSessileSegue:")
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MainScreenViewController.performLongPressSessileSegue(_:)))
             cell.addGestureRecognizer(longPress)
         }
         else {
@@ -409,7 +409,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 photoView.contentMode = .ScaleAspectFit
                 photoView.userInteractionEnabled = true
 
-                let dismiss = UITapGestureRecognizer(target: self, action: "dismissSpeciesImage:")
+                let dismiss = UITapGestureRecognizer(target: self, action: #selector(MainScreenViewController.dismissSpeciesImage(_:)))
                 photoView.addGestureRecognizer(dismiss)
 
                 self.view.window?.addSubview(photoView)
@@ -575,7 +575,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 button.backgroundColor = BASE_COLOR
                 button.setTitleColor(UIColor.blackColor(), forState: .Normal)
                 button.setTitle(titleArray[i], forState: .Normal)
-                button.addTarget(self, action: "groupNameButtonPressed:", forControlEvents: .TouchUpInside)
+                button.addTarget(self, action: #selector(MainScreenViewController.groupNameButtonPressed(_:)), forControlEvents: .TouchUpInside)
                 buttonView.addSubview(button)
 
                 if selectedButton == nil {

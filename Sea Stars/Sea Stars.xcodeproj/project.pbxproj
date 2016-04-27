@@ -22,6 +22,7 @@
 		A57919121BE8345E00ECC184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57919111BE8345E00ECC184 /* AppDelegate.swift */; };
 		A57919191BE8345E00ECC184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A57919181BE8345E00ECC184 /* Assets.xcassets */; };
 		A579191C1BE8345E00ECC184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A579191A1BE8345E00ECC184 /* LaunchScreen.storyboard */; };
+		A5963AF51CD15E330008DE75 /* AddSpeciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5963AF41CD15E330008DE75 /* AddSpeciesViewController.swift */; };
 		A5B4F0DB1BEFD85500E5C2D6 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */; };
 		A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */; };
 		A5B4F0DF1BEFDAA000E5C2D6 /* SeaStar.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5B4F0DE1BEFDAA000E5C2D6 /* SeaStar.Storyboard */; };
@@ -48,6 +49,7 @@
 		A57919181BE8345E00ECC184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A579191B1BE8345E00ECC184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A579191D1BE8345E00ECC184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5963AF41CD15E330008DE75 /* AddSpeciesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSpeciesViewController.swift; sourceTree = "<group>"; };
 		A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		A5B4F0DC1BEFD86D00E5C2D6 /* AddCreatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCreatureViewController.swift; sourceTree = "<group>"; };
 		A5B4F0DE1BEFDAA000E5C2D6 /* SeaStar.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SeaStar.Storyboard; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				A5B4F0DA1BEFD85500E5C2D6 /* MainScreenViewController.swift */,
 				A5F79E3E1BFC0D8C00680B9A /* ReportViewController.swift */,
 				835979991C6D108500CDCAE3 /* ViewReportsViewController.swift */,
+				A5963AF41CD15E330008DE75 /* AddSpeciesViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				A5BE1D221C12352300CB9349 /* Sea_Stars.xcdatamodeld in Sources */,
 				A5B4F0DD1BEFD86D00E5C2D6 /* AddCreatureViewController.swift in Sources */,
 				A501BC521C7FF6230019E1A6 /* Species.swift in Sources */,
+				A5963AF51CD15E330008DE75 /* AddSpeciesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
