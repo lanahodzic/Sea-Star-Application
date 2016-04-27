@@ -291,7 +291,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                     dataString.appendString(String(value.1) + ",")
                 }
                 
-                ++currentReportNumber
+                currentReportNumber += 1
                 
                 // Grab data from the current report
                 for reportItem in reportDictionary[i]["reportItems"] as! [[String : AnyObject]] {
@@ -309,7 +309,7 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
                         for val in currentReporter {
                             dataString.appendString(String(val) + ",")
                         }
-                        ++currentReportNumber
+                        currentReportNumber += 1
                     }
                 }
                 // Get ready for the next report
@@ -332,8 +332,8 @@ class ViewReportsViewController: UITableViewController, MFMailComposeViewControl
     // MARK: Mail
     func configuredMailComposeViewController(data: NSData) -> MFMailComposeViewController {
         let emailController = MFMailComposeViewController()
+        emailController.setToRecipients(["lisaneedles@gmail.com"])
         emailController.mailComposeDelegate = self
-        emailController.setCcRecipients(["lneedles@calpoly.edu"])
         emailController.setSubject("CSV File of Report")
         emailController.setMessageBody("Here are the reports, they should be attached!", isHTML: false)
         
