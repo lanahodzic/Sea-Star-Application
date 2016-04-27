@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="DXH-ao-7JF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="DXH-ao-7JF">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-Tg-aUu">
-                                <rect key="frame" x="187" y="271" width="394" height="154"/>
+                                <rect key="frame" x="187" y="131" width="394" height="154"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="56"/>
                                 <state key="normal" title="New Record">
                                     <color key="titleColor" red="0.002673118165219843" green="0.53868189102564101" blue="0.48816823825264" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,8 +45,18 @@
                                     <segue destination="oRK-ZS-Spb" kind="push" id="4nY-L5-0Pw"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqL-KG-MTx" userLabel="Settings Button">
+                                <rect key="frame" x="187" y="654" width="394" height="164"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" red="0.0026731181650000001" green="0.53868189099999997" blue="0.4881682383" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="xj1-b7-0ED" kind="push" id="vZI-mu-pAB"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nju-o5-9Qk">
-                                <rect key="frame" x="187" y="588" width="394" height="164"/>
+                                <rect key="frame" x="187" y="385" width="394" height="164"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="56"/>
                                 <state key="normal" title="View Reports">
                                     <color key="titleColor" red="0.0026731181650000001" green="0.53868189099999997" blue="0.4881682383" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,6 +70,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="JXP-Zt-awr"/>
                     <connections>
+                        <outlet property="settingsButton" destination="HqL-KG-MTx" id="aQO-Oy-5aD"/>
                         <outlet property="startReportButton" destination="OhG-Tg-aUu" id="u6s-YC-TTN"/>
                         <outlet property="viewReportsButton" destination="Nju-o5-9Qk" id="dMZ-9p-6TW"/>
                     </connections>
@@ -67,6 +78,133 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZlE-w7-OGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="343.68000000000001" y="773.12"/>
+        </scene>
+        <!--Add Species View Controller-->
+        <scene sceneID="K0n-er-7d6">
+            <objects>
+                <viewController id="xj1-b7-0ED" customClass="AddSpeciesViewController" customModule="Sea_Stars" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dxD-RA-gOA"/>
+                        <viewControllerLayoutGuide type="bottom" id="3WY-4P-IhL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A0k-5i-L1c">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sessile Depth Decrement:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsf-0L-E9Y">
+                                <rect key="frame" x="35" y="149" width="300" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAt-IO-aYY" userLabel="Decrement Label">
+                                <rect key="frame" x="343" y="149" width="59" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-pZ-CM8">
+                                <rect key="frame" x="455" y="149" width="94" height="29"/>
+                                <connections>
+                                    <action selector="sessileStepperChanged:" destination="xj1-b7-0ED" eventType="valueChanged" id="Z3u-Gi-3mr"/>
+                                </connections>
+                            </stepper>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7O-Te-RHP" userLabel="Settings Button">
+                                <rect key="frame" x="175" y="224" width="394" height="144"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="New Species">
+                                    <color key="titleColor" red="0.0026731181650000001" green="0.53868189099999997" blue="0.4881682383" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="6k4-zT-45p">
+                                <rect key="frame" x="256" y="393" width="232" height="29"/>
+                                <segments>
+                                    <segment title="Mobile"/>
+                                    <segment title="Sessile"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpb-9Z-bD8">
+                                <rect key="frame" x="35" y="474" width="196" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Common Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfV-x3-SQt">
+                                <rect key="frame" x="35" y="549" width="196" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Group Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDA-dH-vyH">
+                                <rect key="frame" x="35" y="624" width="196" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phylum:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8SN-fj-5cO">
+                                <rect key="frame" x="35" y="697" width="196" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Image URL:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzK-AT-HfH">
+                                <rect key="frame" x="35" y="772" width="196" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bhC-4H-VMF">
+                                <rect key="frame" x="250" y="478" width="359" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UpA-Vn-EVa">
+                                <rect key="frame" x="250" y="548" width="359" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oru-oN-15L">
+                                <rect key="frame" x="250" y="628" width="359" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nxL-n3-SOH">
+                                <rect key="frame" x="250" y="701" width="359" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOy-2Q-SSo">
+                                <rect key="frame" x="250" y="776" width="359" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNP-9Z-p16">
+                                <rect key="frame" x="251" y="846" width="242" height="74"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Add New Species"/>
+                                <connections>
+                                    <action selector="addSpecies:" destination="xj1-b7-0ED" eventType="primaryActionTriggered" id="cQW-rY-ar5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pu1-5k-uhg"/>
+                    <connections>
+                        <outlet property="commonNameTextField" destination="UpA-Vn-EVa" id="reF-lJ-Pgt"/>
+                        <outlet property="groupNameTextField" destination="oru-oN-15L" id="Cv5-9U-aUE"/>
+                        <outlet property="imageUrlTextField" destination="YOy-2Q-SSo" id="YbU-0O-QKb"/>
+                        <outlet property="mobilitySegmentedControl" destination="6k4-zT-45p" id="wm7-yA-20R"/>
+                        <outlet property="nameTextField" destination="bhC-4H-VMF" id="W0I-GK-rTp"/>
+                        <outlet property="phylumTextField" destination="nxL-n3-SOH" id="Q1Q-CP-oaK"/>
+                        <outlet property="sessileDecrementLabel" destination="TAt-IO-aYY" id="Iqr-LD-8a1"/>
+                        <outlet property="sessileStepper" destination="OgJ-pZ-CM8" id="10m-t4-qTS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NrO-Ek-lsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="42" y="2059"/>
         </scene>
         <!--View Reports-->
         <scene sceneID="cXx-d8-VZy">
@@ -159,7 +297,7 @@
                                 <rect key="frame" x="256" y="879" width="257" height="110"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <state key="normal" title="Start">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="segueToMainScreen:" destination="oRK-ZS-Spb" eventType="primaryActionTriggered" id="VV7-1v-eh6"/>
@@ -324,7 +462,7 @@
                                 <rect key="frame" x="0.0" y="315" width="768" height="56"/>
                                 <color key="backgroundColor" red="0.0078431372550000003" green="0.80000000000000004" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="QJH-Bv-6QC">
@@ -333,7 +471,7 @@
                                     <segment title="Mobile"/>
                                     <segment title="Sessile"/>
                                 </segments>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="mobilitySegmentedControlValueChanged:" destination="ice-62-bKu" eventType="valueChanged" id="JeJ-hD-8am"/>
                                     <action selector="speciesMobilityChanged:" destination="ice-62-bKu" eventType="valueChanged" id="mqj-ql-kmW"/>
@@ -499,7 +637,7 @@
                                     <segment title="Mild"/>
                                     <segment title="Severe"/>
                                 </segments>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -529,8 +667,8 @@
         <image name="unchecked" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="dEt-Nt-xKS"/>
         <segue reference="hcy-z8-vkS"/>
-        <segue reference="PFP-7H-lyc"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

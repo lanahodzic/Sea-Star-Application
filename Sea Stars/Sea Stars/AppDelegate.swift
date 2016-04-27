@@ -30,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().backIndicatorImage = UIImage()
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage()
 
+        if NSUserDefaults.standardUserDefaults().objectForKey("sessileDecrement") == nil {
+            NSUserDefaults.standardUserDefaults().setInteger(5, forKey: "sessileDecrement")
+        }
+        
         return true
     }
 

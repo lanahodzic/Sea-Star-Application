@@ -12,7 +12,9 @@ class InitialScreenViewController: UIViewController {
     @IBOutlet weak var startReportButton: UIButton!
     
     @IBOutlet weak var viewReportsButton: UIButton!
-    
+
+    @IBOutlet weak var settingsButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,5 +32,8 @@ class InitialScreenViewController: UIViewController {
         viewReportsButton.layer.borderWidth = 2.0
         viewReportsButton.layer.borderColor = borderColor
         viewReportsButton.layer.cornerRadius = 15
+        settingsButton.layer.borderWidth = 2.0
+        settingsButton.layer.borderColor = borderColor
+        settingsButton.layer.cornerRadius = 15
     }
 }

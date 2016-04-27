@@ -12,25 +12,39 @@ import Firebase
 class AddSpeciesViewController: UIViewController {
 
     let ref = Firebase(url:"https://sea-stars2.firebaseio.com")
-    
+
     @IBOutlet weak var commonNameTextField: UITextField!
     @IBOutlet weak var groupNameTextField: UITextField!
-    @IBOutlet weak var isMobileSwitch: UISwitch!
+    @IBOutlet weak var mobilitySegmentedControl: UISegmentedControl!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phylumTextField: UITextField!
     @IBOutlet weak var imageUrlTextField: UITextField!
-    
+
+    @IBOutlet weak var sessileStepper: UIStepper!
+    @IBOutlet weak var sessileDecrementLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        mobilitySegmentedControl.selectedSegmentIndex = 0
 
-        // Do any additional setup after loading the view.
+        sessileDecrementLabel.text = NSUserDefaults.standardUserDefaults().integerForKey("sessileDecrement").description
+        sessileStepper.value = Double(sessileDecrementLabel.text!)!
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    override func viewWillDisappear(animated: Bool) {
+        NSUserDefaults.standardUserDefaults().setInteger(Int(sessileDecrementLabel.text!)!, forKey: "sessileDecrement")
+        super.viewWillDisappear(animated)
+    }
+
+    @IBAction func sessileStepperChanged(sender: UIStepper) {
+        self.sessileDecrementLabel.text = Int(sender.value).description
+    }
+
     @IBAction func addSpecies(sender: AnyObject) {
         let speciesRef = ref.childByAppendingPath("species")
         let newSpeciesRef = speciesRef.childByAutoId()
@@ -38,10 +52,11 @@ class AddSpeciesViewController: UIViewController {
         
         imageUrlArray.append(["url":imageUrlTextField.text!])
         
-        let newSpecies = ["commonName":commonNameTextField.text!, "groupName":groupNameTextField.text!, "images":imageUrlArray, "isMobile":isMobileSwitch.on, "name":nameTextField.text!, "phylum":phylumTextField.text!]
-        
+        let newSpecies = ["commonName":commonNameTextField.text!, "groupName":groupNameTextField.text!, "images":imageUrlArray, "isMobile":mobilitySegmentedControl.selectedSegmentIndex == 0, "name":nameTextField.text!, "phylum":phylumTextField.text!]
+
+        print(newSpecies)
         newSpeciesRef.setValue(newSpecies)
-        
+
         showAlert("Species Added", message: "The species was successfully added to the database.")
     }
     

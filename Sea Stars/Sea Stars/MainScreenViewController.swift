@@ -48,6 +48,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     var longPressSelectedSpecies: String = ""
 
     weak var selectedGroupButton: UIButton? = nil
+
+    var sessileDecrement: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +65,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         self.pilingTextBox.keyboardType = .NumberPad
         self.rotationTextBox.keyboardType = .NumberPad
         self.depthTextBox.keyboardType = .NumberPad
+
+        self.sessileDecrement = NSUserDefaults.standardUserDefaults().integerForKey("sessileDecrement")
 
         let segmentFont = UIFont.systemFontOfSize(18)
         mobilitySegmentedControl.setTitleTextAttributes([NSFontAttributeName: segmentFont], forState: .Normal)
@@ -543,7 +547,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
             else {
-                depth -= 5
+                depth = max(depth - self.sessileDecrement, 0)
             }
             self.depthTextBox.text = String(depth)
         }
