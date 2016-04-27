@@ -34,7 +34,8 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
     var phylum:String?
     var groupName:String?
     var isMobile:String?
-    
+
+    var reportID:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,7 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
         self.observer = report["observer"] as? String
         self.site = report["site"] as? String
         self.date = report["date"] as? String
+        self.reportID = report["reportID"] as? String
 
         
         for reportItem in report["reportItems"] as! [[String:AnyObject]] {
@@ -133,7 +135,7 @@ class ReportViewController: UIViewController, MFMailComposeViewControllerDelegat
         
         // current reporter
         for reportItem in report["reportItems"] as! [[String: AnyObject]] {
-            dataString.appendString(self.observer! + "," + self.site! + "," + self.date! + ",")
+            dataString.appendString(self.date! + "," + self.site! + "," + self.observer! + "," + self.reportID! + ",")
             
             for (kind, val) in reportItem {
                 if kind == "health" || kind == "notes" {
