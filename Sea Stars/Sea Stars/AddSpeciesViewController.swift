@@ -57,13 +57,13 @@ class AddSpeciesViewController: UIViewController {
         print(newSpecies)
         newSpeciesRef.setValue(newSpecies)
 
-        showAlert("Species Added", message: "The species was successfully added to the database.")
-    }
-    
-    func showAlert(title:String, message:String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Species Added", message: "The species was successfully added to the database.", preferredStyle: .Alert)
         let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
-            alert.dismissViewControllerAnimated(true, completion: nil)
+            self.commonNameTextField.text = ""
+            self.groupNameTextField.text = ""
+            self.nameTextField.text = ""
+            self.phylumTextField.text = ""
+            self.imageUrlTextField.text = ""
         })
         alert.addAction(okayAction)
         
